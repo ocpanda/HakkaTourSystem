@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>ble scan</title>
+	<meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *">
+        <meta name="format-detection" content="telephone=no">
+        <meta name="msapplication-tap-highlight" content="no">
+        <script src="web_api/jquery/jquery-3.0.0.min.js"></script>
+        <meta name="vi ewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+        <link rel="stylesheet" type="text/css" href="web_api/bootstrap/css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="web_api/bootstrap/css/bootstrap-theme.min.css">
+        <script src="web_api/bootstrap/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="css/scan.css">
+</head>
+<body>
+	<div class="scanapp">
+		<button type="button" class="btn btn-default btn0" id="scanBtn">start scan</button>
+		<!--<button type="button" class="btn btn-default btn1" id="stopScanBtn">stop scan</button>//-->
+		<div class="panel panel-default">
+			<table class="table">
+				<thead>
+					<tr>
+						<th>name</th>
+						<th>UUID</th>
+						<th>RSSI</th>
+					</tr>
+				</thead>
+				<tbody id="scanData">
+					
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<script type="text/javascript" src="cordova.js"></script>
+	<script type="text/javascript" src="js/scan.js"></script>
+</body>
+</html>

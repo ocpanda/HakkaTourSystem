@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <meta name="vi ewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+        <link rel="stylesheet" type="text/css" href="web_api/bootstrap/css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="web_api/bootstrap/css/bootstrap-theme.min.css">
+        <link rel="stylesheet" href="web_api/jquery/jquery.mobile-1.4.5.min.css">
+        <link rel="stylesheet" type="text/css" href="css/home.css">
+
+        <script src="web_api/bootstrap/js/bootstrap.min.js"></script>
+        <script src="web_api/jquery/jquery-2.2.4.js"></script>
+        <script src="web_api/jquery/jquery-1.11.3.min.js"></script>
+        <script src="web_api/jquery/jquery.mobile-1.4.5.min.js"></script>
+
+        <title>HakkaTourSystem</title>
+    </head>
+    <body>
+        <div class="app">
+            <div id="day" data-role="page">
+                
+                <div data-role="content">
+                    <p>day</p>
+                    <!-- 首頁說明彈出區塊
+                        api: jquery-1.11.3.min.js
+                        api: jquery.mobile-1.4.5.min.js
+                    //-->
+                    <div data-role="popup" data-arrow="b" id="homePopup">
+                        <div data-role="header">
+                            <h1>說明</h1>
+                        </div>
+                        <div data-role="main" class="ui-content">
+                            <h1 align="center" valign="center">首頁</h1>
+                            <p>主要功能頁面。</p>
+                        </div>
+                    </div>
+                    <!-- 搜尋彈出區塊 
+                        api: jquery-1.11.3.min.js
+                        api: jquery.mobile-1.4.5.min.js
+                    //-->
+                    <div data-role="popup" data-arrow="b" id="searchPopup">
+                        <div data-role="header">
+                            <h1>說明</h1>
+                        </div>
+                        <div data-role="main" class="ui-content">
+                            <h1 align="center" valign="center">搜尋</h1>
+                            <p>使用此功能可以搜尋本展館之展物並進行導航。</p>
+                        </div>
+                    </div>
+                    <!-- 群組說明彈出區塊
+                        api: jquery-1.11.3.min.js
+                        api: jquery.mobile-1.4.5.min.js
+                    //-->
+                    <div data-role="popup" data-arrow="b" id="groupPopup">
+                        <div data-role="header">
+                            <h1>說明</h1>
+                        </div>
+                        <div data-role="main" class="ui-content">
+                            <h1 align="center" valign="center">群組</h1>
+                            <p>使用此功能可以加入或創建群組。</p>
+                        </div>
+                    </div>
+                    <!-- 訊息說明彈出區塊
+                        api: jquery-1.11.3.min.js
+                        api: jquery.mobile-1.4.5.min.js
+                    //-->
+                    <div data-role="popup" data-arrow="b" id="messagePopup">
+                        <div data-role="header">
+                            <h1>說明</h1>
+                        </div>
+                        <div data-role="main" class="ui-content">
+                            <h1 align="center" valign="center">訊息</h1>
+                            <p>使用此功能可以使用訊息功能。</p>
+                        </div>
+                    </div>
+                    <!-- 設定說明彈出區塊
+                        api: jquery-1.11.3.min.js
+                        api: jquery.mobile-1.4.5.min.js
+                    //-->
+                    <div data-role="popup" data-arrow="b" id="settingPopup">
+                        <div data-role="header">
+                            <h1>說明</h1>
+                        </div>
+                        <div data-role="main" class="ui-content">
+                            <h1 align="center" valign="center">設定</h1>
+                            <p>使用此功能可以設定功能。</p>
+                        </div>
+                    </div>
+                    <button id="test">按我</button>
+                </div>
+                <!--
+                    上方功能選單區塊
+                -->
+                <div data-role="footer" data-position="fixed" data-fullscreen="true">
+                    <div data-role="navbar">
+                        <ul>
+                            <li><a href="index.html" id="homeImg"><img style="width:90%;" src="image/home.png" is="image"></a></li>
+                            <li><a href="search.html" id="searchImg"><img style="width:90%;" src="image/search.png" is="image"></a></li>
+                            <li><a href="group.html" id="groupImg"><img style="width:90%;" src="image/group.png" is="image"></a></li>
+                            <li><a href="message.html" id="messageImg"><img style="width:90%;" src="image/message.png" is="image"></a></li>
+                            <li><a href="scan.html" id="settingImg"><img style="width:90%;" src="image/setting.png" is="image"></a></li>
+                        </ul>
+                    </div>
+                </div>
+                <script type="text/javascript" src="js/popupExplan.js" defer></script>
+            </div>
+        </div>
+
+        <script type="text/javascript" src="cordova.js" defer></script>
+        <script type="text/javascript" src="js/index.js" defer></script>
+        <script type="text/javascript" src="js/changePage.js" defer></script>
+    </body>
+</html>

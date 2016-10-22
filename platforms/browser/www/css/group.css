@@ -1,0 +1,11 @@
+#Make div .ui-field-contain{
+	padding-right: 5%;
+	padding-left: 5%;
+	margin-top: 20px;
+}
+
+#submitBtn{
+	width: 100px;
+	height: 60px;
+	font-size: 20px;
+}
