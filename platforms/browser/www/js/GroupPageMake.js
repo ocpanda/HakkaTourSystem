@@ -10,16 +10,29 @@ $("#submitBtn").on("click", function(event) {
 			serverReplyMsg = result;
 			$("#makeSubPopupMsg").html(serverReplyMsg);
 			$("#makeSubPopup").popup("open", {positionTo: "#submitBtn", transition: "pop"});
+			var timeOutTime;
+			if(result == "建立成功"){
+				timeOutTime = 1000;
+			}
+			else{
+				timeOutTime = 2000;
+			}
 			setTimeout(function(){
 				$("#makeSubPopup").popup("close");
-				nowPage = 0;
-				$("input[name='groupName']").val("");	
-				$("select[name='groupOpen']").find("[value='off']").attr("selected", true);
-				pageTopBKColorInit();
-				pageRender();
-				htmlShow();
-				location.reload();
-			}, 1000);
+				if(timeOutTime == 1000){
+					nowPage = 0;
+					$("input[name='groupName']").val("");	
+					$("select[name='groupOpen']").find("[value='off']").attr("selected", true);
+					
+					pageTopBKColorInit();
+					pageRender();
+					htmlShow();
+					location.reload();
+				}
+				else{
+					$("input[name='groupName']").val("");
+				}
+			}, timeOutTime);
 			//alert(result);
 		}
 	});

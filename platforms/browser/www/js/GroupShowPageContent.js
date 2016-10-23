@@ -5,9 +5,9 @@ var pages = ["#List", "#Make"];
 var nowPage = 0;
 
 $(document).on("pageshow", "#group",function(){
+	showGroupList();
 	pageTopBKColorInit();
 	pageRender();
-	//showGroupList();
 	$("#List").show();
 });
 
