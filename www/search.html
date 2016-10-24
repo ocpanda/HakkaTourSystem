@@ -1,22 +1,37 @@
-<!--搜尋頁//-->
-<div id="search" data-role="page">
-    <link rel="stylesheet" href="web_api/jquery/jquery.mobile-1.4.5.min.css">
-    <link rel="stylesheet" type="text/css" href="css/scan.css">
-    <script src="web_api/jquery/jquery-1.11.3.min.js"></script>
-    <script src="web_api/jquery/jquery.mobile-1.4.5.min.js"></script>
+<link rel="stylesheet" href="web_api/jquery/jquery.mobile-1.4.5.min.css">
+<link rel="stylesheet" type="text/css" href="css/scan.css">
+<script src="web_api/jquery/jquery-1.11.3.min.js"></script>
+<script src="web_api/jquery/jquery.mobile-1.4.5.min.js"></script>
+
+
+<div id="pageTwo" data-role="page">
+    <div data-role="navbar">
+        <ul>
+            <li>
+              <a id="#pageTwo">搜尋</a>
+            </li>
+            <li>
+              <a id="#pageOne">推薦</a>
+            </li>
+        </ul>
+    </div>
+    123
+</div>
+
+<div id="pageOne" data-role="page">
+    <div data-role="navbar">
+        <ul>
+            <li>
+              <a id="#pageTwo">搜尋</a>
+            </li>
+            <li>
+              <a id="#pageOne">推薦</a>
+            </li>
+        </ul>
+    </div>
     <div data-role="main" class="ui-content">
         <!--<button type="button" class="btn btn-default btn1" id="stopScanBtn">stop scan</button>//-->
         <div class="scanapp">
-            <div data-role="navbar">
-              <ul>
-                <li>
-                  <a>搜尋</a>
-                </li>
-                <li>
-                  <a>推薦</a>
-                </li>
-              </ul>
-            </div>
             <a href="#" id="scanBtn" class="ui-btn">搜尋附近展覽物</a>
             <table class="table" border-collapse: collapse>
                     <thead>
