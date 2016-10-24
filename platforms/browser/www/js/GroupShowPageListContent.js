@@ -1,3 +1,8 @@
+/**
+ * 群組頁面
+ * 目前有的群組顯示
+ */
+
 function showGroupList(){
 	$("#privateGroupList li").parent().remove();
 	$("#publicGroupList li").parent().remove();
