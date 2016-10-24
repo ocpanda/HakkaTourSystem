@@ -37,6 +37,8 @@ var app = {
     },
     // Update DOM on a Received Event
     receivedEvent: function(id) {
+        var deviceID = device.uuid;
+        console.log(deviceID);
         console.log("Bluetooth initialize");
         bluetoothle.initialize(function(result){
             console.log("bluetooth adapter status: "+result.status);
