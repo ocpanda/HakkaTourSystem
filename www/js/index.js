@@ -40,8 +40,6 @@ var app = {
     // Update DOM on a Received Event
     receivedEvent: function(id) {
         var deviceID = device.uuid;
-<<<<<<< HEAD
-<<<<<<< HEAD
         var devicePlatform = device.platform;
         if(devicePlatform == "browser"){
             deviceID = "Test-Device";
@@ -53,12 +51,9 @@ var app = {
             function (){console.log("Insert device data successfully!");},
             dbError;
         });*/
-=======
         console.log(deviceID);
->>>>>>> 9c80011d77a6d133d2d9c2557fa1db027796b454
-=======
         console.log(deviceID);
->>>>>>> 9c80011d77a6d133d2d9c2557fa1db027796b454
+
         console.log("Bluetooth initialize");
         bluetoothle.initialize(function(result){
             console.log("bluetooth adapter status: "+result.status);
