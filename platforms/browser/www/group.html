@@ -30,6 +30,11 @@
                 <h4>私人群組</h4>
                 <ul data-role="listview" id="privateGroupList"></ul>
             </div>
+
+            <!-- 加入群組彈出視窗 //-->
+            <div data-role="popup" id="groupJoin" data-theme="a">
+                
+            </div>
         </div>
 
         <!--創建群組//-->
@@ -40,10 +45,14 @@
             </div>
             <div class="ui-field-contain">
                 <label for="groupOpen" style="font-size:20px;">權限：</label>
-                <select id="select-based-flipswitch" data-role="flipswitch" name="groupOpen" id="groupOpen">
+                <select id="select-based-flipswitch" data-role="flipswitch" name="groupOpen" id="groupOpen" onchange="passChange()">
                     <option value="off">私人</option>
                     <option value="on">公開</option>
                 </select>
+            </div>
+            <div class="ui-field-contain" id="passDIV">
+                <label for="groupPass" style="font-size:20px;">密碼：</label>
+                <input type="text" name="groupPass" id="groupPass" placeholder="設定您的群組密碼。">
             </div>
             <center>
                 <div id="submitBtn">
@@ -56,6 +65,15 @@
                     </div>
                     <div data-role="main" class="ui-content">
                         <p id="makeSubPopupMsg"></p>
+                    </div>
+                </div>
+                <!-- 密碼錯誤提示彈出區塊//-->
+                <div data-role="popup" id="makePassPopup">
+                    <div data-role="header">
+                        <h1>訊息</h1>
+                    </div>
+                    <div data-role="main" class="ui-content">
+                        <p>密碼未輸入!</p>
                     </div>
                 </div>
             </center>

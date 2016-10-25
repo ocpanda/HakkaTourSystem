@@ -3,10 +3,28 @@
  * 建立按鈕按下
  */
 $("#submitBtn").on("click", function(event) {
-	var data = {groupName: $("input[name='groupName']").val(), groupOpen: $("select[name='groupOpen']").val()};
-	var serverReplyMsg;
+	var data;
+	var passData = $("input[name='groupPass']").val();
+	var openType = $("select[name='groupOpen']").val();
+	if(openType == "on"){
+		data = {groupName: $("input[name='groupName']").val(), groupOpen: openType, groupPass: "NULL"};
+		var serverReplyMsg;
+	}
+	else{
+		if(passData.length <= 0){
+			$("#makePassPopup").popup("open", {positionTo: "#submitBtn", transition: "pop"});
+			setTimeout(function(){
+				$("#makePassPopup").popup("close");
+			},1000);
+			return;
+		}
+		else{
+			var password = stringClean(passData);
+			data = {groupName: $("input[name='groupName']").val(), groupOpen: $("select[name='groupOpen']").val(), groupPass: passData};
+		}
+	}
 	$.ajax({
-		url: "http://140.130.35.62/csie40343142/Tour_System_server/php/GroupMake.php",
+		url: "http://140.130.35.62/csie40343142/Tour_System_server/php/TourGroupMake.php",
 		type: "POST",
 		data: data,
 		dataType: "text",
@@ -15,7 +33,7 @@ $("#submitBtn").on("click", function(event) {
 			$("#makeSubPopupMsg").html(serverReplyMsg);
 			$("#makeSubPopup").popup("open", {positionTo: "#submitBtn", transition: "pop"});
 			var timeOutTime;
-			if(result == "建立成功"){
+			if(result == "建立成功!"){
 				timeOutTime = 1000;
 			}
 			else{
@@ -24,14 +42,13 @@ $("#submitBtn").on("click", function(event) {
 			setTimeout(function(){
 				$("#makeSubPopup").popup("close");
 				if(timeOutTime == 1000){
+					console.log("page change!!!!!!!");
 					nowPage = 0;
 					$("input[name='groupName']").val("");	
-					$("select[name='groupOpen']").find("[value='off']").attr("selected", true);
-
 					pageTopBKColorInit();
 					pageRender();
 					htmlShow();
-					location.reload();
+					showGroupList();
 				}
 				else{
 					$("input[name='groupName']").val("");
@@ -42,3 +59,12 @@ $("#submitBtn").on("click", function(event) {
 	});
 	event.preventDefault();  //將submit ajax傳送關閉
 });
+
+function stringClean(instr){
+	var pattern = new RegExp("[`~!@#$^&*()=|{}':;',\\[\\].<>/?~！@#￥……&*（）&;|{}【】‘；：”“'。，、？]");
+	var clnstr = "";
+	for(var i=0; i<instr.length; i++){
+		clnstr += instr.substr(i, 1).replace(pattern, '');
+	}
+	return clnstr;
+}

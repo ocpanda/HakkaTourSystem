@@ -56,3 +56,15 @@ function pageRender(){
 function htmlShow(){
 	$(pages[nowPage]).show();
 }
+
+
+
+/**
+ * 權限隱藏顯示密碼欄 
+ */
+function passChange(){
+	$("#passDIV").toggle();
+}
+/*$("#groupOpen").addEventListener("change", function(){
+	$("#passDIV").toggle();
+});*/

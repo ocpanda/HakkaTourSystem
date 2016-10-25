@@ -33,8 +33,6 @@ var app = {
     // The scope of 'this' is the event. In order to call the 'receivedEvent'
     // function, we must explicitly call 'app.receivedEvent(...);'
     onDeviceReady: function() {
-        //createDB();
-        //createHakkaLoginTable();
         app.receivedEvent('deviceready');
     },
     // Update DOM on a Received Event
@@ -44,15 +42,13 @@ var app = {
         if(devicePlatform == "browser"){
             deviceID = "Test-Device";
         }
-        console.log(devicePlatform);
-        console.log(deviceID);
-       /* db.transaction(function(tx){
-            tx.executeSql("INSERT INTO `HakkaLocalUser` (`UUID`) VALUES ('+"+deviceID+"')"),[],
-            function (){console.log("Insert device data successfully!");},
-            dbError;
-        });*/
-        console.log(deviceID);
-        console.log(deviceID);
+        localStorage.removeItem("deviceID");
+        if(deviceID != localStorage.getItem("deviceID")){
+            console.log("change deviceID");
+            localStorage.setItem("deviceID", deviceID);
+            var data={deviceID: localStorage.getItem("deviceID")};
+            addUser(data);
+        }
 
         console.log("Bluetooth initialize");
         bluetoothle.initialize(function(result){
@@ -62,3 +58,20 @@ var app = {
 };
 
 app.initialize();
+
+//將使用者UUID傳至server
+function addUser(data){
+    console.log(data);
+    $.ajax({
+        url:"http://140.130.35.62/csie40343142/Tour_System_server/php/TourGetMobileUUID.php",
+        type: "POST",
+        data: data,
+        dataType: "text",
+        success: function(result){
+            console.log(result);
+        },
+        error: function(){
+            console.log("使用者加入失敗!");
+        }
+    });
+}

@@ -1,3 +1,7 @@
+#groupMainContent{
+	overflow-y:hidden;
+}
+
 #Make div .ui-field-contain{
 	padding-right: 5%;
 	padding-left: 5%;
