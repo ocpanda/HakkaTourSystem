@@ -33,10 +33,27 @@ var app = {
     // The scope of 'this' is the event. In order to call the 'receivedEvent'
     // function, we must explicitly call 'app.receivedEvent(...);'
     onDeviceReady: function() {
+        //createDB();
+        //createHakkaLoginTable();
         app.receivedEvent('deviceready');
     },
     // Update DOM on a Received Event
     receivedEvent: function(id) {
+        var deviceID = device.uuid;
+        var devicePlatform = device.platform;
+        if(devicePlatform == "browser"){
+            deviceID = "Test-Device";
+        }
+        console.log(devicePlatform);
+        console.log(deviceID);
+       /* db.transaction(function(tx){
+            tx.executeSql("INSERT INTO `HakkaLocalUser` (`UUID`) VALUES ('+"+deviceID+"')"),[],
+            function (){console.log("Insert device data successfully!");},
+            dbError;
+        });*/
+        console.log(deviceID);
+        console.log(deviceID);
+
         console.log("Bluetooth initialize");
         bluetoothle.initialize(function(result){
             console.log("bluetooth adapter status: "+result.status);

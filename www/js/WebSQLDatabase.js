@@ -21,8 +21,22 @@ function dbError(tx, error){
 
 function createHakkaLoginTable(){
 	db.transaction(function(tx){
+<<<<<<< HEAD
 		tx.executeSql("CREATE TABLE IF NOT EXISTS HakkaLocalUser (UUID varchar(64), 使用者名稱 varchar(5),User_LocationX double, User_LocationY double);"),[],
 		function (){console.log("HakkaLocalUser create successfully!");},
 		dbError;
+=======
+<<<<<<< HEAD
+<<<<<<< HEAD
+		tx.executeSql("CREATE TABLE IF NOT EXISTS HakkaLocalUser (UUID varchar(64), 使用者名稱 varchar(5),User_LocationX double, User_LocationY double);"),[],
+		function (){console.log("HakkaLocalUser create successfully!");},
+		dbError;
+=======
+		tx.ececuteSQL();
+>>>>>>> 9c80011d77a6d133d2d9c2557fa1db027796b454
+=======
+		tx.ececuteSQL();
+>>>>>>> 9c80011d77a6d133d2d9c2557fa1db027796b454
+>>>>>>> group
 	});
 }

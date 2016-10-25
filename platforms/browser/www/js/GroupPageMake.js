@@ -1,3 +1,7 @@
+/**
+ * 群組創建頁面
+ * 建立按鈕按下
+ */
 $("#submitBtn").on("click", function(event) {
 	var data = {groupName: $("input[name='groupName']").val(), groupOpen: $("select[name='groupOpen']").val()};
 	var serverReplyMsg;
@@ -23,7 +27,7 @@ $("#submitBtn").on("click", function(event) {
 					nowPage = 0;
 					$("input[name='groupName']").val("");	
 					$("select[name='groupOpen']").find("[value='off']").attr("selected", true);
-					
+
 					pageTopBKColorInit();
 					pageRender();
 					htmlShow();
