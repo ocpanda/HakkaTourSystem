@@ -33,7 +33,18 @@
 
             <!-- 加入群組彈出視窗 //-->
             <div data-role="popup" id="groupJoin" data-theme="a">
-                
+                <h3 id="joinTitle"></h3>
+                <label for="userName" style="font-size:20px">名稱：</label>
+                <input type="text" name="userName" id="userName" placeholder="輸入你的名稱(暱稱)">
+                <div id="joinPassDiv">
+                    <label for="joinPass" style="font-size: 20px">群組密碼：</label>
+                    <input type="text" name="joinPass" id="joinPass" placeholder="請輸入該群組密碼">
+                </div>
+                <center>
+                    <button id="joinBtn">
+                        <button data-inline="true">建立</button>
+                    </button>
+                </center>
             </div>
         </div>
 

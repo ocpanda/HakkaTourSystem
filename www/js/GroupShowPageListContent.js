@@ -36,11 +36,13 @@ function showGroupList(){
 			//點擊事件綁定
 			$(".priList").click(function(){
 				var id = $(this).attr("id");
-				console.log(id);
+				joinWinShow(id, "private");
+				//console.log(id);
 			});
 			$(".pubList").click(function(){
 				var id = $(this).attr("id");
-				console.log(id);
+				joinWinShow(id, "public");
+				//console.log(id);
 			});
 			
 
@@ -52,4 +54,15 @@ function showGroupList(){
 			console.log("asdasdads");
 		}
 	});
+}
+
+function joinWinShow(name, type){
+	$("#joinTitle").html("加入" + name);
+	$("#groupJoin").popup("open", {transition: "pop"});
+	if(type == "public"){
+		$("#joinBtnDiv").hide();
+	}
+	else{
+		$("#joinBtnDiv").show();
+	}
 }
