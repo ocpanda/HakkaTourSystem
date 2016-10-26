@@ -1,6 +1,5 @@
 var pages = ["#pageOne", "#pageTwo"];
 var nowPage = 0;
-alert("1");
 
 $(document).on("pageshow", "#search",function(){
 	pageTopBKColorInit();
