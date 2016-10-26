@@ -42,7 +42,7 @@ var app = {
         if(devicePlatform == "browser"){
             deviceID = "Test-Device";
         }
-        localStorage.removeItem("deviceID");
+        //localStorage.removeItem("deviceID");
         if(deviceID != localStorage.getItem("deviceID")){
             console.log("change deviceID");
             localStorage.setItem("deviceID", deviceID);

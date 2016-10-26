@@ -12,14 +12,14 @@ function showGroupList(){
 		dataType: "json",
 		success: function(result){
 			console.log(result);
-			var dataForLoop = (result['群組名稱'].length >= result['群組權限'].length)? result['群組權限'].length:result['群組名稱'].length;
+			var dataForLoop = (result['name'].length >= result['priority'].length)? result['priority'].length:result['name'].length;
 			//列表加入
 			for(var i=0; i<dataForLoop; i++){
-				if(result['群組權限'][i] == 1){
-					$("#privateGroupList").append("<li><a id='"+result['群組名稱'][i]+"' class='priList'>"+result['群組名稱'][i]+"</a></li>");
+				if(result['priority'][i] == 1){
+					$("#privateGroupList").append("<li><a id='"+result['name'][i]+"' class='priList'>"+result['name'][i]+"</a></li>");
 				}
 				else{
-					$("#publicGroupList").append("<li><a id='"+result['群組名稱'][i]+"' class='pubList'>"+result['群組名稱'][i]+"</a></li>");
+					$("#publicGroupList").append("<li><a id='"+result['name'][i]+"' class='pubList'>"+result['name'][i]+"</a></li>");
 				}
 			}
 
@@ -64,11 +64,11 @@ function showGroupList(){
  * type:  群組類型
  */
 function joinWinShow(groupName, type){
-	console.log("type is "+type);
+	//console.log("type is "+type);
 	$("#joinTitle").html("加入 " + name);
 	$("#groupJoin").popup("open", {transition: "pop"});
 	$("#joinBtn").on("click", function(event){
-		console.log("i want join "+groupName);
+		//console.log("i want join "+groupName);
 		var joinName = $("input[name='userName']").val();
 		var joinPass;
 		if(type == "public"){
@@ -79,7 +79,8 @@ function joinWinShow(groupName, type){
 			console.log("get private");
 			joinPass = $("input[name='joinPass']").val();
 		}
-		data = {joinGroup:groupName, joinName: joinName, joinPass: joinPass};
+		//console.log(localStorage.getItem("deviceID"));
+		data = {userUUID:localStorage.getItem("deviceID"), joinGroup:groupName, joinName: joinName, joinPass: joinPass};
 		
 		$.ajax({
 			url: "http://140.130.35.62/csie40343142/Tour_System_server/php/TourGroupJoin.php",
@@ -88,6 +89,7 @@ function joinWinShow(groupName, type){
 			dataType: "text",
 			success: function(result){
 				console.log(result);
+				$("#groupJoin").popup("close");
 			}
 		});
 		event.preventDefault();  //將submit ajax傳送關閉

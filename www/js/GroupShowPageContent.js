@@ -26,6 +26,27 @@ $("#groupMakeBtn").on("click", function(){
 	htmlShow();
 });
 
+
+/**
+ * 滑動換頁
+ */
+$(document).on("swipeleft", function(){
+	if(nowPage != 1){
+		nowPage = 1;
+		pageTopBKColorInit();
+		pageRender();
+		htmlShow();
+	}
+});
+$(document).on("swiperight", function(){
+	if(nowPage != 0){
+		nowPage = 0;
+		pageTopBKColorInit();
+		pageRender();
+		htmlShow();
+	}
+});
+
 /**
  * [pageTopBKColorInit 將上方工具列選項顏色初始化]
  */
