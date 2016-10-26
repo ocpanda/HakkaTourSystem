@@ -57,7 +57,12 @@ function showGroupList(){
 		}
 	});
 }
-//加入群組彈出視窗
+/**
+ * 使用者加入群組
+ * event: 點擊事件
+ * group: 欲加入群組名稱
+ * type:  群組類型
+ */
 function joinWinShow(groupName, type){
 	console.log("type is "+type);
 	$("#joinTitle").html("加入 " + name);
