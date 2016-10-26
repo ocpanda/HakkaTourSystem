@@ -5,6 +5,7 @@ var pages = ["#List", "#Make"];
 var nowPage = 0;
 
 $(document).on("pageshow", "#group",function(){
+	//$("#joinPassDiv").hide();
 	showGroupList();
 	pageTopBKColorInit();
 	pageRender();
