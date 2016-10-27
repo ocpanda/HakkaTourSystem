@@ -16,7 +16,42 @@
 	text-decoration: none;
 }
 
-div .table{
+.showTable {
 	position: absolute;
 	top: 100px;
+	width: 100%;
 }
+
+.searchImgRight {
+	float: right;
+	background-color: lightgray;
+	border: 1px solid black;
+	height: 100px;
+	width: auto;
+	font-weight: bold;
+	text-align: center;
+}
+
+.searchImgMiddle {
+	position: absolute;
+	left: 35%;
+	right: 40%
+	background-color: lightgray;
+	border: 1px solid black;
+	height: 100px;
+	width: auto;
+	font-weight: bold;
+	text-align: center;
+}
+
+.searchImgLeft {
+	float: left;
+	background-color: lightgray;
+	border: 1px solid black;
+	height: 100px;
+	width: auto;
+	font-weight: bold;
+	text-align: center;
+}
+
+
