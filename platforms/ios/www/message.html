@@ -1,4 +1,4 @@
-<!--設定頁//-->
+<!--訊息頁//-->
 <div id="message" data-role="page">
     <link rel="stylesheet" href="web_api/jquery/jquery.mobile-1.4.5.min.css">
     <script src="web_api/jquery/jquery-1.11.3.min.js"></script>
@@ -8,23 +8,8 @@
         api: jquery.mobile-1.4.5.min.js
     -->
     <div data-role="main" class="ui-content">
-        <button type="button" class="btn btn-default btn0" id="scanBtn">start scan</button>
-        <!--<button type="button" class="btn btn-default btn1" id="stopScanBtn">stop scan</button>//-->
-        <div class="panel panel-default">
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>name</th>
-                        <th>UUID</th>
-                        <th>RSSI</th>
-                    </tr>
-                </thead>
-                <tbody id="scanData">
-                    
-                </tbody>
-            </table>
-        </div>
-        <!-- 首頁彈出區塊 
+        <p>message</p>
+        <!-- 首頁說明彈出區塊
             api: jquery-1.11.3.min.js
             api: jquery.mobile-1.4.5.min.js
         //-->
@@ -76,17 +61,17 @@
                 <p>使用此功能可以使用每日功能。</p>
             </div>
         </div>
-        <!-- 訊息說明彈出區塊
+        <!-- 設定說明彈出區塊
             api: jquery-1.11.3.min.js
             api: jquery.mobile-1.4.5.min.js
         //-->
-        <div data-role="popup" data-arrow="b" id="messagePopup">
+        <div data-role="popup" data-arrow="b" id="settingPopup">
             <div data-role="header">
                 <h1>說明</h1>
             </div>
             <div data-role="main" class="ui-content">
-                <h1 align="center" valign="center">訊息</h1>
-                <p>使用此功能可以使用訊息功能。</p>
+                <h1 align="center" valign="center">設定</h1>
+                <p>使用此功能可以設定功能。</p>
             </div>
         </div>
         <button id="test">按我</button>
@@ -97,20 +82,15 @@
         </script>
     </div>
     <div data-role="footer" data-position="fixed" data-fullscreen="true">
-        <div data-role="navbar" class="footNavBar">
+        <div data-role="navbar">
             <ul class="footNavBar">
                 <li><a href="index.html" id="homeImg" data-ajax="false"><img style="width:90%;" src="image/home.png" is="image"></a></li>
-<<<<<<< HEAD
-                <li><a href="search.hmtl" id="searchImg" data-ajax="false"><img style="width:90%;" src="image/search.png" is="image"></a></li>
-=======
                 <li><a href="search.html" id="searchImg" data-ajax="false"><img style="width:90%;" src="image/search.png" is="image"></a></li>
->>>>>>> 冠廷在雷
                 <li><a href="group.html" id="groupImg" data-ajax="false"><img style="width:90%;" src="image/group.png" is="image"></a></li>
                 <li><a href="day.html" id="dayImg" data-ajax="false"><img style="width:90%;" src="image/day.png" is="image"></a></li>
-                <li><a href="message.html" id="messageImg" data-ajax="false"><img style="width:90%;" src="image/message.png" is="image"></a></li>//-->
+                <li><a href="scan.html" id="settingImg" data-ajax="false"><img style="width:90%;" src="image/setting.png" is="image"></a></li>
             </ul>
         </div>
     </div>
-    <script type="text/javascript" src="js/scan.js" defer></script>
     <script type="text/javascript" src="js/popupExplan.js" defer></script>
 </div>

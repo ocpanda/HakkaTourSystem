@@ -31,7 +31,7 @@ BeaconDataStorage.prototype.clearData = function(){
 var dataNum = 0;
 var beaconDataStorage = new BeaconDataStorage();
 var foundDevices = [];
-var temp1;
+var scanBeacon;
 var scanapp = {
 	goScan: function(){
 		this.bindEvents();
@@ -83,25 +83,14 @@ var scanapp = {
 				        	console.log("change rssi");
 				        	$("#my"+name[0]+" .beaconRSSI").html(result.rssi);
 				        }
-				        var scanBeacon = {beacon_Name: name[0], beacon_rssi: result.rssi}; 
+				        scanBeacon = {beacon_Name: name[0], beacon_rssi: result.rssi}; 
 				        console.log("scanBeacon name: "+scanBeacon['beacon_Name']+" scanBeacon rssi: "+scanBeacon['beacon_rssi']);
-				        temp1 = scanBeacon;
+				       
 				        /**
 				         * 傳送beacon資料至server端php執行
 				         */
-				        
-				        /*$.ajax({
-				        	url: "http://140.130.35.62/csie40343142/Tour_System_server/php/userScanBeacon.php",
-				        	type: "POST",
-				        	dataType: "json",
-				        	data: scanBeacon,
-				        	success: function(result){
-				        		console.log("ajax transfer data success :" +result);
-				        	},
-				        	error: function(result){
-				        		console.log("ajax transfer data failed :"+result);
-				        	}
-				        });*/
+				        //$.post("http://140.130.35.62/csie40343142/Tour_System_server/php/userScanBeacon.php",
+				        //	scanBeacon, function(res){console.log(res)}, "json");
 			        }
 			        dataNum+=1;
 			    }
@@ -109,8 +98,24 @@ var scanapp = {
 			function(error){},{services: []});
 
 		setTimeout(bluetoothle.stopScan, scanSeconds*1000, function(result){
-			$.post("http://140.130.35.62/csie40343142/Tour_System_server/php/userScanBeacon.php",
-				        	temp1, function(res){console.log("res")}, "json");
+			for(var i=0; i<10; i++){
+				console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1");
+			}
+			$.ajax({
+	        	url: "http://140.130.35.62/csie40343142/Tour_System_server/php/userScanBeacon.php",
+	        	type: "POST",
+	        	data: scanBeacon,
+	        	success: function(result,status){
+	        		console.log("asdasdasdasd: "+result);
+	        		var a = JSON.parse(result);
+	        		console.log("success: "+a.beacon_Name+" "+a.beacon_rssi+" status: "+status);
+	        	},
+	        	error: function(XMLHttpRequest, textStatus, errorThrown){
+	        		console.log("XMLHttpRequest status:"+XMLHttpRequest.status);
+	        		console.log("XMLHttpRequest readyStatus:"+XMLHttpRequest.readyState);
+	        		console.log("textStatus:"+textStatus);
+	        	}
+	        });
 		},function(error){});
 		
 		/*ble.startScan([], function(device){
