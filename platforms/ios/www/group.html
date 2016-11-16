@@ -1,0 +1,176 @@
+<!--群組頁//-->          
+<div data-role="page" id="group">
+    <link rel="stylesheet" type="text/css" href="css/group.css">
+    <link rel="stylesheet" href="web_api/jquery/jquery.mobile-1.4.5.min.css">
+    <script src="web_api/jquery/jquery-1.11.3.min.js"></script>
+    <script src="web_api/jquery/jquery.mobile-1.4.5.min.js"></script>
+
+    <!--上方功能選單區塊-->
+    <div data-role="header" data-position="fixed">
+        <div data-role="navbar">
+            <ul>
+                <li><button id="groupListBtn">群組列表</button></li>
+                <li><button id="groupMakeBtn">創建列表</button></li>
+            </ul>
+        </div>
+    </div>
+    <!--主要內容//-->
+    <div data-role="main" class="ui-content" id="groupMainContent">
+        <!--群組列表//-->
+        <div id="List">
+            <!--公開群組//-->
+            <div data-role="collapsible" id="publicGroup">
+                <h4>公開群組</h4>
+                <ul data-role="listview" id="publicGroupList">
+                </ul>
+            </div>
+
+            <!--私人群組//-->
+            <div data-role="collapsible" id="privateGroup">
+                <h4>私人群組</h4>
+                <ul data-role="listview" id="privateGroupList"></ul>
+            </div>
+
+            <!-- 加入群組彈出視窗 //-->
+            <div data-role="popup" id="groupJoin" data-theme="a">
+                <h3 id="joinTitle"></h3>
+                <label for="userName" style="font-size:20px">名稱：</label>
+                <input type="text" name="userName" id="userName" placeholder="輸入你的名稱(暱稱)">
+                <div id="joinPassDiv">
+                    <label for="joinPass" style="font-size: 20px">群組密碼：</label>
+                    <input type="text" name="joinPass" id="joinPass" placeholder="請輸入該群組密碼">
+                </div>
+                <center>
+                    <button id="joinBtn">
+                        <button data-inline="true">建立</button>
+                    </button>
+                </center>
+            </div>
+        </div>
+
+        <!--創建群組//-->
+        <div id="Make">
+            <div class="ui-field-contain">
+                <label for="groupName" style="font-size:20px;">群組名稱：</label>
+                <input type="text" name="groupName" id="groupName" placeholder="輸入您想要的群組名稱。">
+            </div>
+            <div class="ui-field-contain">
+                <label for="groupOpen" style="font-size:20px;">權限：</label>
+                <select id="select-based-flipswitch" data-role="flipswitch" name="groupOpen" id="groupOpen" onchange="passChange()">
+                    <option value="off">私人</option>
+                    <option value="on">公開</option>
+                </select>
+            </div>
+            <div class="ui-field-contain" id="passDIV">
+                <label for="groupPass" style="font-size:20px;">密碼：</label>
+                <input type="text" name="groupPass" id="groupPass" placeholder="設定您的群組密碼。">
+            </div>
+            <center>
+                <div id="submitBtn">
+                    <button data-inline="true">建立</button>
+                </div>
+                <!-- 建立提示彈出區塊//-->
+                <div data-role="popup" id="makeSubPopup">
+                    <div data-role="header">
+                        <h1>訊息</h1>
+                    </div>
+                    <div data-role="main" class="ui-content">
+                        <p id="makeSubPopupMsg"></p>
+                    </div>
+                </div>
+                <!-- 密碼錯誤提示彈出區塊//-->
+                <div data-role="popup" id="makePassPopup">
+                    <div data-role="header">
+                        <h1>訊息</h1>
+                    </div>
+                    <div data-role="main" class="ui-content">
+                        <p>密碼未輸入!</p>
+                    </div>
+                </div>
+            </center>
+        </div>
+    </div>
+    <!--下方功能選單區塊-->
+    <div data-role="main" class="ui-content">
+        <!-- 首頁說明彈出區塊
+            api: jquery-1.11.3.min.js
+            api: jquery.mobile-1.4.5.min.js
+        //-->
+        <div data-role="popup" data-arrow="b" id="homePopup">
+            <div data-role="header">
+                <h1>說明</h1>
+            </div>
+            <div data-role="main" class="ui-content">
+                <h1 align="center" valign="center">首頁</h1>
+                <p>主要功能頁面。</p>
+            </div>
+        </div>
+        <!-- 搜尋彈出區塊 
+            api: jquery-1.11.3.min.js
+            api: jquery.mobile-1.4.5.min.js
+        //-->
+        <div data-role="popup" data-arrow="b" id="searchPopup">
+            <div data-role="header">
+                <h1>說明</h1>
+            </div>
+            <div data-role="main" class="ui-content">
+                <h1 align="center" valign="center">搜尋</h1>
+                <p>使用此功能可以搜尋本展館之展物並進行導航。</p>
+            </div>
+        </div>
+        <!-- 每日說明彈出區塊
+            api: jquery-1.11.3.min.js
+            api: jquery.mobile-1.4.5.min.js
+        //-->
+        <div data-role="popup" data-arrow="b" id="dayPopup">
+            <div data-role="header">
+                <h1>說明</h1>
+            </div>
+            <div data-role="main" class="ui-content">
+                <h1 align="center" valign="center">每日</h1>
+                <p>使用此功能可以使用每日功能。</p>
+            </div>
+        </div>
+        <!-- 訊息說明彈出區塊
+            api: jquery-1.11.3.min.js
+            api: jquery.mobile-1.4.5.min.js
+        //-->
+        <div data-role="popup" data-arrow="b" id="messagePopup">
+            <div data-role="header">
+                <h1>說明</h1>
+            </div>
+            <div data-role="main" class="ui-content">
+                <h1 align="center" valign="center">訊息</h1>
+                <p>使用此功能可以使用訊息功能。</p>
+            </div>
+        </div>
+        <!-- 設定說明彈出區塊
+            api: jquery-1.11.3.min.js
+            api: jquery.mobile-1.4.5.min.js
+        //-->
+        <div data-role="popup" data-arrow="b" id="settingPopup">
+            <div data-role="header">
+                <h1>說明</h1>
+            </div>
+            <div data-role="main" class="ui-content">
+                <h1 align="center" valign="center">設定</h1>
+                <p>使用此功能可以設定功能。</p>
+            </div>
+        </div>
+    </div>
+    <div data-role="footer" data-position="fixed" data-fullscreen="true">
+        <div data-role="navbar">
+            <ul class="footNavBar">
+                <li><a href="index.html" id="homeImg" data-ajax="false"><img style="width:90%;" src="image/home.png" is="image"></a></li>
+                <li><a href="search.html" id="searchImg" data-ajax="false"><img style="width:90%;" src="image/search.png" is="image"></a></li>
+                <li><a href="day.html" id="dayImg" data-ajax="false"><img style="width:90%;" src="image/day.png" is="image"></a></li>
+                <li><a href="message.html" id="messageImg" data-ajax="false"><img style="width:90%;" src="image/message.png" is="image"></a></li>
+                <li><a href="scan.html" id="settingImg" data-ajax="false"><img style="width:90%;" src="image/setting.png" is="image"></a></li>
+            </ul>
+        </div>
+    </div>
+    <script type="text/javascript" src="js/GroupShowPageListContent.js"></script>
+    <script type="text/javascript" src="js/GroupShowPageContent.js"></script>   
+    <script type="text/javascript" src="js/GroupPageMake.js"></script>
+    <script type="text/javascript" src="js/popupExplan.js" defer></script>
+</div>
