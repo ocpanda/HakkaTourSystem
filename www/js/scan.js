@@ -26,6 +26,18 @@ BeaconDataStorage.prototype.clearData = function(){
  * Beacon data storage class
  */
 
+var items = ["table", "chair", "mouse","anglee"];
+var pagesIntrc = ["桌子", "椅子", "滑鼠", "安哥"];
+
+var pages = ["#pageOne", "#pageTwo"];
+var nowPage = 0;
+
+
+var endl = "'>";
+
+var html = "";
+
+
 
 
 var dataNum = 0;
@@ -46,6 +58,14 @@ var scanapp = {
 		//start scan listener button DOM id=scanBtn
 		var scanBtn = document.getElementById("scanBtn");
 		scanBtn.addEventListener('click', this.deviceScan, false);
+		var goPageOne = document.getElementById("goPageOne");
+		goPageOne.addEventListener('click', this.hide, false);
+		var goPageTwo = document.getElementById("goPageTwo");
+		goPageTwo.addEventListener('click', this.showPage, false);
+		var pageTwo = document.getElementById('pageTwo');
+		pageTopBKColorInit();
+		pageRender();
+		$("#pageOne").show();
 		//stop scan listener button DOM id=stopScanBtn
 		//var stopScanBtn = document.getElementById("stopScanBtn");
 		//stopScanBtn.addEventListener('click', this.deviceStopScan, false);
@@ -144,6 +164,60 @@ var scanapp = {
 			function(){
 				console.log("stopScan faild");
 			});*/
+	},
+
+	showPage: function() {
+		nowPage = 1;
+		pageTopBKColorInit();
+		pageRender();
+		htmlShow();
+		for(var i = 0 ; i < items.length ; i+=3)
+		{
+			 // html += "<img class='searchImgLeft' src='" + "image/data/" + items[i] + ".jpg" + endl + 
+			 // 		"<img class='searchImgMiddle' src='" + "image/data/" + items[i+1] + ".jpg" + endl +
+			 // 		"<img class='searchImgRight' src='" + "image/data/" + items[i+2] + ".jpg" + endl + "<br />" +
+			 // 		"<span class='searchTextLeft'>" + pagesIntrc[i] + "</span>" +
+			 // 		"<span class='searchTextMiddle'>" +  pagesIntrc[i+1] + "</span>" + 
+			 // 		"<span class='searchTextRight'>" + pagesIntrc[i+2] + "</span>" ;
+			 html += 	"<div class='ui-grid-b' style='height:150px;width:100%'>"+
+						    "<div class='ui-block-a' style='height:100%;'>" + 
+						    	"<div is='icon' style='width:100%; height:100%; position:relative'>" + 
+							    	"<span class='ui-li-count' style='position:absolute; display:none; z-index:1; right:0; top:6px;'></span>" + 
+							    	"<a href='#' class='ui-btn ui-mini ui-corner-all ui-shadow'" + 
+							    	" style='display:block;margin:5px;height:50%;background-image: url(" + "image/data/" + items[i] + ".jpg); background-size: 95% 80%; background-position: 50% 50%; background-repeat: no-repeat no-repeat;'>" +
+							    	"</a>" +
+							    	"<div style='text-align:center;'>" + pagesIntrc[i] +"</div>" + 
+						    	"</div>" +
+						    "</div>" +
+						    "<div class='ui-block-b' style='height:100%;'>" + 
+						    	"<div is='icon' style='width:100%; height:100%; position:relative'>" +
+							    	"<span class='ui-li-count' style='position:absolute; display:none; z-index:1; right:0; top:6px;'></span>" + 
+							    	"<a href='#' class='ui-btn ui-mini ui-corner-all ui-shadow'" + 
+							    	" style='display:block;margin:5px;height:50%;background-image: url(" + "image/data/" + items[i+1] + ".jpg); background-size: 95% 80%; background-position: 50% 50%; background-repeat: no-repeat no-repeat;'>" +
+							    	"</a>" +
+							    	"<div style='text-align:center;'>" +pagesIntrc[i+1] + "</div>" + 
+						    	"</div>" +
+						    "</div>" +
+						    "<div class='ui-block-c' style='height:100%;'>" +
+						    	"<div is='icon' style='width:100%; height:100%; position:relative'>" +
+							    	"<span class='ui-li-count' style='position:absolute; display:none; z-index:1; right:0; top:6px;'></span>" +
+							    	"<a href='#' class='ui-btn ui-mini ui-corner-all ui-shadow'" + 
+							    	" style='display:block;margin:5px;height:50%;background-image: url(" + "image/data/" + items[i+2] + ".jpg); background-size: 95% 80%; background-position: 50% 50%; background-repeat: no-repeat no-repeat;'>" +
+							    	"</a>" +
+							    	"<div style='text-align:center;'>" + pagesIntrc[i+2] + "</div>" +
+						    	"</div>" +
+						    "</div>" +
+					   "</div>";
+		}
+		pageTwo.innerHTML = html;
+	},
+	hide: function() {
+		pageTwo.innerHTML = "";
+		html = "";
+		nowPage = 0;
+		pageTopBKColorInit();
+		pageRender();
+		htmlShow();
 	}
 
 	/*deviceStopScan: function(){
@@ -154,3 +228,26 @@ var scanapp = {
 	}*/
 }
 scanapp.goScan();
+
+function pageTopBKColorInit(){
+	$("#pageOne").hide();
+	$("#pageTwo").hide();
+	$("#goPageOne").css("background", "white");
+	$("#goPageTwo").css("background", "white");
+}
+
+function pageRender(){
+	switch(nowPage){
+		case 0:
+			$("#goPageOne").css("background", "#6666FF");
+			break;
+
+		case 1:
+			$("#goPageTwo").css("background", "#6666FF");
+			break;
+	}
+}
+
+function htmlShow(){
+	$(pages[nowPage]).show();
+}

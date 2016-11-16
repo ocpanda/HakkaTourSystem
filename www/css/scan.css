@@ -1,21 +1,3 @@
-.btn0{
-	float: left;
-	position: absolute;
-	height: 40px;
-	width: 100%;
-}
-.btn1{
-	float: left;
-	position: absolute;
-	top: 40px;
-	height: 40px;
-	width: 100%;	
-}
-
-.btn-default a:hover{
-	text-decoration: none;
-}
-
 .showTable {
 	position: absolute;
 	top: 100px;
@@ -23,35 +5,46 @@
 }
 
 .searchImgRight {
-	float: right;
 	background-color: lightgray;
 	border: 1px solid black;
 	height: 100px;
 	width: auto;
 	font-weight: bold;
-	text-align: center;
+	float: right;
 }
 
 .searchImgMiddle {
-	position: absolute;
-	left: 35%;
-	right: 40%
+	position: absolute
 	background-color: lightgray;
 	border: 1px solid black;
 	height: 100px;
 	width: auto;
 	font-weight: bold;
-	text-align: center;
 }
 
 .searchImgLeft {
-	float: left;
 	background-color: lightgray;
 	border: 1px solid black;
 	height: 100px;
 	width: auto;
 	font-weight: bold;
+	float: left;
+}
+
+.pageTowCss {
 	text-align: center;
 }
 
+.searchTextLeft {
+	margin-left: 2.25%;
+	float: left;
+}
 
+.searchTextMiddle {
+	text-align: center;
+}
+
+.searchTextRight {
+	margin-right: 2.25%;
+	float: right;
+}
