@@ -167,48 +167,53 @@ var scanapp = {
 	},
 
 	showPage: function() {
-		nowPage = 1;
 		pageTopBKColorInit();
 		pageRender();
 		htmlShow();
-		for(var i = 0 ; i < items.length ; i+=3)
-		{
-			 // html += "<img class='searchImgLeft' src='" + "image/data/" + items[i] + ".jpg" + endl + 
-			 // 		"<img class='searchImgMiddle' src='" + "image/data/" + items[i+1] + ".jpg" + endl +
-			 // 		"<img class='searchImgRight' src='" + "image/data/" + items[i+2] + ".jpg" + endl + "<br />" +
-			 // 		"<span class='searchTextLeft'>" + pagesIntrc[i] + "</span>" +
-			 // 		"<span class='searchTextMiddle'>" +  pagesIntrc[i+1] + "</span>" + 
-			 // 		"<span class='searchTextRight'>" + pagesIntrc[i+2] + "</span>" ;
-			 html += 	"<div class='ui-grid-b' style='height:150px;width:100%'>"+
-						    "<div class='ui-block-a' style='height:100%;'>" + 
-						    	"<div is='icon' style='width:100%; height:100%; position:relative'>" + 
-							    	"<span class='ui-li-count' style='position:absolute; display:none; z-index:1; right:0; top:6px;'></span>" + 
-							    	"<a href='#' class='ui-btn ui-mini ui-corner-all ui-shadow'" + 
-							    	" style='display:block;margin:5px;height:50%;background-image: url(" + "image/data/" + items[i] + ".jpg); background-size: 95% 80%; background-position: 50% 50%; background-repeat: no-repeat no-repeat;'>" +
-							    	"</a>" +
-							    	"<div style='text-align:center;'>" + pagesIntrc[i] +"</div>" + 
-						    	"</div>" +
-						    "</div>" +
-						    "<div class='ui-block-b' style='height:100%;'>" + 
-						    	"<div is='icon' style='width:100%; height:100%; position:relative'>" +
-							    	"<span class='ui-li-count' style='position:absolute; display:none; z-index:1; right:0; top:6px;'></span>" + 
-							    	"<a href='#' class='ui-btn ui-mini ui-corner-all ui-shadow'" + 
-							    	" style='display:block;margin:5px;height:50%;background-image: url(" + "image/data/" + items[i+1] + ".jpg); background-size: 95% 80%; background-position: 50% 50%; background-repeat: no-repeat no-repeat;'>" +
-							    	"</a>" +
-							    	"<div style='text-align:center;'>" +pagesIntrc[i+1] + "</div>" + 
-						    	"</div>" +
-						    "</div>" +
-						    "<div class='ui-block-c' style='height:100%;'>" +
-						    	"<div is='icon' style='width:100%; height:100%; position:relative'>" +
-							    	"<span class='ui-li-count' style='position:absolute; display:none; z-index:1; right:0; top:6px;'></span>" +
-							    	"<a href='#' class='ui-btn ui-mini ui-corner-all ui-shadow'" + 
-							    	" style='display:block;margin:5px;height:50%;background-image: url(" + "image/data/" + items[i+2] + ".jpg); background-size: 95% 80%; background-position: 50% 50%; background-repeat: no-repeat no-repeat;'>" +
-							    	"</a>" +
-							    	"<div style='text-align:center;'>" + pagesIntrc[i+2] + "</div>" +
-						    	"</div>" +
-						    "</div>" +
-					   "</div>";
-		}
+		if(nowPage == 1)
+			for(var i = 0 ; i < items.length ; i+=3)
+			{
+				 // html += "<img class='searchImgLeft' src='" + "image/data/" + items[i] + ".jpg" + endl + 
+				 // 		"<img class='searchImgMiddle' src='" + "image/data/" + items[i+1] + ".jpg" + endl +
+				 // 		"<img class='searchImgRight' src='" + "image/data/" + items[i+2] + ".jpg" + endl + "<br />" +
+				 // 		"<span class='searchTextLeft'>" + pagesIntrc[i] + "</span>" +
+				 // 		"<span class='searchTextMiddle'>" +  pagesIntrc[i+1] + "</span>" + 
+				 // 		"<span class='searchTextRight'>" + pagesIntrc[i+2] + "</span>" ;
+				html += 	"<div class='ui-grid-b' style='height:150px;width:100%'>"+
+							    "<div class='ui-block-a' style='height:100%;'>" + 
+							    	"<div is='icon' style='width:100%; height:100%; position:relative'>" + 
+								    	"<span class='ui-li-count' style='position:absolute; display:none; z-index:1; right:0; top:6px;'></span>" + 
+								    	"<a href='#' class='ui-btn ui-mini ui-corner-all ui-shadow'" + 
+								    	" style='display:block;margin:5px;height:50%;background-image: url(" + "image/data/" + items[i] + ".jpg); background-size: 95% 80%; background-position: 50% 50%; background-repeat: no-repeat no-repeat;'>" +
+								    	"</a>" +
+								    	"<div style='text-align:center;'>" + pagesIntrc[i] +"</div>" + 
+							    	"</div>" +
+							    "</div>";
+							    if(i+1 >= items.length)
+							    	break;
+				html += 	    "<div class='ui-block-b' style='height:100%;'>" + 
+							    	"<div is='icon' style='width:100%; height:100%; position:relative'>" +
+								    	"<span class='ui-li-count' style='position:absolute; display:none; z-index:1; right:0; top:6px;'></span>" + 
+								    	"<a href='#' class='ui-btn ui-mini ui-corner-all ui-shadow'" + 
+								    	" style='display:block;margin:5px;height:50%;background-image: url(" + "image/data/" + items[i+1] + ".jpg); background-size: 95% 80%; background-position: 50% 50%; background-repeat: no-repeat no-repeat;'>" +
+								    	"</a>" +
+								    	"<div style='text-align:center;'>" +pagesIntrc[i+1] + "</div>" + 
+							    	"</div>" +
+							    "</div>";
+							    if(i+2 >= items.length)
+							    	break;
+				html +=		    "<div class='ui-block-c' style='height:100%;'>" +
+							    	"<div is='icon' style='width:100%; height:100%; position:relative'>" +
+								    	"<span class='ui-li-count' style='position:absolute; display:none; z-index:1; right:0; top:6px;'></span>" +
+								    	"<a href='#' class='ui-btn ui-mini ui-corner-all ui-shadow'" + 
+								    	" style='display:block;margin:5px;height:50%;background-image: url(" + "image/data/" + items[i+2] + ".jpg); background-size: 95% 80%; background-position: 50% 50%; background-repeat: no-repeat no-repeat;'>" +
+								    	"</a>" +
+								    	"<div style='text-align:center;'>" + pagesIntrc[i+2] + "</div>" +
+							    	"</div>" +
+							    "</div>" +
+						   "</div>";
+			}
+		nowPage = 1;
 		pageTwo.innerHTML = html;
 	},
 	hide: function() {
