@@ -38,22 +38,19 @@
         <link rel="stylesheet" type="text/css" href="web_api/bootstrap/css/bootstrap-theme.min.css">
         <link rel="stylesheet" href="web_api/jquery/jquery.mobile-1.4.5.min.css">
         <link rel="stylesheet" type="text/css" href="css/home.css">
-
+        
         <script src="web_api/bootstrap/js/bootstrap.min.js"></script>
         <script src="web_api/jquery/jquery-2.2.4.js"></script>
         <script src="web_api/jquery/jquery-1.11.3.min.js"></script>
         <script src="web_api/jquery/jquery.mobile-1.4.5.min.js"></script>
+        
+
         <title>HakkaTourSystem</title>
     </head>
     <body>
         <div class="app">
-<<<<<<< HEAD
-            <h1>Beacon test</h1>
-            <div id="deviceready" class="blink">
-                <div class="btn-group" role="group" aria-label="...">
-                    <button type="button" class="btn btn-default">Middle</button>
-=======
-            <div id="index" data-role="page">       
+            <!--主頁//-->
+            <div id="home" data-role="page">
                 <div data-role="main" class="ui-content">
                     <p>index</p>
                     <!-- 搜尋彈出區塊 
@@ -87,7 +84,7 @@
                         api: jquery.mobile-1.4.5.min.js
                     //-->
                     <div data-role="popup" data-arrow="b" id="dayPopup">
-                        <div data-role="header">
+                        <div data-role="header" class="a">
                             <h1>說明</h1>
                         </div>
                         <div data-role="main" class="ui-content">
@@ -128,7 +125,6 @@
                             alert("asdsad");
                         });
                     </script>
->>>>>>> d3844d4c7e1211367614b380a78463cc8f2e1708
                 </div>
                 <!--
                     下方功能選單區塊
@@ -137,7 +133,7 @@
                 -->
                 <div data-role="footer" data-position="fixed" data-fullscreen="true">
                     <div data-role="navbar">
-                        <ul>
+                        <ul id="homefootNavBar">
                             <li><a href="search.html" id="searchImg" data-ajax="false"><img style="width:90%;" src="image/search.png" is="image"></a></li>
                             <li><a href="group.html" id="groupImg" data-ajax="false"><img style="width:90%;" src="image/group.png" is="image"></a></li>
                             <li><a href="day.html"  id="dayImg" data-ajax="false"><img style="width:90%;" src="image/day.png" is="image"></a></li>
@@ -146,12 +142,13 @@
                         </ul>
                     </div>
                 </div>
-                <script type="text/javascript" src="js/popupExplan.js" defer></script>
-            </div>
+            </div>    
         </div>
 
         <script type="text/javascript" src="cordova.js" defer></script>
+        <script type="text/javascript" src="js/WebSQLDatabase.js"></script>
         <script type="text/javascript" src="js/index.js" defer></script>
-        <script type="text/javascript" src="js/changePage.js" defer></script>
+        <!--<script type="text/javascript" src="js/changePage.js" defer></script>//-->
+        <script type="text/javascript" src="js/popupExplan.js" defer></script>
     </body> 
 </html>

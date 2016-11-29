@@ -43,4 +43,3 @@ function pageRender(){
 function htmlShow(){
 	$(pages[nowPage]).show();
 }
-

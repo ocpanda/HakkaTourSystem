@@ -37,32 +37,41 @@ var app = {
     },
     // Update DOM on a Received Event
     receivedEvent: function(id) {
+        var deviceID = device.uuid;
+        var devicePlatform = device.platform;
+        if(devicePlatform == "browser"){
+            deviceID = "Test-Device";
+        }
+        localStorage.removeItem("deviceID");
+        if(deviceID != localStorage.getItem("deviceID")){
+            console.log("change deviceID");
+            localStorage.setItem("deviceID", deviceID);
+            var data={deviceID: localStorage.getItem("deviceID")};
+            addUser(data);
+        }
+
         console.log("Bluetooth initialize");
         bluetoothle.initialize(function(result){
             console.log("bluetooth adapter status: "+result.status);
         }, { request: true, statusReceiver: false });
-        /*new Promise(function(resolve){
-            bluetoothle.initialize(resolve, { request: true, statusReceiver: false });
-        }).then(app.initializeSuccess, app.handleError);*/
-    },
-
-        /*ble.isEnabled(
-            function(){
-                console.log("Bluetooth is enabled!");
-            },
-            function(){
-                console.log("Bluetooth is not enabled!");
-                if(cordova.platformId == 'android'){
-                    ble.showBluetoothSettings();
-                }
-            }
-<<<<<<< HEAD
-        );
     }
-    
-=======
-        );*/
->>>>>>> d3844d4c7e1211367614b380a78463cc8f2e1708
 };
 
 app.initialize();
+
+//將使用者UUID傳至server
+function addUser(data){
+    console.log(data);
+    $.ajax({
+        url:"http://140.130.35.62/csie40343142/Tour_System_server/php/TourGetMobileUUID.php",
+        type: "POST",
+        data: data,
+        dataType: "text",
+        success: function(result){
+            console.log(result);
+        },
+        error: function(){
+            console.log("使用者加入失敗!");
+        }
+    });
+}
