@@ -53,7 +53,7 @@ function showGroupList(){
 			//console.log($("#privateGroupList").find("li").length);
 		},
 		error: function(){
-			console.log("asdasdads");
+			console.log("create group list error!");
 		}
 	});
 }
@@ -89,7 +89,12 @@ function joinWinShow(groupName, type){
 			dataType: "text",
 			success: function(result){
 				console.log(result);
-				$("#groupJoin").popup("close");
+				$("#groupPopupMsg").html(result);
+				$("#groupMsg").popup("open", {transition: "pop"});
+				setTimeout(function(){
+					$("#groupMsg").popup("close");
+					$("#groupJoin").popup("close");
+				}, 1000);
 			}
 		});
 		event.preventDefault();  //將submit ajax傳送關閉
