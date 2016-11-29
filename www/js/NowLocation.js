@@ -68,7 +68,7 @@ function addScanedBeacon(name, rssi){
 		fundDevices["config"].number += 1;
 		addNameList(name);
 	}
-	
+
 	function addNameList(name){
 		var add = 0;
 		for(var i=0; i<fundDevices["config"].nameList.length; i++){
@@ -112,8 +112,6 @@ var calcLocation = {
 
 	startCalc: function(){
 		//計算使用者與各beacon距離
-		for(var i=0; i<fundDevices["config"]; i++){
-			
-		}
+		
 	}
 }
