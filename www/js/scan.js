@@ -3,28 +3,6 @@
  * use for local storage
  * call this class to put your data into local storage
  */
-function BeaconDataStorage(){
-	this.dataStorage = window.localStorage;
-}
-
-BeaconDataStorage.prototype.getData = function(key){
-	return this.dataStorage.getItem(key);
-}
-
-BeaconDataStorage.prototype.setData = function(key, item){
-	this.dataStorage.setItem(key, item);
-}
-
-BeaconDataStorage.prototype.removeData = function(key){
-	this.dataStorage.removeItem(key);
-}
-
-BeaconDataStorage.prototype.clearData = function(){
-	this.dataStorage.clear();
-}
-/**
- * Beacon data storage class
- */
 
 var items = ["table", "chair", "mouse","anglee"];
 var pagesIntrc = ["桌子", "椅子", "滑鼠", "安哥"];
@@ -44,6 +22,53 @@ var dataNum = 0;
 var beaconDataStorage = new BeaconDataStorage();
 var foundDevices = [];
 var scanBeacon;
+
+function BeaconDataStorage(){
+	this.dataStorage = window.localStorage;
+}
+
+BeaconDataStorage.prototype.getData = function(key){
+	return this.dataStorage.getItem(key);
+}
+
+BeaconDataStorage.prototype.setData = function(key, item){
+	this.dataStorage.setItem(key, item);
+}
+
+BeaconDataStorage.prototype.removeData = function(key){
+	this.dataStorage.removeItem(key);
+}
+
+BeaconDataStorage.prototype.clearData = function(){
+	this.dataStorage.clear();
+}
+
+function pageTopBKColorInit(){
+	$("#pageOne").hide();
+	$("#pageTwo").hide();
+	$("#goPageOne").css("background", "white");
+	$("#goPageTwo").css("background", "white");
+}
+
+function pageRender(){
+	switch(nowPage){
+		case 0:
+			$("#goPageOne").css("background", "#6666FF");
+			break;
+
+		case 1:
+			$("#goPageTwo").css("background", "#6666FF");
+			break;
+	}
+}
+
+function htmlShow(){
+	$(pages[nowPage]).show();
+}
+/**
+ * Beacon data storage class
+ */
+
 var scanapp = {
 	goScan: function(){
 		this.bindEvents();
@@ -75,17 +100,18 @@ var scanapp = {
 		var scanSeconds = 5;
 		foundDevices = [];
 		console.log("scanning!");
-
 		bluetoothle.startScan(
 			function(result){
 				console.log("scan status "+result.status);
 				if (result.status === "scanStarted") {
 			        console.log("Scanning for devices");
 			    }
-			    else if (result.status === "scanResult") {
+			    else if (result.status === "scanResult") 
+			    {
 			        if (!foundDevices.some(function (device) {
 			            return device.address === result.address;
-			        })) {
+			        })) 
+			        {
 			            console.log("FOUND DEVICE:");
 			            var name = new Array();
 			            var name = result.name.toString().split(" ");
@@ -105,18 +131,16 @@ var scanapp = {
 				        }
 				        scanBeacon = {beacon_Name: name[0], beacon_rssi: result.rssi}; 
 				        console.log("scanBeacon name: "+scanBeacon['beacon_Name']+" scanBeacon rssi: "+scanBeacon['beacon_rssi']);
-				       
 				        /**
 				         * 傳送beacon資料至server端php執行
 				         */
 				        //$.post("http://140.130.35.62/csie40343142/Tour_System_server/php/userScanBeacon.php",
 				        //	scanBeacon, function(res){console.log(res)}, "json");
 			        }
-			        dataNum+=1;
-			    }
+				    dataNum+=1;
+				}
 			},
 			function(error){},{services: []});
-
 		setTimeout(bluetoothle.stopScan, scanSeconds*1000, function(result){
 			for(var i=0; i<10; i++){
 				console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1");
@@ -233,26 +257,3 @@ var scanapp = {
 	}*/
 }
 scanapp.goScan();
-
-function pageTopBKColorInit(){
-	$("#pageOne").hide();
-	$("#pageTwo").hide();
-	$("#goPageOne").css("background", "white");
-	$("#goPageTwo").css("background", "white");
-}
-
-function pageRender(){
-	switch(nowPage){
-		case 0:
-			$("#goPageOne").css("background", "#6666FF");
-			break;
-
-		case 1:
-			$("#goPageTwo").css("background", "#6666FF");
-			break;
-	}
-}
-
-function htmlShow(){
-	$(pages[nowPage]).show();
-}
