@@ -50,6 +50,21 @@ var app = {
             addUser(data);
         }
 
+        /*紀錄app登入次數  上線將下方註解拿掉即可使用*/
+        /*$.ajax({
+            url: "http://140.115.197.16/",
+            type: "GET",
+            data: "school=nfu&app=test",
+            dataType: "jsonp",
+            jsonp: "callback",
+            success: function(json,textStatus){    
+                console.log("jsonp.success:"+json.name);    
+            },    
+            error: function(XMLHttpRequest,textStatus,errorThrown){    
+                console.log("jsonp.error:"+textStatus);    
+            }
+        });*/
+
         console.log("Bluetooth initialize");
         bluetoothle.initialize(function(result){
             console.log("bluetooth adapter status: "+result.status);
