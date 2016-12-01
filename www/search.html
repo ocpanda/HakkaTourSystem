@@ -6,11 +6,13 @@
     <script src="web_api/jquery/jquery.mobile-1.4.5.min.js"></script>
     <div data-role="main" class="ui-content">
         <!--<button type="button" class="btn btn-default btn1" id="stopScanBtn">stop scan</button>//-->
-        <div data-role="navbar">
-            <ul>
-                <li><button id="goPageOne">搜尋</button></li>
-                <li><button id="goPageTwo">推薦</button></li>
-            </ul>
+        <div data-role="header" data-position="fixed">
+            <div data-role="navbar">
+                <ul>
+                    <li><button id="goPageOne">搜尋</button></li>
+                    <li><button id="goPageTwo">推薦</button></li>
+                </ul>
+            </div>
         </div>
         <div id="pageOne" class="scanapp">
             <a href="#" id="scanBtn" class="ui-btn">搜尋附近展覽物</a>
@@ -28,7 +30,7 @@
                 </table>
         </div>
         <div id="pageTwo">
-            <img class="searchImgLeft" src="image/data/table.jpg"><img class="searchImgMiddle" src="image/data/chair.jpg"><img class="searchImgRight" src="image/data/mouse.jpg">
+            
         </div>
         <!-- 首頁彈出區塊 
             api: jquery-1.11.3.min.js
@@ -110,7 +112,7 @@
             </ul>
         </div>
     </div>
-    <script type="text/javascript" src="js/SearchShowPageContent.js"></script>
     <script type="text/javascript" src="js/scan.js"></script>
+    <script type="text/javascript" src="cordova.js"></script>
     <script type="text/javascript" src="js/popupExplan.js"></script>
 </div>
