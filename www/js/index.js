@@ -50,13 +50,32 @@ var app = {
             addUser(data);
         }
 
+        /*紀錄app登入次數  上線將下方註解拿掉即可使用*/
+        /*$.ajax({
+            url: "http://140.115.197.16/",
+            type: "GET",
+            data: "school=nfu&app=test",
+            dataType: "jsonp",
+            jsonp: "callback",
+            success: function(json,textStatus){    
+                console.log("jsonp.success:"+json.name);    
+            },    
+            error: function(XMLHttpRequest,textStatus,errorThrown){    
+                console.log("jsonp.error:"+textStatus);    
+            }
+        });*/
+
         console.log("Bluetooth initialize");
         bluetoothle.initialize(function(result){
             console.log("bluetooth adapter status: "+result.status);
         }, { request: true, statusReceiver: false });
+        app.gocalc();
+    },
+    gocalc: function(){
+        setInterval(calcLocation.deviceScan, 3000);
+        //setInterval(calcLocation.show, 2000);
     }
 };
-
 app.initialize();
 
 //將使用者UUID傳至server
@@ -75,3 +94,79 @@ function addUser(data){
         }
     });
 }
+
+/*
+計算使用者與beacon距離並推算目前所在位置
+ */
+var fundDevices = [];
+var scanSeconds = 3; //每3秒執行一次
+var calcLocation = {
+    /*show: function(){
+        for(var i=0; i<6; i++)
+            console.log("sssssssssssssssssssssss!!!!!!!!!!!!!!!!!!!!!!!!!!");
+    },*/
+    //建立fundDevices 的object
+    addScanedBeacon: function(name, rssi){
+        if(name === "config"){
+            //fundDevices config, rssi為資料數量 
+            fundDevices["config"] = {number: 0, nameList: []};
+        }
+        else{
+            fundDevices[name] = {rssi: rssi};
+            fundDevices["config"].number += 1;
+            addNameList(name);
+        }
+
+        function addNameList(name){
+            var add = 0;
+            for(var i=0; i<fundDevices["config"].nameList.length; i++){
+                if(fundDevices["config"].nameList[i] == name){
+                    add = 1;
+                    break;
+                }
+            }
+            if(add == 0){
+                fundDevices["config"].nameList.push(name);
+            }
+        }
+    },
+    deviceScan: function(){
+        console.log("start scan!!!!!!!!!!!!!!!!!!!!!");
+        bluetoothle.startScan(
+            function(result){
+                if(result.status === "scanStarted"){
+                    console.log("Scanning for devices!");
+                    calcLocation.addScanedBeacon("config", 0);
+                }
+                else if(result.status === "scanResult"){
+                    //掃描beacon
+                    
+                    if(fundDevices[result.name] != "undefined"){
+                        newData = 0;
+                        calcLocation.addScanedBeacon(result.name, result.rssi);
+                    }
+                    else{
+                        fundDevices["config"].number += 1;
+                        calcLocation.addScanedBeacon(result.name, result.rssi);
+                        //fundDevices.push(new ScanedBeacon(result.name, result.rssi));
+                    }
+                }
+            },
+            function(error){},{sercvices:[]});
+        setTimeout(bluetoothle.stopScan, 1500, function(){
+            //開始計算距離
+            calcLocation.startCalc();
+        });
+    },
+    startCalc: function(){
+        //計算使用者與各beacon距離
+        for(var i=0; i<fundDevices["config"].nameList.length; i++){
+            var temp = (-58.3 - fundDevices[fundDevices["config"].nameList[i]].rssi) / (10 * 3);
+            console.log("calc!calc!calc!calc!calc!calc!calc!calc!calc!calc!calc!");
+            console.log("name:"+fundDevices["config"].nameList[i]+" distance:"+Math.pow(10, temp));
+            $("#asd").append("<p>"+"name:"+fundDevices["config"].nameList[i]+" distance:"+Math.pow(10, temp)+"</p>");   
+            //beaconData[fundDevices["config"].nameList[i]].distance = Math.pow(10, temp);
+        }
+    }
+}
+//setInterval(calcLocation.deviceScan(), 3000);
