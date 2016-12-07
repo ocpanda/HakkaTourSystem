@@ -170,3 +170,59 @@ var calcLocation = {
     }
 }
 //setInterval(calcLocation.deviceScan(), 3000);
+//
+/*
+    儲存beacon資料陣列 拿取展物位置資訊
+*/
+//beacon data object
+/*var beaconData = [];
+var getItemData = {
+    addBeaconData: function(name, x, y){
+        if(name === "config"){
+            //如果傳入為config為設定config資料x欄為beacon數量y=0
+            beaconData["config"] = {number: x, nameList: []};
+        }
+        else{
+            beaconData[name] = {beaconLocX: x, beaconLocY: y, distance: 9999};
+            addNameList(name);
+        }
+
+        //加入config nameList內容
+        function addNameList(name){
+            var add = 0;
+            //檢查是名稱表內是否有一樣的名字
+            for(var i=0; i<beaconData["config"].nameList.length; i++){
+                if(beaconData["config"].nameList[i] == name){
+                    add = 1;
+                    break;
+                }
+            }
+            if(add == 0){
+                beaconData["config"].nameList.push(name);
+            }
+        }
+    },
+    getBeaconData: function(){
+        $.ajax({
+            url: "http://140.130.35.62/csie40343142/Tour_System_server/php/TourGroupShowList.php",
+            type: "POST",
+            dataType: "json",
+            success: function(result){
+                //將目前展區beacon 位置資訊讀入
+                //將beaconData陣列的config初始化(給定beacon數量)
+                this.addBeaconData("config", result['beaconName'].length, 0);
+                if(beaconData[config].number == result['beaconName'].length){
+                    for(var i=0; i<result['beaconName'].length; i++){
+                        this.addBeaconData(result['beaconName'], result['beaconLocX'], result['beaconLocY']);
+                    }
+                }
+                else{
+                    console.log("beacon number initialize error!");
+                }
+            },
+            error: function(){
+                console.log("get beacon data error!!");
+            }
+        });
+    }
+}*/
