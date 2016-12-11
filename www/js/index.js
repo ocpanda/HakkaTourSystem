@@ -57,11 +57,11 @@ var app = {
             data: "school=nfu&app=test",
             dataType: "jsonp",
             jsonp: "callback",
-            success: function(json,textStatus){    
-                console.log("jsonp.success:"+json.name);    
-            },    
-            error: function(XMLHttpRequest,textStatus,errorThrown){    
-                console.log("jsonp.error:"+textStatus);    
+            success: function(json,textStatus){
+                console.log("jsonp.success:"+json.name);
+            },
+            error: function(XMLHttpRequest,textStatus,errorThrown){
+                console.log("jsonp.error:"+textStatus);
             }
         });*/
 
@@ -108,7 +108,7 @@ var calcLocation = {
     //建立fundDevices 的object
     addScanedBeacon: function(name, rssi){
         if(name === "config"){
-            //fundDevices config, rssi為資料數量 
+            //fundDevices config, rssi為資料數量
             fundDevices["config"] = {number: 0, nameList: []};
         }
         else{
@@ -140,7 +140,7 @@ var calcLocation = {
                 }
                 else if(result.status === "scanResult"){
                     //掃描beacon
-                    
+
                     if(fundDevices[result.name] != "undefined"){
                         newData = 0;
                         calcLocation.addScanedBeacon(result.name, result.rssi);
@@ -163,8 +163,8 @@ var calcLocation = {
         for(var i=0; i<fundDevices["config"].nameList.length; i++){
             var temp = (-58.3 - fundDevices[fundDevices["config"].nameList[i]].rssi) / (10 * 3);
             console.log("calc!calc!calc!calc!calc!calc!calc!calc!calc!calc!calc!");
-            console.log("name:"+fundDevices["config"].nameList[i]+" distance:"+Math.pow(10, temp));
-            $("#asd").append("<p>"+"name:"+fundDevices["config"].nameList[i]+" distance:"+Math.pow(10, temp)+"</p>");   
+            console.log("name:"+fundDevices["config"].nameList[i]+" distance:"+Math.pow(10, temp)+" rss:"+fundDevices[fundDevices["config"].nameList[i]].rssi);
+            $("#asd").append("<p>"+"name:"+fundDevices["config"].nameList[i]+" distance:"+Math.pow(10, temp)+"</p>");
             //beaconData[fundDevices["config"].nameList[i]].distance = Math.pow(10, temp);
         }
     }
