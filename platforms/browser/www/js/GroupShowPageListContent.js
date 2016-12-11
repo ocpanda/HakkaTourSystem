@@ -53,7 +53,7 @@ function showGroupList(){
 			//console.log($("#privateGroupList").find("li").length);
 		},
 		error: function(){
-			console.log("asdasdads");
+			console.log("create group list error!");
 		}
 	});
 }
