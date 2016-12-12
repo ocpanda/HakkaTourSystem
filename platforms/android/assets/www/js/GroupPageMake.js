@@ -44,7 +44,7 @@ $("#submitBtn").on("click", function(event) {
 				if(timeOutTime == 1000){
 					console.log("page change!!!!!!!");
 					nowPage = 0;
-					$("input[name='groupName']").val("");	
+					$("input[name='groupName']").val("");
 					pageTopBKColorInit();
 					pageRender();
 					htmlShow();
