@@ -26,17 +26,17 @@ var app = {
     // Bind any events that are required on startup. Common events are:
     // 'load', 'deviceready', 'offline', and 'online'.
     bindEvents: function() {
-        document.addEventListener('deviceready', this.onDeviceReady, false);//2 依樣
+        document.addEventListener('deviceready', this.onDeviceReady, false);
     },
     // deviceready Event Handler
     //
     // The scope of 'this' is the event. In order to call the 'receivedEvent'
     // function, we must explicitly call 'app.receivedEvent(...);'
-    onDeviceReady: function() {//2 依樣
+    onDeviceReady: function() {
         app.receivedEvent('deviceready');
     },
     // Update DOM on a Received Event
-    receivedEvent: function(id) {//2 依樣
+    receivedEvent: function(id) {
         var deviceID = device.uuid;
         var devicePlatform = device.platform;
         if(devicePlatform == "browser"){
@@ -106,16 +106,12 @@ var startTime = new Date().getTime();
 var endTime = 0;
 var switcher = 0;
 var calcLocation = {
-    /*show: function(){
-        for(var i=0; i<6; i++)
-            console.log("sssssssssssssssssssssss!!!!!!!!!!!!!!!!!!!!!!!!!!");
-    },*/
     //建立紀錄scan後計算距離的object
     addData: function(name, distance, rss, time){
       if(text[name] == undefined){
         text[name] = {data: []};
       }
-      text[name].data.push("<a>距離:"+distance+" RSS:"+rss+" 取得時間:"+time+"sec</a><br>") //16 加進陣列
+      text[name].data.push("<a>距離:"+distance.toFixed(4)+" RSS:"+rss+" 取得時間:"+time+"sec</a><br>") //16 加進陣列
     },
     addScanedCalc: function(name, distance, rss){// 14 here
       if(name === "config"){
@@ -190,38 +186,41 @@ var calcLocation = {
             function(result){
                 if(result.status === "scanStarted"){
                     console.log("Scanning for devices!");
-                    calcLocation.addScanedBeacon("config", 0);//  5 這裡是加入我的設備資訊
+                    calcLocation.addScanedBeacon("config", 0);
                     calcLocation.addScanedCalc("config", 0);
                 }
                 else if(result.status === "scanResult"){
                   //掃描beacon
-                  calcLocation.addScanedBeacon(result.address, result.rssi); //掃描後進入這個 beaconName為result.address
+                  //var name1 = result.name.replace(/(\W+)/g, "");
+                  var name = result.address.replace(/(\W+)/g, "");
+                  //alert(name);
+                  calcLocation.addScanedBeacon(name, result.rssi);
                 }
             },
             function(error){},{sercvices:[]});
         setTimeout(bluetoothle.stopScan, 1500, function(){
             //開始計算距離
-            calcLocation.startCalc();// 11 執行1.5 秒結束執行startCalc
+            calcLocation.startCalc();
         });
     },
-    startCalc: function(){  // 12 這裡
+    startCalc: function(){
         //計算使用者與各beacon距離
         for(var i=0; i<fundDevices["config"].nameList.length; i++){
-            var beaconName = fundDevices["config"].nameList[i]; //here
+            var beaconName = fundDevices["config"].nameList[i];
             var rss = fundDevices[fundDevices["config"].nameList[i]].rssi;
             var temp = (-58.3 - rss) / (10 * 5);
             var temp2 = Math.pow(10, temp);
 
-            calcLocation.addScanedCalc(beaconName, temp2, 0);  //13 這是加入我已經計算好的距離 把他加進表中
-              // beaconName 的那個陣列是哪一個, ok try it <<
+            calcLocation.addScanedCalc(beaconName, temp2, 0);
+
             var beaconNum = fundDevices["config"].nameList.indexOf(beaconName);
-            alert(beaconNum);
-            if($("#addaa"+beaconNum).length > 0){    // yes
-              alert("存在");
-              $("#addaa"+beaconNum).html("與"+beaconName+"平均距離："+calcLocation.addScanedCalc("calcAvg", beaconName, rss).toFixed(4));
+            //alert(beaconNum);
+            if($("#beacon"+beaconNum).length > 0){
+              //alert("存在");
+              $("#beacon"+beaconNum).html("與"+beaconName+"平均距離："+calcLocation.addScanedCalc("calcAvg", beaconName, rss).toFixed(4));
             }
-            else{  // try,then me see.............try?that go <<
-              $("#dsa").append("<a id='addaa"+beaconNum+"'>"+$("#addaa"+beaconNum).length+"與"+beaconName+"平均距離："+calcLocation.addScanedCalc("calcAvg", beaconName, rss).toFixed(4)+"</a><br>");
+            else{
+              $("#dsa").append("<a id='beacon"+beaconNum+"'>"+"與"+beaconName+"平均距離："+calcLocation.addScanedCalc("calcAvg", beaconName, rss).toFixed(4)+"</a><br>");
               //switcher = 1;
             }
             //$("#"+name).html("與"+beaconName+"平均距離："+calcLocation.addScanedCalc("calcAvg", beaconName, rss));
