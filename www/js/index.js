@@ -16,6 +16,14 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+document.addEventListener("pause", onPause, false);
+var myVar;
+function onPause() {
+    // Handle the pause event
+    console.log('exitexitexitexitexitexitexitexitexitexitexitexit');
+    clearInterval(myVar);
+}
+
 var app = {
     // Application Constructor
     initialize: function() {
@@ -72,8 +80,7 @@ var app = {
         app.gocalc();
     },
     gocalc: function(){//3 初始化完成後跑到calcLocation這個物件的deviceScan
-        setInterval(calcLocation.deviceScan, 3000);
-        //setInterval(calcLocation.show, 2000);
+      calcLocation.main();
     },
     /*
     code by C.H Chiang
@@ -118,6 +125,18 @@ code by C.H Chiang
 class: 紀錄beacon位置資訊及計算出beacon與使用者之距離
 */
 var calcLocation = {
+    /*
+    code by C.H Chiang
+    function: main> calcLocation程式切入點
+    input: null
+    output: null
+    use: calcLocation.main()
+    */
+    main: function(){
+      //先進行展區beacon資料的初始化
+      calcLocation.getBeaconData();
+      myVar = setInterval(calcLocation.deviceScan, 3000);
+    },
     /*
     code by C.H Chiang
     function: addData> 建立紀錄scan後計算的距離(測試用功能)
@@ -216,27 +235,24 @@ var calcLocation = {
     use: calcLocation.addBeaconData(name, x, y)
     */
     addBeaconData: function(name, x, y){
+        console.log("inside:"+x+" "+y);
         if(name === "config"){
             //如果傳入為config為設定config資料x欄為beacon數量y=0
-            beaconData["config"] = {number: x, nameList: []};
+            beaconData["config"] = {number: 0, nameList: []};
         }
         else{
             beaconData[name] = {beaconLocX: x, beaconLocY: y, distance: 9999};
+
             addNameList(name);
         }
 
         //加入config nameList內容
         function addNameList(name){
-            var add = 0;
+            //var add = 0;
             //檢查是名稱表內是否有一樣的名字
-            for(var i=0; i<beaconData["config"].nameList.length; i++){
-                if(beaconData["config"].nameList[i] == name){
-                    add = 1;
-                    break;
-                }
-            }
-            if(add == 0){
+            if(beaconData[name] === undefined){
                 beaconData["config"].nameList.push(name);
+                beaconData["config"].number++;
             }
         }
     },
@@ -248,27 +264,26 @@ var calcLocation = {
     use: calcLocation.getBeaconData()
     */
     getBeaconData: function(){
-        $.ajax({
-            url: "http://140.130.35.62/hakka/Tour_System_server/php/TourGroupShowList.php",
-            type: "POST",
-            dataType: "json",
-            success: function(result){
-                //將目前展區beacon 位置資訊讀入
-                //將beaconData陣列的config初始化(給定beacon數量)
-                this.addBeaconData("config", result['beaconName'].length, 0);
-                if(beaconData[config].number == result['beaconName'].length){
+        if(beaconData["config"] === undefined){
+            $.ajax({
+                url: "http://140.130.35.62/csie40343142/Tour_System_server/php/TourGetBeaconData.php",
+                type: "POST",
+                dataType: "json",
+                success: function(result){
+                    //將目前展區beacon 位置資訊讀入
+                    //將beaconData陣列的config初始化(給定beacon數量)
+                    calcLocation.addBeaconData("config", 0, 0);
                     for(var i=0; i<result['beaconName'].length; i++){
-                        this.addBeaconData(result['beaconName'], result['beaconLocX'], result['beaconLocY']);
+                        console.log("outside:"+result['location_x'][i]+" "+ result['location_y'][i]);
+                        var x = result['location_x'][i]; var y = result['location_y'][i];
+                        calcLocation.addBeaconData(result['beaconName'][i], x, y);
                     }
+                },
+                error: function(){
+                    console.log("get beacon data error!!");
                 }
-                else{
-                    console.log("beacon number initialize error!");
-                }
-            },
-            error: function(){
-                console.log("get beacon data error!!");
-            }
-        });
+            });
+        }
     },
     /*
     code by C.H Chiang
@@ -296,6 +311,7 @@ var calcLocation = {
                     console.log("Scanning for devices!");
                     calcLocation.addScanedBeacon("config", 0);
                     calcLocation.addScanedCalc("config", 0);
+                    calcLocation.addBeaconData("config", 0, 0);
                 }
                 else if(result.status === "scanResult"){
                   //掃描beacon
@@ -303,9 +319,10 @@ var calcLocation = {
                   var name = result.address.replace(/(\W+)/g, "");
                   //alert(name);
                   calcLocation.addScanedBeacon(name, result.rssi);
+                  calcLocation.addBeaconData(name, 0, 0);
                 }
             },
-            function(error){},{sercvices:[]});
+            function(error){console.log("scan error! "+error); return;},{sercvices:[]});
         setTimeout(bluetoothle.stopScan, 1500, function(){
             //開始計算距離
             calcLocation.startCalc();
@@ -325,7 +342,8 @@ var calcLocation = {
             var rss = fundDevices[fundDevices["config"].nameList[i]].rssi;
             var temp = (-58.3 - rss) / (10 * 5);
             var temp2 = Math.pow(10, temp);
-
+            calcLocation.addBeaconData(beaconName, 0, 0);
+            beaconData[beaconName].distance = temp2;
             calcLocation.addScanedCalc(beaconName, temp2, 0);
 
             /*
@@ -344,6 +362,15 @@ var calcLocation = {
             $("#bdata").listview("refresh");
             //測試功能到此為止
         }
+        GaussianElimination.main();
+        /*if($("#userLocation").length > 0){
+          $("#userLocation").html("X:"+ gaussianProcessData["config"].s[0] + "  Y:" + gaussianProcessData["config"].s[1]);
+        }
+        else{
+            $("#dsa").append("<a>calced!</a>");
+            $("#dsa").append("<a id='userLocation'>X:" + gaussianProcessData["config"].s[0] + "  Y:"+ gaussianProcessData["config"].s[1]);
+        }*/
+        //gaussianProcessData = undefined;
     }
 }
 
@@ -353,83 +380,155 @@ class: 使用高斯消去法將beacon的RSS誤差值給消去 計算最小誤差
 aj=xj-x1, bj=yj-y1, cj=aj+bj-(dj^2-d1^2)
 variables: gaussianProcessData用於高斯演算法
                 s 為最終計算使用者位置結果x,y
-                h = |a1  b1|
-                    |.   . |
-                    |an  bn|
-                q = |c1|
-                    |. |
-                    |cn|
+                a = |a1  b1 c1|
+                    |.   .  . |
+                    |an  bn cn|
 */
+var x1 = 0, y1 = 0;
 var gaussianProcessData = [];
 var GaussianElimination={
+  /*
+  code by C.H Chiang
+  function: main> 高斯消去法 進入點
+  input: null
+  output: null
+  use: GaussianElimination.main()
+  */
+  main: function(){
+      console.log("start calc!!!!!!!!!!!!!!!!!!!!!!!!!!!  " + beaconData["config"].nameList[0] +
+       " X:"+beaconData[beaconData["config"].nameList[0]].beaconLocX +
+        " Y:"+beaconData[beaconData["config"].nameList[0]].beaconLocY);
+        console.log("start calc!!!!!!!!!!!!!!!!!!!!!!!!!!!  " + beaconData["config"].nameList[1] +
+         " X:"+beaconData[beaconData["config"].nameList[1]].beaconLocX +
+          " Y:"+beaconData[beaconData["config"].nameList[1]].beaconLocY);
+          console.log("start calc!!!!!!!!!!!!!!!!!!!!!!!!!!!  " + beaconData["config"].nameList[2] +
+           " X:"+beaconData[beaconData["config"].nameList[2]].beaconLocX +
+            " Y:"+beaconData[beaconData["config"].nameList[2]].beaconLocY);
+      GaussianElimination.getData();
+  },
+  /*
+  code by C.H Chiang
+  function: addData> 將高斯消去法之s,h,q矩陣加入資料
+  input: beaconName
+  output: null
+  use: GaussianElimination.addData(beaconName)
+  */
   addData: function(name){
     if(name === "config"){
-      if(gaussianProcessData == undefined){
-        gaussianProcessData["config"] = {s: [], h: [],, q:[]};
+      if(gaussianProcessData["config"] == undefined){
+        gaussianProcessData["config"] = {number: 0, s: [], a: []};
+        gaussianProcessData["config"].a[0] = [];
+        gaussianProcessData["config"].a[1] = [];
+        gaussianProcessData["config"].a[2] = [];
+        /*
+        網頁伺服器讚實無法改動
+        因此先給定值
+        */
+        /*if(beaconData[beaconData["config"].nameList[0]] != undefined){
+          beaconData[beaconData["config"].nameList[0]].beaconLocX = 1.0;
+          beaconData[beaconData["config"].nameList[0]].beaconLocY = 2.0;
+        }
+        if(beaconData[beaconData["config"].nameList[1]] != undefined){
+          beaconData[beaconData["config"].nameList[1]].beaconLocX = 1.0;
+          beaconData[beaconData["config"].nameList[1]].beaconLocY = 2.0;
+        }
+        if(beaconData[beaconData["config"].nameList[2]] != undefined){
+          beaconData[beaconData["config"].nameList[2]].beaconLocX = 1.0;
+          beaconData[beaconData["config"].nameList[2]].beaconLocY = 2.0;
+        }*/
+        ////////////////////////////////////////////////////////
       }
     }
     else{
-        gaussianProcessData[name].h[0].push();
+      //由aj bj cj 組合為一個a陣列 給高斯演算法做計算
+      var aj = beaconData[name].beaconLocX - beaconData[beaconData["config"].nameList[0]].beaconLocX;
+      var bj = beaconData[name].beaconLocY - beaconData[beaconData["config"].nameList[0]].beaconLocY;
+      var cj = (aj + bj - (Math.pow(beaconData[name].distance, 2.0)-Math.pow(beaconData[beaconData["config"].nameList[0]].distance, 2.0)));
+
+      if(gaussianProcessData[name] != undefined){
+        gaussianProcessData["config"].number += 1;
+      }
+      console.log("this is aj = "+aj);
+      console.log("this is bj = "+bj);
+      console.log("this is cj = "+cj);
+      //a[0]為a1~an, a[1]為b1~bn, a[2]為c1~cn
+      gaussianProcessData["config"].a[0].push(aj);
+      gaussianProcessData["config"].a[1].push(bj);
+      gaussianProcessData["config"].a[2].push(cj);
+      //console.log("asdawdqaefwefawrgawgwrg     " + gaussianProcessData["config"].a[0]);
     }
   },
+  /*
+  code by C.H Chiang
+  function: getData> 以beaconName依序 將資料加入高斯演算法資料陣列
+  input: null
+  output: null
+  use: GaussianElimination.getData()
+  */
   getData: function(){
-
-  }
-}
-//setInterval(calcLocation.deviceScan(), 3000);
-//
-/*
-    儲存beacon資料陣列 拿取展物位置資訊
-*/
-//beacon data object
-/*var beaconData = [];
-var getItemData = {
-    addBeaconData: function(name, x, y){
-        if(name === "config"){
-            //如果傳入為config為設定config資料x欄為beacon數量y=0
-            beaconData["config"] = {number: x, nameList: []};
-        }
-        else{
-            beaconData[name] = {beaconLocX: x, beaconLocY: y, distance: 9999};
-            addNameList(name);
-        }
-
-        //加入config nameList內容
-        function addNameList(name){
-            var add = 0;
-            //檢查是名稱表內是否有一樣的名字
-            for(var i=0; i<beaconData["config"].nameList.length; i++){
-                if(beaconData["config"].nameList[i] == name){
-                    add = 1;
-                    break;
-                }
-            }
-            if(add == 0){
-                beaconData["config"].nameList.push(name);
-            }
-        }
-    },
-    getBeaconData: function(){
-        $.ajax({
-            url: "http://140.130.35.62/csie40343142/Tour_System_server/php/TourGroupShowList.php",
-            type: "POST",
-            dataType: "json",
-            success: function(result){
-                //將目前展區beacon 位置資訊讀入
-                //將beaconData陣列的config初始化(給定beacon數量)
-                this.addBeaconData("config", result['beaconName'].length, 0);
-                if(beaconData[config].number == result['beaconName'].length){
-                    for(var i=0; i<result['beaconName'].length; i++){
-                        this.addBeaconData(result['beaconName'], result['beaconLocX'], result['beaconLocY']);
-                    }
-                }
-                else{
-                    console.log("beacon number initialize error!");
-                }
-            },
-            error: function(){
-                console.log("get beacon data error!!");
-            }
-        });
+    GaussianElimination.addData("config");
+    for(var i=1; i<beaconData["config"].nameList.length; i++){
+      GaussianElimination.addData(beaconData["config"].nameList[i]);
     }
-}*/
+    if(beaconData["config"].nameList.length >=3){
+        console.log("realy calc!!!!!!!!!!!");
+        gaussianProcessData["config"].s = GaussianElimination.gaussianCalc();
+    }
+  },
+  gaussianCalc: function(){
+        console.log("this is a[0] = "+gaussianProcessData["config"].a[0]);
+        console.log("this is a[1] = "+gaussianProcessData["config"].a[1]);
+        console.log("this is a[2] = "+gaussianProcessData["config"].a[2]);
+        var aa = [];
+        //將橫向陣列內容轉為直向
+        for(var i=0; i<gaussianProcessData["config"].a[0].length; i++){
+            aa[i] = [];
+            for(var o=0; o<3; o++){
+              aa[i].push(gaussianProcessData["config"].a[o][i]);
+            }
+        }
+
+
+        var n = aa.length;
+        for(var i=0; i<n; i++){
+          var maxEl = Math.abs(aa[i][i]);
+          var maxRow = i;
+          // Search for maximum in this column
+          for(var o=i+1; o<n; o++){
+            if(Math.abs(aa[o][i]) > maxEl){
+              maxEl = Math.abs(aa[o][i]);
+              maxRow = o;
+            }
+          }
+          // Swap maximum row with current row (column by column)
+          for (var o=i; o<n+1; o++) {
+              var tmp = aa[maxRow][o];
+              aa[maxRow][o] = aa[i][o];
+              aa[i][o] = tmp;
+          }
+          // Make all rows below this one 0 in current column
+          for (var o=i+1; o<n; o++) {
+              var c = -aa[o][i]/aa[i][i];
+              for(var j=i; j<n+1; j++) {
+                  if (i==j) {
+                      aa[o][j] = 0;
+                  } else {
+                      aa[o][j] += c * aa[i][j];
+                  }
+              }
+          }
+        }
+        console.log("aa is "+aa);
+        // Solve equation Ax=b for an upper triangular matrix A
+        var x= new Array(n);
+        for (var i=n-1; i>-1; i--) {
+            x[i] = aa[i][n]/aa[i][i];
+            console.log("x["+i+"] is " + x[i]);
+            for (var k=i-1; k>-1; k--) {
+                aa[k][n] -= aa[k][i] * x[i];
+            }
+        }
+        //console.log("x is " + x);
+        return x;
+    }
+}
