@@ -105,7 +105,7 @@ $("#keyWord").keypress(function(event) {
 **					  **
 ************************/
 
-var completeWord = ["雙頭鋸", "鋒仔", "米篩目板"];
+var completeWord = ['雙頭鋸', '鋒仔', '米篩目板'];
 
 $("#keyWord").autocomplete({source: completeWord});
 

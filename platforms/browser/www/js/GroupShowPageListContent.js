@@ -46,7 +46,7 @@ function showGroupList(){
 				joinWinShow(id, "public");
 				//console.log(id);
 			});
-			
+
 
 			$("#privateGroupList").listview("refresh");
 			$("#publicGroupList").listview("refresh");
@@ -81,7 +81,7 @@ function joinWinShow(groupName, type){
 		}
 		//console.log(localStorage.getItem("deviceID"));
 		data = {userUUID:localStorage.getItem("deviceID"), joinGroup:groupName, joinName: joinName, joinPass: joinPass};
-		
+
 		$.ajax({
 			url: "http://140.130.35.62/csie40343142/Tour_System_server/php/TourGroupJoin.php",
 			type: "POST",

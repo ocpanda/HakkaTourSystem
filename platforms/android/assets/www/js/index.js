@@ -65,11 +65,19 @@ var app = {
             data: "school=nfu&app=test",
             dataType: "jsonp",
             jsonp: "callback",
+<<<<<<< HEAD
+            success: function(json,textStatus){    
+                console.log("jsonp.success:"+json.name);    
+            },    
+            error: function(XMLHttpRequest,textStatus,errorThrown){    
+                console.log("jsonp.error:"+textStatus);    
+=======
             success: function(json,textStatus){
                 console.log("jsonp.success:"+json.name);
             },
             error: function(XMLHttpRequest,textStatus,errorThrown){
                 console.log("jsonp.error:"+textStatus);
+>>>>>>> calc_location
             }
         });*/
 
