@@ -16,14 +16,6 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-document.addEventListener("pause", onPause, false);
-var myVar;
-function onPause() {
-    // Handle the pause event
-    console.log('exitexitexitexitexitexitexitexitexitexitexitexit');
-    clearInterval(myVar);
-}
-
 var app = {
     // Application Constructor
     initialize: function() {
@@ -41,8 +33,23 @@ var app = {
     // The scope of 'this' is the event. In order to call the 'receivedEvent'
     // function, we must explicitly call 'app.receivedEvent(...);'
     onDeviceReady: function() {
-        app.receivedEvent('deviceready');
+      app.receivedEvent('deviceready');
     },
+    //當app 進入背景時關閉myVar interval及beacon掃描
+    // onPause: function(){
+    //   clearInterval(myVar);
+    //   bluetoothle.stopScan(function(result){
+    //     console.log("success to stop bluetoothle scan!");
+    //     console.log("exit");
+    //   }, function(error){
+    //     console.log("fail to stop bluetoothle scan!");
+    //     console.log("exit");
+    //   });
+    // },
+    // //當app從背景重新呼叫至前景開啟myVar interval即開始掃描
+    // onResume: function(){
+    //   myVar = setInterval(calcLocation.deviceScan, 300);
+    // },
     // Update DOM on a Received Event
     receivedEvent: function(id) {
         var deviceID = device.uuid;
@@ -65,19 +72,11 @@ var app = {
             data: "school=nfu&app=test",
             dataType: "jsonp",
             jsonp: "callback",
-<<<<<<< HEAD
             success: function(json,textStatus){    
                 console.log("jsonp.success:"+json.name);    
             },    
             error: function(XMLHttpRequest,textStatus,errorThrown){    
                 console.log("jsonp.error:"+textStatus);    
-=======
-            success: function(json,textStatus){
-                console.log("jsonp.success:"+json.name);
-            },
-            error: function(XMLHttpRequest,textStatus,errorThrown){
-                console.log("jsonp.error:"+textStatus);
->>>>>>> calc_location
             }
         });*/
 
@@ -100,7 +99,7 @@ var app = {
     addUser: function(data){
       console.log(data);
       $.ajax({
-          url:"http://140.130.35.62/hakka/Tour_System_server/php/TourGetMobileUUID.php",
+          url:"http://140.130.35.62/hakka/hakkamanager/php/TourGetMobileUUID.php",
           type: "POST",
           data: data,
           dataType: "text",
@@ -125,6 +124,7 @@ var calcRec = [];
 var fundDevices = [];
 var beaconData = [];
 var scanSeconds = 3; //每3秒執行一次
+var recordClacTime = 0; //紀錄目前計算過幾次距離
 var startTime = new Date().getTime();
 var endTime = 0;
 var switcher = 0;
@@ -143,7 +143,7 @@ var calcLocation = {
     main: function(){
       //先進行展區beacon資料的初始化
       calcLocation.getBeaconData();
-      myVar = setInterval(calcLocation.deviceScan, 3000);
+      myVar = setInterval(calcLocation.deviceScan, 200);
     },
     /*
     code by C.H Chiang
@@ -156,7 +156,7 @@ var calcLocation = {
       if(text[name] == undefined){
         text[name] = {data: []};
       }
-      text[name].data.push("<a>距離:"+distance.toFixed(4)+" RSS:"+rss+" 取得時間:"+time+"sec</a><br>") //16 加進陣列
+      text[name].data.push("<a>距離:"+distance.toFixed(4)+" RSS:"+rss+" 取得時間:"+time+"sec</a><br>");
     },
     /*
     code by C.H Chiang
@@ -165,38 +165,46 @@ var calcLocation = {
     output: calcRec
     use: calcLocation.addScanedCalc(name, distance, rss)
     */
-    addScanedCalc: function(name, distance, rss){// 14 here
+    addScanedCalc: function(name, distance, rss){
       if(name === "config"){
         if(calcRec["config"] == undefined){
           calcRec["config"] = {number: 0, nameList: []};
         }
       }
       else if(name === "calcAvg"){
-        //addScanedCalc calcAvg動作, name維動作 distance為beacon名稱
+        //addScanedCalc calcAvg動作, name為動作 distance為beacon名稱
         return avgDistance(distance);
       }
       else{
         if(calcRec[name] == undefined){
           addNameList(name);
-          calcRec["config"].number += 1;
         }
         endTime = new Date().getTime();
         calcLocation.addData(name,distance,rss,((endTime-startTime)/1000)); //  15  將設備名稱 距離 強度 執行時間加進陣列
-
-        calcRec[name].distance.push(distance);
+        
+        if(calcRec[name].distance.length >= 5){
+          calcRec[name].distance.splice(recordClacTime, 1, distance);
+          recordClacTime = 0;
+        }
+        else
+          calcRec[name].distance.push(distance);
+        console.log(calcRec[name].distance);
       }
 
       function addNameList(name){
         calcRec[name] = {distance: []};
         calcRec["config"].nameList.push(name);
+        calcRec["config"].number += 1;
       }
 
       function avgDistance(name){
         var total = 0;
-        for(var i=0; i<calcRec[name].distance.length; i++){
+        var length = calcRec[name].distance.length;
+        for(var i=0; i<length; i++){
           total += calcRec[name].distance[i];
         }
-        return total / calcRec[name].distance.length;
+        return total / length;
+         //return calcRec[name].distance[length];
       }
     },
     /*
@@ -215,16 +223,6 @@ var calcLocation = {
         }
         else{
           if(fundDevices[name] == undefined){
-            /*
-            code by C.H Chiang
-            以下為測試用功能
-            */
-            $("#bdata").append("<li><a id='"+name+"' class='showData'>"+name+"</a></li>");
-            $(".showData").click("click", function(){
-              var id = $(this).attr("id");
-              calcLocation.showDataWin(id);
-            });
-            //到此為測試用功能
             fundDevices["config"].number += 1;
             addNameList(name);
           }
@@ -274,17 +272,17 @@ var calcLocation = {
     getBeaconData: function(){
         if(beaconData["config"] === undefined){
             $.ajax({
-                url: "http://140.130.35.62/csie40343142/Tour_System_server/php/TourGetBeaconData.php",
+                url: "http://140.130.35.62/hakka/hakkamanager/php/TourGetBeaconData.php",
                 type: "POST",
                 dataType: "json",
                 success: function(result){
                     //將目前展區beacon 位置資訊讀入
                     //將beaconData陣列的config初始化(給定beacon數量)
                     calcLocation.addBeaconData("config", 0, 0);
-                    for(var i=0; i<result['beaconName'].length; i++){
-                        console.log("outside:"+result['location_x'][i]+" "+ result['location_y'][i]);
-                        var x = result['location_x'][i]; var y = result['location_y'][i];
-                        calcLocation.addBeaconData(result['beaconName'][i], x, y);
+                    for(var i=0; i<result['uuid'].length; i++){
+                        console.log("outside:"+result['locationX'][i]+" "+ result['locationY'][i]);
+                        var x = result['locationX'][i]; var y = result['locationY'][i];
+                        calcLocation.addBeaconData(result['uuid'][i], x, y);
                     }
                 },
                 error: function(){
@@ -297,11 +295,11 @@ var calcLocation = {
     code by C.H Chiang
     以下為測試用功能
     */
-    showDataWin: function(name){ // 9 點擊後執行這個
+    showDataWin: function(name){
       $("#dataMsg").popup("open", {transition: "pop"});
       $("#devicedd").html(name);
       for(var i=0; i<text[name].data.length; i++){
-        $("#dataPopupMsg").append(text[name].data[i]); // 10 他會跳出html裡面定義好的視窗
+        $("#dataPopupMsg").append(text[name].data[i]); 
       }
     },
     /*
@@ -311,30 +309,32 @@ var calcLocation = {
     output: null
     use: calcLocation.deviceScan()
     */
-    deviceScan: function(){ //4 這裡 這段掃描藍芽
+    deviceScan: function(){ 
         console.log("start scan!!!!!!!!!!!!!!!!!!!!!");
         bluetoothle.startScan(
-            function(result){
-                if(result.status === "scanStarted"){
-                    console.log("Scanning for devices!");
-                    calcLocation.addScanedBeacon("config", 0);
-                    calcLocation.addScanedCalc("config", 0);
-                    calcLocation.addBeaconData("config", 0, 0);
-                }
-                else if(result.status === "scanResult"){
-                  //掃描beacon
-                  //var name1 = result.name.replace(/(\W+)/g, "");
-                  var name = result.address.replace(/(\W+)/g, "");
+          function(result){
+              if(result.status === "scanStarted"){
+                  console.log("Scanning for devices!");
+                  calcLocation.addScanedBeacon("config", 0);
+                  calcLocation.addScanedCalc("config", 0);
+                  calcLocation.addBeaconData("config", 0, 0);
+              }
+              else if(result.status === "scanResult"){
+                //掃描beacon
+                var name = result.address.replace(/(\W+)/g, "");
+                if(beaconData[name] != undefined){
                   //alert(name);
                   calcLocation.addScanedBeacon(name, result.rssi);
                   calcLocation.addBeaconData(name, 0, 0);
                 }
-            },
-            function(error){console.log("scan error! "+error); return;},{sercvices:[]});
-        setTimeout(bluetoothle.stopScan, 1500, function(){
-            //開始計算距離
-            calcLocation.startCalc();
-        });
+              }
+          },
+          function(error){console.log("scan error! "+error); return;},{sercvices:[]});
+        calcLocation.startCalc();
+        // setTimeout(bluetoothle.stopScan, 1500, function(){
+        //   //開始計算距離
+        //   calcLocation.startCalc();         
+        // });
     },
     /*
     code by C.H Chiang
@@ -348,27 +348,32 @@ var calcLocation = {
         for(var i=0; i<fundDevices["config"].nameList.length; i++){
             var beaconName = fundDevices["config"].nameList[i];
             var rss = fundDevices[fundDevices["config"].nameList[i]].rssi;
+            //(一公尺RSS強度 - 目前接收RSS強度) / (10 * 路徑衰減函數)
             var temp = (-58.3 - rss) / (10 * 5);
             var temp2 = Math.pow(10, temp);
             calcLocation.addBeaconData(beaconName, 0, 0);
-            beaconData[beaconName].distance = temp2;
+            //beaconData[beaconName].distance = temp2;
             calcLocation.addScanedCalc(beaconName, temp2, 0);
 
-            /*
-            code by C.H Chiang
-            以下為測試用功能
-            測試功能起始點 觸發為 calcLocation.addScanedCalc("calcAvg", beaconName, rss);
-            影響index.html <div id=dsa>
-            */
-            var beaconNum = fundDevices["config"].nameList.indexOf(beaconName);
-            if($("#beacon"+beaconNum).length > 0){
-              $("#beacon"+beaconNum).html("與"+beaconName+"平均距離："+calcLocation.addScanedCalc("calcAvg", beaconName, rss).toFixed(4));
-            }
-            else{
-              $("#dsa").append("<a id='beacon"+beaconNum+"'>"+"與"+beaconName+"平均距離："+calcLocation.addScanedCalc("calcAvg", beaconName, rss).toFixed(4)+"</a><br>");
-            }
-            $("#bdata").listview("refresh");
-            //測試功能到此為止
+            //if(calcRec[beaconName].distance.length >= 15){
+                //var disavg = calcLocation.addScanedCalc("calcAvg", beaconName, rss).toFixed(4);
+                /*
+                code by C.H Chiang
+                以下為測試用功能
+                測試功能起始點 觸發為 calcLocation.addScanedCalc("calcAvg", beaconName, rss);
+                影響index.html <div id=dsa>
+                */
+                var beaconNum = fundDevices["config"].nameList.indexOf(beaconName);
+                if($("#beacon"+beaconNum).length > 0){
+                  $("#beacon"+beaconNum).html("與"+beaconName+"平均距離："+temp2);
+                }
+                else{
+                  $("#dsa").append("<a id='beacon"+beaconNum+"'>"+"與"+beaconName+"平均距離："+temp2+"</a><br>");
+                }
+                $("#bdata").listview("refresh");
+                //測試功能到此為止
+                beaconData[beaconName].distance = temp2;
+            //}
         }
         GaussianElimination.main();
         /*if($("#userLocation").length > 0){
@@ -403,15 +408,6 @@ var GaussianElimination={
   use: GaussianElimination.main()
   */
   main: function(){
-      console.log("start calc!!!!!!!!!!!!!!!!!!!!!!!!!!!  " + beaconData["config"].nameList[0] +
-       " X:"+beaconData[beaconData["config"].nameList[0]].beaconLocX +
-        " Y:"+beaconData[beaconData["config"].nameList[0]].beaconLocY);
-        console.log("start calc!!!!!!!!!!!!!!!!!!!!!!!!!!!  " + beaconData["config"].nameList[1] +
-         " X:"+beaconData[beaconData["config"].nameList[1]].beaconLocX +
-          " Y:"+beaconData[beaconData["config"].nameList[1]].beaconLocY);
-          console.log("start calc!!!!!!!!!!!!!!!!!!!!!!!!!!!  " + beaconData["config"].nameList[2] +
-           " X:"+beaconData[beaconData["config"].nameList[2]].beaconLocX +
-            " Y:"+beaconData[beaconData["config"].nameList[2]].beaconLocY);
       GaussianElimination.getData();
   },
   /*
@@ -425,26 +421,6 @@ var GaussianElimination={
     if(name === "config"){
       if(gaussianProcessData["config"] == undefined){
         gaussianProcessData["config"] = {number: 0, s: [], a: []};
-        gaussianProcessData["config"].a[0] = [];
-        gaussianProcessData["config"].a[1] = [];
-        gaussianProcessData["config"].a[2] = [];
-        /*
-        網頁伺服器讚實無法改動
-        因此先給定值
-        */
-        /*if(beaconData[beaconData["config"].nameList[0]] != undefined){
-          beaconData[beaconData["config"].nameList[0]].beaconLocX = 1.0;
-          beaconData[beaconData["config"].nameList[0]].beaconLocY = 2.0;
-        }
-        if(beaconData[beaconData["config"].nameList[1]] != undefined){
-          beaconData[beaconData["config"].nameList[1]].beaconLocX = 1.0;
-          beaconData[beaconData["config"].nameList[1]].beaconLocY = 2.0;
-        }
-        if(beaconData[beaconData["config"].nameList[2]] != undefined){
-          beaconData[beaconData["config"].nameList[2]].beaconLocX = 1.0;
-          beaconData[beaconData["config"].nameList[2]].beaconLocY = 2.0;
-        }*/
-        ////////////////////////////////////////////////////////
       }
     }
     else{
@@ -452,6 +428,9 @@ var GaussianElimination={
       var aj = beaconData[name].beaconLocX - beaconData[beaconData["config"].nameList[0]].beaconLocX;
       var bj = beaconData[name].beaconLocY - beaconData[beaconData["config"].nameList[0]].beaconLocY;
       var cj = (aj + bj - (Math.pow(beaconData[name].distance, 2.0)-Math.pow(beaconData[beaconData["config"].nameList[0]].distance, 2.0)));
+      var tmp = [];
+      tmp.push(aj);
+      tmp.push(bj);
 
       if(gaussianProcessData[name] != undefined){
         gaussianProcessData["config"].number += 1;
@@ -460,9 +439,8 @@ var GaussianElimination={
       console.log("this is bj = "+bj);
       console.log("this is cj = "+cj);
       //a[0]為a1~an, a[1]為b1~bn, a[2]為c1~cn
-      gaussianProcessData["config"].a[0].push(aj);
-      gaussianProcessData["config"].a[1].push(bj);
-      gaussianProcessData["config"].a[2].push(cj);
+      gaussianProcessData["config"].a.push(tmp);
+      gaussianProcessData["config"].s.push(cj);
       //console.log("asdawdqaefwefawrgawgwrg     " + gaussianProcessData["config"].a[0]);
     }
   },
@@ -480,63 +458,135 @@ var GaussianElimination={
     }
     if(beaconData["config"].nameList.length >=3){
         console.log("realy calc!!!!!!!!!!!");
-        gaussianProcessData["config"].s = GaussianElimination.gaussianCalc();
+        gaussianProcessData["config"].s = GaussianElimination.gaussianCalc(gaussianProcessData["config"].a, gaussianProcessData["config"].s);
+        // if($("#gauss").length > 0){
+        //   $("#gauss").html("X："+gaussianProcessData["config"].s[0]+"  Y："+gaussianProcessData["config"].s[1]);
+        // }
+        // else{
+        //   $("#dsa").append("<a id='gauss'>X："+gaussianProcessData["config"].s[0]+"  Y："+gaussianProcessData["config"].s[1]+"</a><br>");
+        // }
+        // $("#bdata").listview("refresh");
     }
   },
-  gaussianCalc: function(){
-        console.log("this is a[0] = "+gaussianProcessData["config"].a[0]);
-        console.log("this is a[1] = "+gaussianProcessData["config"].a[1]);
-        console.log("this is a[2] = "+gaussianProcessData["config"].a[2]);
-        var aa = [];
-        //將橫向陣列內容轉為直向
-        for(var i=0; i<gaussianProcessData["config"].a[0].length; i++){
-            aa[i] = [];
-            for(var o=0; o<3; o++){
-              aa[i].push(gaussianProcessData["config"].a[o][i]);
-            }
-        }
+  gaussianCalc: function(A, x){
+    var abs = Math.abs;
+    /**
+     * Gaussian elimination
+     * @param  array A matrix
+     * @param  array x vector
+     * @return array x solution vector
+     */
+      var i, k, j;
 
+      // Just make a single matrix
+      for (i=0; i < A.length; i++) { 
+          A[i].push(x[i]);
+      }
+      var n = A.length;
 
-        var n = aa.length;
-        for(var i=0; i<n; i++){
-          var maxEl = Math.abs(aa[i][i]);
-          var maxRow = i;
+      for (i=0; i < n; i++) { 
           // Search for maximum in this column
-          for(var o=i+1; o<n; o++){
-            if(Math.abs(aa[o][i]) > maxEl){
-              maxEl = Math.abs(aa[o][i]);
-              maxRow = o;
-            }
+          var maxEl = abs(A[i][i]),
+              maxRow = i;
+          for (k=i+1; k < n; k++) { 
+              if (abs(A[k][i]) > maxEl) {
+                  maxEl = abs(A[k][i]);
+                  maxRow = k;
+              }
           }
+
+
           // Swap maximum row with current row (column by column)
-          for (var o=i; o<n+1; o++) {
-              var tmp = aa[maxRow][o];
-              aa[maxRow][o] = aa[i][o];
-              aa[i][o] = tmp;
+          for (k=i; k < n+1; k++) { 
+              var tmp = A[maxRow][k];
+              A[maxRow][k] = A[i][k];
+              A[i][k] = tmp;
           }
+
           // Make all rows below this one 0 in current column
-          for (var o=i+1; o<n; o++) {
-              var c = -aa[o][i]/aa[i][i];
-              for(var j=i; j<n+1; j++) {
-                  if (i==j) {
-                      aa[o][j] = 0;
+          for (k=i+1; k < n; k++) { 
+              var c = -A[k][i]/A[i][i];
+              for (j=i; j < n+1; j++) { 
+                  if (i===j) {
+                      A[k][j] = 0;
                   } else {
-                      aa[o][j] += c * aa[i][j];
+                      A[k][j] += c * A[i][j];
                   }
               }
           }
-        }
-        console.log("aa is "+aa);
-        // Solve equation Ax=b for an upper triangular matrix A
-        var x= new Array(n);
-        for (var i=n-1; i>-1; i--) {
-            x[i] = aa[i][n]/aa[i][i];
-            console.log("x["+i+"] is " + x[i]);
-            for (var k=i-1; k>-1; k--) {
-                aa[k][n] -= aa[k][i] * x[i];
-            }
-        }
-        //console.log("x is " + x);
-        return x;
+      }
+
+      // Solve equation Ax=b for an upper triangular matrix A
+      x = array_fill(0, n, 0);
+      for (i=n-1; i > -1; i--) { 
+          x[i] = A[i][n]/A[i][i];
+          for (k=i-1; k > -1; k--) { 
+              A[k][n] -= A[k][i] * x[i];
+          }
+      }
+
+      return x;
+    },
+    // console.log("this is a[0] = "+gaussianProcessData["config"].a[0]);
+    // console.log("this is a[1] = "+gaussianProcessData["config"].a[1]);
+    // console.log("this is a[2] = "+gaussianProcessData["config"].a[2]);
+    // var aa = [];
+    // //將橫向陣列內容轉為直向
+    // for(var i=0; i<gaussianProcessData["config"].a[0].length; i++){
+    //     aa[i] = [];
+    //     for(var o=0; o<3; o++){
+    //       aa[i].push(gaussianProcessData["config"].a[o][i]);
+    //     }
+    // }
+
+
+    // var n = aa.length;
+    // for(var i=0; i<n; i++){
+    //   var maxEl = Math.abs(aa[i][i]);
+    //   var maxRow = i;
+    //   // Search for maximum in this column
+    //   for(var o=i+1; o<n; o++){
+    //     if(Math.abs(aa[o][i]) > maxEl){
+    //       maxEl = Math.abs(aa[o][i]);
+    //       maxRow = o;
+    //     }
+    //   }
+    //   // Swap maximum row with current row (column by column)
+    //   for (var o=i; o<n+1; o++) {
+    //       var tmp = aa[maxRow][o];
+    //       aa[maxRow][o] = aa[i][o];
+    //       aa[i][o] = tmp;
+    //   }
+    //   // Make all rows below this one 0 in current column
+    //   for (var o=i+1; o<n; o++) {
+    //       var c = -aa[o][i]/aa[i][i];
+    //       for(var j=i; j<n+1; j++) {
+    //           if (i==j) {
+    //               aa[o][j] = 0;
+    //           } else {
+    //               aa[o][j] += c * aa[i][j];
+    //           }
+    //       }
+    //   }
+    // }
+    // console.log("aa is "+aa);
+    // // Solve equation Ax=b for an upper triangular matrix A
+    // var x= new Array(n);
+    // for (var i=n-1; i>-1; i--) {
+    //     x[i] = aa[i][n]/aa[i][i];
+    //     console.log("x["+i+"] is " + x[i]);
+    //     for (var k=i-1; k>-1; k--) {
+    //         aa[k][n] -= aa[k][i] * x[i];
+    //     }
+    // }
+    // //console.log("x is " + x);
+    // return x;
+    array_fill: function(i, n, v){
+      var a = [];
+      for (; i < n; i++) {
+          a.push(v);
+      }
+      return a;
     }
+
 }
