@@ -41,28 +41,20 @@
         <link rel="stylesheet" type="text/css" href="web_api/bootstrap/css/bootstrap-theme.min.css">
         <link rel="stylesheet" href="web_api/jquery/jquery.mobile-1.4.5.min.css">
         <link rel="stylesheet" type="text/css" href="css/home.css">
-<<<<<<< HEAD
         
         <script src="web_api/jquery/jquery-2.2.4.js"></script>
         <script src="web_api/jquery/jquery-1.11.3.min.js"></script>
         <script src="web_api/jquery/jquery.mobile-1.4.5.min.js"></script>
         <script src="web_api/bootstrap/js/bootstrap.min.js"></script>
-        
-=======
-
-        <script src="web_api/bootstrap/js/bootstrap.min.js"></script>
-        <script src="web_api/jquery/jquery-2.2.4.js"></script>
-        <script src="web_api/jquery/jquery-1.11.3.min.js"></script>
-        <script src="web_api/jquery/jquery.mobile-1.4.5.min.js"></script>
-
->>>>>>> calc_location
 
         <title>HakkaTourSystem</title>
     </head>
     <body>
         <div class="app">
             <!--主頁//-->
-            <div id="home" data-role="page">
+            <div id="home" data-role="page">  <!--  1 進入頁 -->
+                <script src="web_api/jquery/jquery-1.11.3.min.js"></script>
+                <script src="web_api/jquery/jquery.mobile-1.4.5.min.js"></script>
                 <div data-role="main" class="ui-content">
                     <p>index</p>
                     <!-- 搜尋彈出區塊
@@ -131,7 +123,19 @@
                         </div>
                     </div>
 
-                    <div id="asd"></div>
+                    <div id="asd" data-role="collapsible">
+                      <h4>設備資訊</h4>
+                      <ul id="bdata" data-role="listview"></ul>
+                    </div>
+                    <div id="dsa"></div>
+
+                    <div data-role="popup" id="dataMsg" data-theme="a">
+                        <div style="padding:10px 20px;">
+                            <h1 id="devicedd">訊息</h1>
+                            <div data-role="main" id="dataPopupMsg" class="ui-content">
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <!--
                     下方功能選單區塊

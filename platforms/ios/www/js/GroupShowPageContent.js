@@ -5,6 +5,7 @@ var pages = ["#List", "#Make"];
 var nowPage = 0;
 
 $(document).on("pageshow", "#group",function(){
+	//$("#joinPassDiv").hide();
 	showGroupList();
 	pageTopBKColorInit();
 	pageRender();
@@ -23,6 +24,27 @@ $("#groupMakeBtn").on("click", function(){
 	pageTopBKColorInit();
 	pageRender();
 	htmlShow();
+});
+
+
+/**
+ * 滑動換頁
+ */
+$(document).on("swipeleft", function(){
+	if(nowPage != 1){
+		nowPage = 1;
+		pageTopBKColorInit();
+		pageRender();
+		htmlShow();
+	}
+});
+$(document).on("swiperight", function(){
+	if(nowPage != 0){
+		nowPage = 0;
+		pageTopBKColorInit();
+		pageRender();
+		htmlShow();
+	}
 });
 
 /**
