@@ -156,27 +156,27 @@ background: -webkit-linear-gradient(top, #494949 0%, #434242 31%, #393838 55%, #
     #buton{
         width: 120px;
         height: 100px;
-        font-size: 50px;
+        font-size: 25px;
     }
     #buton1{
          width: 120px;
         height: 100px;
-        font-size: 50px;
+        font-size: 25px;
     }
     #buton2{
          width: 120px;
         height: 100px;
-        font-size: 50px;
+        font-size: 25px;
     }
     #buton3{
          width: 120px;
         height: 100px;
-        font-size: 50px;
+        font-size: 25px;
     }
     #buton4{
          width: 120px;
         height: 100px;
-        font-size: 50px;
+        font-size: 25px;
     }
     #star{
         font-size: 50px;
@@ -200,28 +200,28 @@ background: -webkit-linear-gradient(top, #494949 0%, #434242 31%, #393838 55%, #
 
     #buton{
         width: 150px;
-        height: 150px;
-        font-size: 60px;
+        height: 120px;
+        font-size: 30px;
     }
     #buton1{
         width: 150px;
-        height: 150px;
-        font-size: 60px;
+        height: 120px;
+        font-size: 30px;
     }
     #buton2{
         width: 150px;
-        height: 150px;
-        font-size: 60px;
+        height: 120px;
+        font-size: 30px;
     }
     #buton3{
         width: 150px;
-        height: 150px;
-        font-size: 60px;
+        height: 120px;
+        font-size: 30px;
     }
     #buton4{
         width: 150px;
-        height: 150px;
-        font-size: 60px;
+        height: 120px;
+        font-size: 30px;
     }
     #star{
         font-size: 60px;
@@ -243,29 +243,29 @@ background: -webkit-linear-gradient(top, #494949 0%, #434242 31%, #393838 55%, #
     }
 
     #buton{
-        width: 200px;
-        height: 200px;
-        font-size: 70px;
+        width: 170px;
+        height: 150px;
+        font-size: 35px;
     }
     #buton1{
-        width: 200px;
-        height: 200px;
-        font-size: 70px;
+        width: 170px;
+        height: 150px;
+        font-size: 35px;
     }
     #buton2{
-        width: 200px;
-        height: 200px;
-        font-size: 70px;
+        width: 170px;
+        height: 150px;
+        font-size: 35px;
     }
     #buton3{
-        width: 200px;
-        height: 200px;
-        font-size: 70px;
+        width: 170px;
+        height: 150px;
+        font-size: 35px;
     }
     #buton4{
-        width: 200px;
-        height: 200px;
-        font-size: 70px;
+        width: 170px;
+        height: 150px;
+        font-size: 40px;
     }
     #star{
         font-size: 60px;
