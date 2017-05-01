@@ -2,7 +2,7 @@
 #buton{
     float: left;
     font-size: 20px;
-    width: 100px;
+    width: 90px;
     height: 75px;
     background-repeat:no-repeat;
     display: inline-block;
@@ -16,7 +16,7 @@
 #buton1{
     float: left;
     font-size: 20px;
-    width: 100px;
+    width: 90px;
     height: 75px;
     background-repeat:no-repeat;
     display: inline-block;
@@ -30,7 +30,7 @@
 #buton2{
     float: left;
     font-size: 20px;
-    width: 100px;
+    width: 90px;
     height: 75px;
     background-repeat:no-repeat;
     display: inline-block;
@@ -44,7 +44,7 @@
 #buton3{
     float: left;
     font-size: 20px;
-    width: 100px;
+    width: 90px;
     height: 75px;
     background-repeat:no-repeat;
     display: inline-block;
@@ -58,7 +58,7 @@
 #buton4{
     float: left;
     font-size: 20px;
-    width: 100px;
+    width: 90px;
     height: 75px;
     background-repeat:no-repeat;
     display: inline-block;
@@ -85,7 +85,7 @@
 
     width: 100%;
     border: 1px ;
-    font-size: 4vw;
+    font-size: 2vw;
 
 }
 
@@ -128,7 +128,7 @@ background: -webkit-linear-gradient(top, #494949 0%, #434242 31%, #393838 55%, #
 }
 
 #vocabulary{
-    font-size: 30px;
+    font-size: 25px;
     background: #FFFFFF;
 }
 
@@ -150,32 +150,32 @@ background: -webkit-linear-gradient(top, #494949 0%, #434242 31%, #393838 55%, #
        font-size: 40px;
    }
     #vocabulary{
-        font-size: 40px;
+        font-size: 25px;
     }
 
     #buton{
-        width: 250px;
-        height: 150px;
+        width: 120px;
+        height: 100px;
         font-size: 50px;
     }
     #buton1{
-        width: 250px;
-        height: 150px;
+         width: 120px;
+        height: 100px;
         font-size: 50px;
     }
     #buton2{
-        width: 250px;
-        height: 150px;
+         width: 120px;
+        height: 100px;
         font-size: 50px;
     }
     #buton3{
-        width: 250px;
-        height: 150px;
+         width: 120px;
+        height: 100px;
         font-size: 50px;
     }
     #buton4{
-        width: 250px;
-        height: 150px;
+         width: 120px;
+        height: 100px;
         font-size: 50px;
     }
     #star{
@@ -195,31 +195,31 @@ background: -webkit-linear-gradient(top, #494949 0%, #434242 31%, #393838 55%, #
        font-size: 45px;
    }
     #vocabulary{
-        font-size: 50px;
+        font-size: 30px;
     }
 
     #buton{
-        width: 250px;
+        width: 150px;
         height: 150px;
         font-size: 60px;
     }
     #buton1{
-        width: 250px;
+        width: 150px;
         height: 150px;
         font-size: 60px;
     }
     #buton2{
-        width: 250px;
+        width: 150px;
         height: 150px;
         font-size: 60px;
     }
     #buton3{
-        width: 250px;
+        width: 150px;
         height: 150px;
         font-size: 60px;
     }
     #buton4{
-        width: 250px;
+        width: 150px;
         height: 150px;
         font-size: 60px;
     }
@@ -239,31 +239,31 @@ background: -webkit-linear-gradient(top, #494949 0%, #434242 31%, #393838 55%, #
        font-size: 55px;
    }
     #vocabulary{
-        font-size: 60px;
+        font-size: 35px;
     }
 
     #buton{
-        width: 320px;
+        width: 200px;
         height: 200px;
         font-size: 70px;
     }
     #buton1{
-        width: 320px;
+        width: 200px;
         height: 200px;
         font-size: 70px;
     }
     #buton2{
-        width: 320px;
+        width: 200px;
         height: 200px;
         font-size: 70px;
     }
     #buton3{
-        width: 320px;
+        width: 200px;
         height: 200px;
         font-size: 70px;
     }
     #buton4{
-        width: 320px;
+        width: 200px;
         height: 200px;
         font-size: 70px;
     }
