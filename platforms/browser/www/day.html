@@ -123,11 +123,7 @@
         <!-- <button id="test">按我</button> -->
         <div>
             <button id="star" onclick="fav();">加入最愛</button>  
-            <script type="text/javascript">
-                $("#test").click(function(){
-                   alert("asdsad");
-                });
-            </script>
+            
         </div>
         
     
@@ -143,9 +139,11 @@
         </div>
     </div>
     <script type="text/javascript" scr="js/day.js"></script>
+    <script type="text/javascript" src="js/file.js"></script>
     <script type="text/javascript" src="cordova.js" defer></script>
     <script type="text/javascript" src="js/popupExplan.js" defer></script>
     <script type="text/javascript">
+
             $("#vocabulary").children().remove();
             $("#star").children().remove();
             var obj;
@@ -178,7 +176,7 @@
                 console.log(thrownError); 
                 }
             });
-            $("#ha").table("refresh");       
+           // $("#ha").table("refresh");       
     </script>
     <script type="text/javascript">
         var data=0;
@@ -195,9 +193,131 @@
             $('#voice').html("<audio class='gradient' controls='controls'><source src='"+obj[value]["voice"]+"' type='audio/mp3'></audio>");
         
             record=value;
+
+        }
+
+        function createAndWriteFile(){
+              //持久化数据保存
+              // window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, 
+              var type = window.TEMPORARY;
+               window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, successCallback, errorCallback)
+
+               function successCallback(fs) {
+
+                  fs.root.getFile('log.txt', {create: true}, function(fileEntry) {
+
+                     fileEntry.createWriter(function(fileWriter) {
+                        fileWriter.onwriteend = function(e) {
+                           alert('Write completed.');
+                        };
+
+                        fileWriter.onerror = function(e) {
+                           alert('Write failed: ' + e.toString());
+                        };
+
+                        // var blob = new Blob(['Lorem Ipsum'], {type: 'text/plain'});
+                        // fileWriter.write(blob);
+                     }, errorCallback);
+
+                  }, errorCallback);
+
+               }
+
+               function errorCallback(error) {
+                  alert("ERROR: " + error.code)
+               }
+        }
+
+        function writeFile(fileEntry, dataObj, isAppend) {
+            window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, successCallback, errorCallback)
+
+           function successCallback(fs) {
+
+              fs.root.getFile('log.txt', {create: true}, function(fileEntry) {
+
+                 fileEntry.createWriter(function(fileWriter) {
+                    fileWriter.onwriteend = function(e) {
+                       alert('Write completed.');
+                    };
+
+                    fileWriter.onerror = function(e) {
+                       alert('Write failed: ' + e.toString());
+                    };
+
+                    // var blob = new Blob(['Lorem Ipsum'], {type: 'text/plain'});
+                    if (isAppend) {
+                        try {
+                            fileWriter.seek(fileWriter.length);
+                        }
+                        catch (e) {
+                            console.log("file doesn't exist!");
+                        }
+                    }
+                    fileWriter.write(dataObj);
+                 }, errorCallback);
+
+              }, errorCallback);
+
+           }
+
+           function errorCallback(error) {
+              alert("ERROR: " + error.code)
+           }
+        }
+        
+        //读取文件
+        function readFile(fileEntry) {
+
+            window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, successCallback, errorCallback)
+
+            function successCallback(fs) {
+
+                fs.root.getFile('log.txt', {}, function(fileEntry) {
+
+                fileEntry.file(function(file) {
+                var reader = new FileReader();
+
+                    reader.onloadend = function(e) {
+                            alert(this.result);
+                        };
+                        reader.readAsText(file);
+
+                    }, errorCallback);
+                }, errorCallback);
+            }           
+            //读取文件失败响应
+            function errorCallback(error){
+              console.log("文件读取失败!");
+            }
+        }
+        function removeFile() {
+            var type = window.TEMPORARY;
+            var size = 5*1024*1024;
+
+            window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, successCallback, errorCallback)
+
+            function successCallback(fs) {
+            fs.root.getFile('log.txt', {create: false}, function(fileEntry) {
+
+                    fileEntry.remove(function() {
+                    alert('File removed.');
+                    }, errorCallback);
+                }, errorCallback);
+            }
+           function errorCallback(error) {
+              alert("ERROR: " + error.code)
+           }   
         }
         function fav(){
-            alert("data stored");
+            //alert("data stored");
+            createAndWriteFile();
+            var dataObj = new Blob(['值得您每天来看看！'], { type: 'text/plain' });
+            writeFile('log.txt', dataObj, true);
+            var dataObj = new Blob(['123456789！'], { type: 'text/plain' });
+            writeFile('log.txt', dataObj, true);
+            readFile('log.txt');
+            //removeFile();
         }
     </script>
+                                
 </div>

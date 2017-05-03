@@ -15,7 +15,14 @@
         },
         "cordova-plugin-device": {
             "PACKAGE_NAME": "com.ocpanda.test"
+        },
+        "cordova-plugin-file": {
+            "PACKAGE_NAME": "com.ocpanda.test"
         }
     },
-    "dependent_plugins": {}
+    "dependent_plugins": {
+        "cordova-plugin-compat": {
+            "PACKAGE_NAME": "com.ocpanda.test"
+        }
+    }
 }
