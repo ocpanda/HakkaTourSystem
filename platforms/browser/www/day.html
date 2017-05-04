@@ -123,7 +123,7 @@
         <!-- <button id="test">按我</button> -->
         <div>
             <button id="star" onclick="fav();">加入最愛</button>  
-            
+            <button id="remove" onclick="clean();">刪除</button>  
         </div>
         
     
@@ -148,7 +148,8 @@
             $("#star").children().remove();
             var obj;
             var record=0;
-            var i=0;                  
+            var i=0;
+            var check = 0;
             var accent = ["種類","客語","發音","中文",
                         "英文","客語例句","中文例句","腔調","例句語音"];
             $.ajax({
@@ -198,8 +199,6 @@
 
         function createAndWriteFile(){
               //持久化数据保存
-              // window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, 
-              var type = window.TEMPORARY;
                window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, successCallback, errorCallback)
 
                function successCallback(fs) {
@@ -208,15 +207,12 @@
 
                      fileEntry.createWriter(function(fileWriter) {
                         fileWriter.onwriteend = function(e) {
-                           alert('Write completed.');
+                           //alert('Write completed.');
                         };
 
                         fileWriter.onerror = function(e) {
-                           alert('Write failed: ' + e.toString());
+                           //alert('Write failed: ' + e.toString());
                         };
-
-                        // var blob = new Blob(['Lorem Ipsum'], {type: 'text/plain'});
-                        // fileWriter.write(blob);
                      }, errorCallback);
 
                   }, errorCallback);
@@ -237,14 +233,13 @@
 
                  fileEntry.createWriter(function(fileWriter) {
                     fileWriter.onwriteend = function(e) {
-                       alert('Write completed.');
+                        //alert('Write completed.');
+                       
                     };
 
                     fileWriter.onerror = function(e) {
                        alert('Write failed: ' + e.toString());
-                    };
-
-                    // var blob = new Blob(['Lorem Ipsum'], {type: 'text/plain'});
+                    };                   
                     if (isAppend) {
                         try {
                             fileWriter.seek(fileWriter.length);
@@ -253,7 +248,18 @@
                             console.log("file doesn't exist!");
                         }
                     }
-                    fileWriter.write(dataObj);
+                    var check = fileWriter.length;
+                    if(check){
+                      var jjj = new Blob([JSON.stringify()], { type: 'text/plain' });
+                      var jsonse = JSON.stringify(dataObj);
+                      fileWriter.write(jjj);
+                    }else{
+                      var jsonse = JSON.stringify(dataObj);
+                      var jjj = new Blob([jsonse], { type: 'text/plain' });  
+                      fileWriter.write(jjj);  
+                    }
+                    
+                    
                  }, errorCallback);
 
               }, errorCallback);
@@ -278,7 +284,7 @@
                 var reader = new FileReader();
 
                     reader.onloadend = function(e) {
-                            alert(this.result);
+                            //alert(this.result);
                         };
                         reader.readAsText(file);
 
@@ -288,8 +294,10 @@
             //读取文件失败响应
             function errorCallback(error){
               console.log("文件读取失败!");
+              check = 0;
             }
         }
+
         function removeFile() {
             var type = window.TEMPORARY;
             var size = 5*1024*1024;
@@ -311,12 +319,21 @@
         function fav(){
             //alert("data stored");
             createAndWriteFile();
-            var dataObj = new Blob(['值得您每天来看看！'], { type: 'text/plain' });
-            writeFile('log.txt', dataObj, true);
-            var dataObj = new Blob(['123456789！'], { type: 'text/plain' });
-            writeFile('log.txt', dataObj, true);
+                            
+            var string = [{'kind':obj[record]['kind'],
+            'hakka_risigned':obj[record]['hakka_risigned'],
+            'chinese_risigned':obj[record]['chinese_risigned'],
+            'english_risigned':obj[record]['english_risigned'],
+            'accent':obj[record]['accent']}
+            ];    
+            //var jsonse = JSON.stringify(string);
+            //var dataObj = new Blob([jsonse], { type: 'text/plain' });           
+            writeFile('log.txt', string, true);
             readFile('log.txt');
-            //removeFile();
+            //console.log(check);        
+        }
+        function clean(){
+            removeFile();          
         }
     </script>
                                 
