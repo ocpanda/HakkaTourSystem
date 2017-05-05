@@ -122,7 +122,8 @@
         </div>
         <!-- <button id="test">按我</button> -->
         <div>
-            <button id="star" onclick="fav();">加入最愛</button>  
+            <button id="star" onclick="fav();">加入最愛</button>
+            <button id="read" onclick="read();">讀取</button>  
             <button id="remove" onclick="clean();">刪除</button>  
         </div>
         
@@ -240,23 +241,37 @@
                     fileWriter.onerror = function(e) {
                        alert('Write failed: ' + e.toString());
                     };                   
-                    if (isAppend) {
-                        try {
-                            fileWriter.seek(fileWriter.length);
-                        }
-                        catch (e) {
-                            console.log("file doesn't exist!");
-                        }
-                    }
+                    // if (isAppend) {
+                    //     try {
+                    //         fileWriter.seek(fileWriter.length);
+                    //     }
+                    //     catch (e) {
+                    //         console.log("file doesn't exist!");
+                    //     }
+                    // }
                     var check = fileWriter.length;
                     if(check){
-                      var jjj = new Blob([JSON.stringify()], { type: 'text/plain' });
-                      var jsonse = JSON.stringify(dataObj);
-                      fileWriter.write(jjj);
+                      fileWriter.seek(fileWriter.length-1);
+                      var st = ",{" + '"' + 'kind'+'"' + ':['+ '"' + obj[record]['kind']+ '"' +'],'+ '"' + 'hakka_risigned' + '"' + ':[' + '"' + obj[record]['hakka_risigned'] + '"' +
+                      '],'+ '"' +'chinese_risigned' + '"' + ':[' + '"'+ obj[record]['chinese_risigned'] + '"' + '],' + '"' + 'english_risigned' + '"' + ':['+ '"' + 
+                      obj[record]['english_risigned'] + '"' + '],' + '"' + 'accent' + '"' + ':[' + '"' +
+                      obj[record]['accent']+ '"]' +"}]";
+                        var string = [{'kind':obj[record]['kind'],
+                        'hakka_risigned':obj[record]['hakka_risigned'],
+                        'chinese_risigned':obj[record]['chinese_risigned'],
+                        'english_risigned':obj[record]['english_risigned'],
+                        'accent':obj[record]['accent']}
+                        ];
+                        //res = string.replace("["," ");
+                      //var data = new Blob([','], { type: 'text/plain' });
+                      //fileWriter.write(data);
+                      //var data = new Blob([res], { type: 'text/plain' });
+                      //fileWriter.write(data);
+                      var data = new Blob([st], { type: 'text/plain' });
+                      fileWriter.write(data);
                     }else{
-                      var jsonse = JSON.stringify(dataObj);
-                      var jjj = new Blob([jsonse], { type: 'text/plain' });  
-                      fileWriter.write(jjj);  
+                     
+                      fileWriter.write(dataObj);  
                     }
                     
                     
@@ -284,7 +299,7 @@
                 var reader = new FileReader();
 
                     reader.onloadend = function(e) {
-                            //alert(this.result);
+                            console.log(JSON.parse(this.result));
                         };
                         reader.readAsText(file);
 
@@ -326,14 +341,16 @@
             'english_risigned':obj[record]['english_risigned'],
             'accent':obj[record]['accent']}
             ];    
-            //var jsonse = JSON.stringify(string);
-            //var dataObj = new Blob([jsonse], { type: 'text/plain' });           
-            writeFile('log.txt', string, true);
-            readFile('log.txt');
+            var jsonse = JSON.stringify(string);
+            var dataObj = new Blob([jsonse], { type: 'text/plain' });           
+            writeFile('log.txt', dataObj, true);           
             //console.log(check);        
         }
         function clean(){
             removeFile();          
+        }
+        function read(){
+            readFile('log.txt'); 
         }
     </script>
                                 
