@@ -1,0 +1,187 @@
+<!--群組頁//-->          
+<div data-role="page" id="group">
+    <link rel="stylesheet" href="web_api/jquery/jquery.mobile-1.4.5.min.css">
+    <link rel="stylesheet" type="text/css" href="web_api/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="web_api/bootstrap/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" type="text/css" href="css/record.css">
+
+    <script src="web_api/jquery/jquery-1.11.3.min.js"></script>
+    <script src="web_api/jquery/jquery.mobile-1.4.5.min.js"></script>
+    <script src="web_api/bootstrap/js/bootstrap.min.js"></script>
+    <script src="web_api/jquery/jquery-2.2.4.js"></script>
+    <script src="cordova.js"></script>
+    <!--上方功能選單區塊-->
+    <div data-role="header" data-position="fixed">
+        <div data-role="navbar">
+            <ul>
+                <li><button id="dayBtn" onclick="location.href='day.html'">每日一詞</button></li>
+                <li><button id="recordBtn" onclick="location.href='record.html'">學習紀錄</button></li>
+            </ul>
+        </div>
+    </div>
+    <!--主要內容//-->
+    <div data-role="main" class="ui-content">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h1 class="panel-title">學習紀錄</h1>
+            </div>
+            <div class="panel-body">
+                <table id="ha" border="1">
+                    <tbody id="record" class="panel-body"> 
+
+                    </tbody>
+                </table>
+            </div>                                                    
+        </div>  
+    </div>
+    <!--下方功能選單區塊-->
+    <div data-role="main" class="ui-content">
+        <!-- 首頁說明彈出區塊
+            api: jquery-1.11.3.min.js
+            api: jquery.mobile-1.4.5.min.js
+        //-->
+        <div data-role="popup" data-arrow="b" id="homePopup">
+            <div data-role="header">
+                <h1>說明</h1>
+            </div>
+            <div data-role="main" class="ui-content">
+                <h1 align="center" valign="center">首頁</h1>
+                <p>主要功能頁面。</p>
+            </div>
+        </div>
+        <!-- 搜尋彈出區塊 
+            api: jquery-1.11.3.min.js
+            api: jquery.mobile-1.4.5.min.js
+        //-->
+        <div data-role="popup" data-arrow="b" id="searchPopup">
+            <div data-role="header">
+                <h1>說明</h1>
+            </div>
+            <div data-role="main" class="ui-content">
+                <h1 align="center" valign="center">搜尋</h1>
+                <p>使用此功能可以搜尋本展館之展物並進行導航。</p>
+            </div>
+        </div>
+        <!-- 每日說明彈出區塊
+            api: jquery-1.11.3.min.js
+            api: jquery.mobile-1.4.5.min.js
+        //-->
+        <div data-role="popup" data-arrow="b" id="dayPopup">
+            <div data-role="header">
+                <h1>說明</h1>
+            </div>
+            <div data-role="main" class="ui-content">
+                <h1 align="center" valign="center">每日</h1>
+                <p>使用此功能可以使用每日功能。</p>
+            </div>
+        </div>
+        <!-- 訊息說明彈出區塊
+            api: jquery-1.11.3.min.js
+            api: jquery.mobile-1.4.5.min.js
+        //-->
+        <div data-role="popup" data-arrow="b" id="messagePopup">
+            <div data-role="header">
+                <h1>說明</h1>
+            </div>
+            <div data-role="main" class="ui-content">
+                <h1 align="center" valign="center">訊息</h1>
+                <p>使用此功能可以使用訊息功能。</p>
+            </div>
+        </div>
+        <!-- 設定說明彈出區塊
+            api: jquery-1.11.3.min.js
+            api: jquery.mobile-1.4.5.min.js
+        //-->
+        <div data-role="popup" data-arrow="b" id="settingPopup">
+            <div data-role="header">
+                <h1>說明</h1>
+            </div>
+            <div data-role="main" class="ui-content">
+                <h1 align="center" valign="center">設定</h1>
+                <p>使用此功能可以設定功能。</p>
+            </div>
+        </div>
+    </div>
+
+        <div>
+            <button id="remove" onclick="clean();">刪除紀錄</button>  
+        </div>
+    <div data-role="footer" data-position="fixed" data-fullscreen="true">
+        <div data-role="navbar">
+            <ul class="footNavBar">
+                <li><a href="index.html" id="homeImg" data-ajax="false"><img style="width:90%;" src="image/home.png" is="image"></a></li>
+                <li><a href="search.html" id="searchImg" data-ajax="false"><img style="width:90%;" src="image/search.png" is="image"></a></li>
+                <li><a href="day.html" id="dayImg" data-ajax="false"><img style="width:90%;" src="image/day.png" is="image"></a></li>
+                <li><a href="message.html" id="messageImg" data-ajax="false"><img style="width:90%;" src="image/message.png" is="image"></a></li>
+                <li><a href="setting.html" id="settingImg" data-ajax="false"><img style="width:90%;" src="image/setting.png" is="image"></a></li>
+            </ul>
+        </div>
+    </div>
+    <script type="text/javascript" src="cordova.js" defer></script>
+    <script type="text/javascript" src="js/popupExplan.js" defer></script>
+    <script type="text/javascript">
+        readFile('log.txt');
+        var data=0;       
+        //读取文件
+        function readFile(fileEntry) {
+
+              //只用LocalFileSystem.PERSISTENT 會有問題
+            document.addEventListener("deviceready", function() { 
+                window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, successCallback, errorCallback);
+            }, false);
+            function successCallback(fs) {
+
+                fs.root.getFile('log.txt', {}, function(fileEntry) {
+
+                    fileEntry.file(function(file) {
+                    var reader = new FileReader();
+
+                        reader.onloadend = function(e) {
+                            $("#record").children().remove();
+                            console.log(JSON.parse(this.result));
+                            var str = JSON.parse(this.result);
+                            var i = 0;
+                            $("#record").append("<table>");
+                            var f = 1;
+                            while(i < str.length){
+                                if(f){
+                                    $("#record").append("<tr><th>種類</th><th>客語</th><th>中文</th><th>英文</th><th>腔調</th>");
+                                    f=0;
+                                }else{
+                                    $("#record").append("<tr><td>"+str[i]['kind']+"</td>"+"<td>"+str[i]['hakka_risigned']+"</td>"+"<td>"+str[i]['chinese_risigned']+"</td>"+"<td>"+str[i]['english_risigned']+"</td>"+"<td>"+str[i]['accent']+"</td>");
+                                }   
+                                i++;                             
+                            }
+                            $("#record").append("</table>");
+                        };
+                        reader.readAsText(file);
+                    }, errorCallback);
+                }, errorCallback);
+        }           
+            //读取文件失败响应
+        function errorCallback(error){
+          console.log("文件读取失败!");
+          check = 0;
+        }
+        }
+
+        function removeFile() {
+            var type = window.TEMPORARY;
+            var size = 5*1024*1024;
+
+            window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, successCallback, errorCallback)
+
+            function successCallback(fs) {
+            fs.root.getFile('log.txt', {create: false}, function(fileEntry) {
+
+                    fileEntry.remove(function() {
+                    alert('File removed.');
+                    }, errorCallback);
+                }, errorCallback);
+            }
+           function errorCallback(error) {
+              alert("ERROR: " + error.code)
+           }   
+        }
+    </script>
+</div>
