@@ -43,21 +43,18 @@
                              <div class="row">
                                 <div class="col-xs-4 col-sm-4 ">
                                 <button id="buton2"  value="2" onclick="btn(this.value);">大埔</button>
-                            </div>
+                                </div>
                                 <div class="col-xs-4 col-sm-4 " >
                                     <button id="buton3" value="3"  onclick="btn(this.value);">饒平</button>
                                 </div>
                                 <div class="col-xs-4 col-sm-2 ">
                                     <button id="buton4"  value="4" onclick="btn(this.value);">詔安</button>
                                 </div>
-                            </div>                                     
-                         
-                    </div>
-                </div>                           
-            
-                    
-            </div>  
-        </div>
+                            </div>                 
+                        </div>
+                    </div>                                        
+        </div>  
+    </div>
                    
         <div data-role="popup" data-arrow="b" id="homePopup">
             <div data-role="header">
@@ -122,8 +119,10 @@
         </div>
         <!-- <button id="test">按我</button> -->
         <div>
-            <button id="star" onclick="fav();">加入最愛</button>  
-            
+            <button id="star" onclick="fav();">加入最愛</button>
+            <button id="read" onclick="read();">讀取</button>  
+            <button id="remove" onclick="clean();">刪除</button>
+            <button id="recordBtn" onclick="location.href='record.html'">學習紀錄</button>  
         </div>
         
     
@@ -148,7 +147,8 @@
             $("#star").children().remove();
             var obj;
             var record=0;
-            var i=0;                  
+            var i=0;
+            var check = 0;
             var accent = ["種類","客語","發音","中文",
                         "英文","客語例句","中文例句","腔調","例句語音"];
             $.ajax({
@@ -198,79 +198,146 @@
 
         function createAndWriteFile(){
               //持久化数据保存
-              window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function (fs) {
- 
-                console.log('打开的文件系统: ' + fs.name);
-                fs.root.getFile("hangge.txt", { create: true, exclusive: false },
-                 function (fileEntry) {
- 
-                    console.log("是否是个文件？" + fileEntry.isFile.toString());
-                    // fileEntry.name == 'hangge.txt'
-                    // fileEntry.fullPath == '/hangge.txt'
-                    //文件内容
-                    var dataObj = new Blob(['欢迎访问hangge.com'], { type: 'text/plain' });
-                    //写入文件
-                    writeFile(fileEntry, dataObj);
- 
-                }, onErrorCreateFile);
- 
-              }, onErrorLoadFs);
+               window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, successCallback, errorCallback)
+
+               function successCallback(fs) {
+
+                  fs.root.getFile('log.txt', {create: true}, function(fileEntry) {
+
+                     fileEntry.createWriter(function(fileWriter) {
+                        fileWriter.onwriteend = function(e) {
+                           //alert('Write completed.');
+                        };
+
+                        fileWriter.onerror = function(e) {
+                           //alert('Write failed: ' + e.toString());
+                        };
+                     }, errorCallback);
+
+                  }, errorCallback);
+
+               }
+
+               function errorCallback(error) {
+                  alert("ERROR: " + error.code)
+               }
         }
 
         function writeFile(fileEntry, dataObj, isAppend) {
-    //创建一个写入对象
-            fileEntry.createWriter(function (fileWriter) {
-         
-                //文件写入成功
-                fileWriter.onwriteend = function() {
-                    console.log("Successful file read...");
-                    readFile(fileEntry);
-                };
-         
-                //文件写入失败
-                fileWriter.onerror = function (e) {
-                    console.log("Failed file read: " + e.toString());
-                };
-         
-                //如果是最加内容，则定位到文件尾部
-                if (isAppend) {
-                    try {
-                        fileWriter.seek(fileWriter.length);
+            window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, successCallback, errorCallback)
+
+           function successCallback(fs) {
+
+              fs.root.getFile('log.txt', {create: true}, function(fileEntry) {
+
+                 fileEntry.createWriter(function(fileWriter) {
+                    fileWriter.onwriteend = function(e) {
+                        //alert('Write completed.');
+                       
+                    };
+
+                    fileWriter.onerror = function(e) {
+                       alert('Write failed: ' + e.toString());
+                    };                   
+                    // if (isAppend) {
+                    //     try {
+                    //         fileWriter.seek(fileWriter.length);
+                    //     }
+                    //     catch (e) {
+                    //         console.log("file doesn't exist!");
+                    //     }
+                    // }
+                    var check = fileWriter.length;
+                    if(check){
+                      fileWriter.seek(fileWriter.length-1);
+                      var st = ",{" + '"' + 'kind'+'"' + ':['+ '"' + obj[record]['kind']+ '"' +'],'+ '"' + 'hakka_risigned' + '"' + ':[' + '"' + obj[record]['hakka_risigned'] + '"' +
+                      '],'+ '"' +'chinese_risigned' + '"' + ':[' + '"'+ obj[record]['chinese_risigned'] + '"' + '],' + '"' + 'english_risigned' + '"' + ':['+ '"' + 
+                      obj[record]['english_risigned'] + '"' + '],' + '"' + 'accent' + '"' + ':[' + '"' +
+                      obj[record]['accent']+ '"]' +"}]";
+                      var data = new Blob([st], { type: 'text/plain' });
+                      fileWriter.write(data);
+                    }else{
+                     
+                      fileWriter.write(dataObj);  
                     }
-                    catch (e) {
-                        console.log("file doesn't exist!");
-                    }
-                }
-                fileWriter.write(dataObj);
-            });
+                    
+                    
+                 }, errorCallback);
+
+              }, errorCallback);
+
+           }
+
+           function errorCallback(error) {
+              alert("ERROR: " + error.code)
+           }
         }
         
-
         //读取文件
         function readFile(fileEntry) {
-            fileEntry.file(function (file) {
+
+            window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, successCallback, errorCallback)
+
+            function successCallback(fs) {
+
+                fs.root.getFile('log.txt', {}, function(fileEntry) {
+
+                fileEntry.file(function(file) {
                 var reader = new FileReader();
 
-                reader.onloadend = function() {
-                    console.log("Successful file read: " + this.result);
-                    alert(this.result);
-                };
+                    reader.onloadend = function(e) {
+                            console.log(JSON.parse(this.result));
+                        };
+                        reader.readAsText(file);
 
-                reader.readAsText(file);
-
-            }, onErrorReadFile);
+                    }, errorCallback);
+                }, errorCallback);
+            }           
+            //读取文件失败响应
+            function errorCallback(error){
+              console.log("文件读取失败!");
+              check = 0;
+            }
         }
- 
-        //读取文件失败响应
-        function onErrorReadFile(){
-          console.log("文件读取失败!");
-        }
 
+        function removeFile() {
+            var type = window.TEMPORARY;
+            var size = 5*1024*1024;
+
+            window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, successCallback, errorCallback)
+
+            function successCallback(fs) {
+            fs.root.getFile('log.txt', {create: false}, function(fileEntry) {
+
+                    fileEntry.remove(function() {
+                    alert('File removed.');
+                    }, errorCallback);
+                }, errorCallback);
+            }
+           function errorCallback(error) {
+              alert("ERROR: " + error.code)
+           }   
+        }
         function fav(){
             //alert("data stored");
             createAndWriteFile();
-            var dataObj = new Blob(['\n值得您每天来看看！'], { type: 'text/plain' });
-            writeFile("hangge.txt", dataObj, true);
+                            
+            var string = [{'kind':obj[record]['kind'],
+            'hakka_risigned':obj[record]['hakka_risigned'],
+            'chinese_risigned':obj[record]['chinese_risigned'],
+            'english_risigned':obj[record]['english_risigned'],
+            'accent':obj[record]['accent']}
+            ];    
+            var jsonse = JSON.stringify(string);
+            var dataObj = new Blob([jsonse], { type: 'text/plain' });           
+            writeFile('log.txt', dataObj, true);           
+            //console.log(check);        
+        }
+        function clean(){
+            removeFile();          
+        }
+        function read(){
+            readFile('log.txt'); 
         }
     </script>
                                 

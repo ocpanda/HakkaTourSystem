@@ -104,7 +104,7 @@
     </div>
 
         <div>
-            <button id="remove" onclick="removeFile();">刪除紀錄</button>  
+            <button id="remove" onclick="clean();">刪除紀錄</button>  
         </div>
     <div data-role="footer" data-position="fixed" data-fullscreen="true">
         <div data-role="navbar">
@@ -146,7 +146,6 @@
                             while(i < str.length){
                                 if(f){
                                     $("#record").append("<tr><th>種類</th><th>客語</th><th>中文</th><th>英文</th><th>腔調</th>");
-                                    $("#record").append("<tr><td>"+str[i]['kind']+"</td>"+"<td>"+str[i]['hakka_risigned']+"</td>"+"<td>"+str[i]['chinese_risigned']+"</td>"+"<td>"+str[i]['english_risigned']+"</td>"+"<td>"+str[i]['accent']+"</td>");
                                     f=0;
                                 }else{
                                     $("#record").append("<tr><td>"+str[i]['kind']+"</td>"+"<td>"+str[i]['hakka_risigned']+"</td>"+"<td>"+str[i]['chinese_risigned']+"</td>"+"<td>"+str[i]['english_risigned']+"</td>"+"<td>"+str[i]['accent']+"</td>");
@@ -170,10 +169,8 @@
             var type = window.TEMPORARY;
             var size = 5*1024*1024;
 
-            //window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, successCallback, errorCallback)
-            document.addEventListener("deviceready", function() { 
-                window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, successCallback, errorCallback);
-            }, false);
+            window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, successCallback, errorCallback)
+
             function successCallback(fs) {
             fs.root.getFile('log.txt', {create: false}, function(fileEntry) {
 
