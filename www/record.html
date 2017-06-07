@@ -26,11 +26,9 @@
                 <h1 class="panel-title">學習紀錄</h1>
             </div>
             <div class="panel-body">
-                <table id="ha" border="1">
-                    <tbody id="record" class="panel-body"> 
-
-                    </tbody>
-                </table>
+                <ul id="record-body" style="list-style-type:none;">
+                    
+                </ul>
             </div>                                                    
         </div>  
     </div>
@@ -137,23 +135,26 @@
                     var reader = new FileReader();
 
                         reader.onloadend = function(e) {
-                            $("#record").children().remove();
+                            $("#record-body").children().remove();
                             console.log(JSON.parse(this.result));
                             var str = JSON.parse(this.result);
                             var i = 0;
-                            $("#record").append("<table>");
+                            var rec;
                             var f = 1;
                             while(i < str.length){
                                 if(f){
-                                    $("#record").append("<tr><th>種類</th><th>客語</th><th>中文</th><th>英文</th><th>腔調</th>");
-                                    $("#record").append("<tr><td>"+str[i]['kind']+"</td>"+"<td>"+str[i]['hakka_risigned']+"</td>"+"<td>"+str[i]['chinese_risigned']+"</td>"+"<td>"+str[i]['english_risigned']+"</td>"+"<td>"+str[i]['accent']+"</td>");
+                                    rec = str[i]['chinese_risigned'];
+                                    $("#record-body").append("<li id="+rec+" onclick='getPaging(this)'>"+str[i]['chinese_risigned']+"</li>");
+                                    $("#record-body").append("<hr>");
                                     f=0;
                                 }else{
-                                    $("#record").append("<tr><td>"+str[i]['kind']+"</td>"+"<td>"+str[i]['hakka_risigned']+"</td>"+"<td>"+str[i]['chinese_risigned']+"</td>"+"<td>"+str[i]['english_risigned']+"</td>"+"<td>"+str[i]['accent']+"</td>");
+                                    rec = str[i]['chinese_risigned'];
+                                    $("#record-body").append("<li id="+rec+" onclick='getPaging(this)'>"+str[i]['chinese_risigned']+"</li>");
+                                    $("#record-body").append("<hr>");
                                 }   
                                 i++;                             
                             }
-                            $("#record").append("</table>");
+                           
                         };
                         reader.readAsText(file);
                     }, errorCallback);
@@ -161,7 +162,7 @@
         }           
             //读取文件失败响应
         function errorCallback(error){
-          console.log("文件读取失败!");
+          //console.log("文件读取失败!");
           check = 0;
         }
         }
@@ -183,8 +184,13 @@
                 }, errorCallback);
             }
            function errorCallback(error) {
-              alert("ERROR: " + error.code)
-           }   
+              //alert("ERROR: " + error.code)
+           }
+           //history.go(0);
+           window.location.reload();
+        }
+        function getPaging(data){
+           alert(data.id);
         }
     </script>
 </div>
