@@ -149,7 +149,8 @@
                                     f=0;
                                 }else{
                                     rec = str[i]['chinese_risigned'];
-                                    $("#record-body").append("<li id="+rec+" onclick='getPaging(this)'>"+str[i]['chinese_risigned']+"</li>");
+                                     $("#record-body").append("<li onclick='location.href=\""+"volcab.html?"+rec+"\"'>"+str[i]['chinese_risigned']+"</li>");
+                                     
                                     $("#record-body").append("<hr>");
                                 }   
                                 i++;                             
@@ -191,6 +192,9 @@
         }
         function getPaging(data){
            alert(data.id);
+           var url = "volcab.html";  
+           var vol = data.id;  
+           window.open(encodeURI(url +"?"+ vol));   
         }
     </script>
 </div>
