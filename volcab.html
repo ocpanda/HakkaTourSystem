@@ -1,43 +1,38 @@
-<!--群組頁//-->          
-<div data-role="page" id="group">
+<!--日常頁//-->
+<div id="day" data-role="page">
+
     <link rel="stylesheet" href="web_api/jquery/jquery.mobile-1.4.5.min.css">
     <link rel="stylesheet" type="text/css" href="web_api/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="web_api/bootstrap/css/bootstrap-theme.min.css">
-    <link rel="stylesheet" type="text/css" href="css/record.css">
+    <link rel="stylesheet" type="text/css" href="css/volcab.css">
 
     <script src="web_api/jquery/jquery-1.11.3.min.js"></script>
     <script src="web_api/jquery/jquery.mobile-1.4.5.min.js"></script>
     <script src="web_api/bootstrap/js/bootstrap.min.js"></script>
     <script src="web_api/jquery/jquery-2.2.4.js"></script>
     <script src="cordova.js"></script>
-    <!--上方功能選單區塊-->
-    <div data-role="header" data-position="fixed">
-        <div data-role="navbar">
-            <ul>
-                <li><button id="dayBtn" onclick="location.href='day.html'">每日一詞</button></li>
-                <li><button id="recordBtn" onclick="location.href='record.html'">學習紀錄</button></li>
-            </ul>
-        </div>
-    </div>
-    <!--主要內容//-->
-    <div data-role="main" class="ui-content">
-        <div class="panel panel-primary">
-            <div class="panel-heading">
-                <h1 class="panel-title">學習紀錄</h1>
-            </div>
-            <div class="panel-body">
-                <ul id="record-body" style="list-style-type:none;">
-                    
-                </ul>
-            </div>                                                    
-        </div>  
-    </div>
     <!--下方功能選單區塊-->
     <div data-role="main" class="ui-content">
         <!-- 首頁說明彈出區塊
             api: jquery-1.11.3.min.js
             api: jquery.mobile-1.4.5.min.js
         //-->
+        <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <a class="panel-title" onclick="location.href='record.html'"><font color="white">上一頁</font></a>
+                </div>
+                <div class="panel-body">
+                    <table id="ha" border="1">
+                        <tbody id="vocabulary" class="panel-body"> 
+                            
+                        </tbody>
+                    </table>
+                </div>
+            
+                                                
+        </div>  
+    </div>
+                   
         <div data-role="popup" data-arrow="b" id="homePopup">
             <div data-role="header">
                 <h1>說明</h1>
@@ -60,17 +55,17 @@
                 <p>使用此功能可以搜尋本展館之展物並進行導航。</p>
             </div>
         </div>
-        <!-- 每日說明彈出區塊
+        <!-- 群組說明彈出區塊
             api: jquery-1.11.3.min.js
             api: jquery.mobile-1.4.5.min.js
         //-->
-        <div data-role="popup" data-arrow="b" id="dayPopup">
+        <div data-role="popup" data-arrow="b" id="groupPopup">
             <div data-role="header">
                 <h1>說明</h1>
             </div>
             <div data-role="main" class="ui-content">
-                <h1 align="center" valign="center">每日</h1>
-                <p>使用此功能可以使用每日功能。</p>
+                <h1 align="center" valign="center">群組</h1>
+                <p>使用此功能可以加入或創建群組。</p>
             </div>
         </div>
         <!-- 訊息說明彈出區塊
@@ -99,28 +94,45 @@
                 <p>使用此功能可以設定功能。</p>
             </div>
         </div>
-    </div>
 
-        <div>
-            <button id="remove" onclick="removeFile();">刪除紀錄</button>  
-        </div>
     <div data-role="footer" data-position="fixed" data-fullscreen="true">
         <div data-role="navbar">
             <ul class="footNavBar">
                 <li><a href="index.html" id="homeImg" data-ajax="false"><img style="width:90%;" src="image/home.png" is="image"></a></li>
                 <li><a href="search.html" id="searchImg" data-ajax="false"><img style="width:90%;" src="image/search.png" is="image"></a></li>
-                <li><a href="day.html" id="dayImg" data-ajax="false"><img style="width:90%;" src="image/day.png" is="image"></a></li>
+                <li><a href="group.html" id="groupImg" data-ajax="false"><img style="width:90%;" src="image/group.png" is="image"></a></li>
                 <li><a href="message.html" id="messageImg" data-ajax="false"><img style="width:90%;" src="image/message.png" is="image"></a></li>
                 <li><a href="setting.html" id="settingImg" data-ajax="false"><img style="width:90%;" src="image/setting.png" is="image"></a></li>
             </ul>
         </div>
     </div>
+    <script type="text/javascript" scr="js/day.js"></script>
+    <script type="text/javascript" src="js/file.js"></script>
     <script type="text/javascript" src="cordova.js" defer></script>
     <script type="text/javascript" src="js/popupExplan.js" defer></script>
     <script type="text/javascript">
+        
+        
+        function getArgs() { 
+           var args = new Object(); 
+           //location = volcab.htm?vol=vol&accent=data" 
+           //locatin.search = ?vol=vol&accent=data" 
+           var query = location.search.substring(1); //vol=vol&accent=data" 
+           var pairs = query.split("&"); 
+           for(var i=0;i<pairs.length;i++) { 
+              var pos = pairs[i].indexOf("="); 
+              if (pos == -1) continue; 
+              var argname = pairs[i].substring(0,pos); 
+              var value = pairs[i].substring(pos+1); 
+              args[argname] = decodeURIComponent(value); 
+           } 
+           return args; 
+        } 
+        var args = getArgs(); 
+        //alert(args.vol);
+        //alert(args.accent);
+
         readFile('log.txt');
-        var accent;       
-        //读取文件
         function readFile(fileEntry) {
 
               //只用LocalFileSystem.PERSISTENT 會有問題
@@ -140,26 +152,23 @@
                             var str = JSON.parse(this.result);
                             var i = 0;
                             var rec;
-                            //var f = 1;
+                            var accent;
                             while(i < str.length){
-                                /*if(f){
-                                    rec = str[i]['chinese_risigned'];
-                                    accent = str[i]['accent'];
-                                    $("#record-body").append("<li id="+rec+" onclick='getPaging(this)'>"+str[i]['chinese_risigned']+"</li>");
-                                    $("#record-body").append("<hr>");
-                                    f=0;
-                                }else{
-                                    rec = str[i]['chinese_risigned'];
-                                    $("#record-body").append("<li id="+rec+" onclick='getPaging(this)'>"+str[i]['chinese_risigned']+"</li>");
-                                     //$("#record-body").append("<li onclick='location.href=\""+"volcab.html?"+rec+"\"'>"+str[i]['chinese_risigned']+"</li>");
-                                     
-                                    $("#record-body").append("<hr>");
-                                } */  
                                 rec = str[i]['chinese_risigned'];
-                                    accent = str[i]['accent'];
-                                    $("#record-body").append("<li id="+rec+" onclick='getPaging(this)'>"+rec+"<ul>"+accent+"</ul>"+"</li>");
-                                    $("#record-body").append("<br>");
-                                    $("#record-body").append("<hr>");
+                                accent = str[i]['accent'];
+                                if((rec == args.vol) && (accent == args.accent)){
+                                    $("#vocabulary").children().remove();
+                                   $("#vocabulary").append("<tr><th class='a'>"+"種類"+"</th><td id='kind' fontsize=15 >"+str[i]['kind']+"</td></tr>");
+                                   $("#vocabulary").append("<tr><th class='a'>"+"客語"+"</th><td id='kind' fontsize=15 >"+str[i]['hakka_risigned']+"</td></tr>");
+                                   $("#vocabulary").append("<tr><th class='a'>"+"發音"+"</th><td id='kind' fontsize=15 >"+str[i]['hakka_phoneticon']+"</td></tr>");
+                                   $("#vocabulary").append("<tr><th class='a'>"+"中文"+"</th><td id='kind' fontsize=15 >"+rec+"</td></tr>"); 
+                                   $("#vocabulary").append("<tr><th class='a'>"+"英文"+"</th><td id='kind' fontsize=15 >"+str[i]['english_risigned']+"</td></tr>");
+                                   $("#vocabulary").append("<tr><th class='a'>"+"客語例句"+"</th><td id='kind' fontsize=15 >"+str[i]['hakka_sentence']+"</td></tr>");
+                                   $("#vocabulary").append("<tr><th class='a'>"+"中文例句"+"</th><td id='kind' fontsize=15 >"+str[i]['chinese_risigned']+"</td></tr>");
+                                   $("#vocabulary").append("<tr><th class='a'>"+"腔調"+"</th><td id='kind' fontsize=15 >"+accent+"</td></tr>");
+                                   $("#vocabulary").append("<tr><th class='a'>"+"例句語音"+"</th><td id='voice'><audio class='gradient' controls='controls'><source src='"+str[i]['chinese_risigned']+"' type='audio/mp3'></audio></td></tr>");
+                                }
+                                    
                                 i++;                             
                             }
                            
@@ -173,35 +182,7 @@
           //console.log("文件读取失败!");
           check = 0;
         }
-        }
-
-        function removeFile() {
-            var type = window.TEMPORARY;
-            var size = 5*1024*1024;
-
-            //window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, successCallback, errorCallback)
-            document.addEventListener("deviceready", function() { 
-                window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, successCallback, errorCallback);
-            }, false);
-            function successCallback(fs) {
-            fs.root.getFile('log.txt', {create: false}, function(fileEntry) {
-
-                    fileEntry.remove(function() {
-                    alert('File removed.');
-                    }, errorCallback);
-                }, errorCallback);
-            }
-           function errorCallback(error) {
-              //alert("ERROR: " + error.code)
-           }
-           //history.go(0);
-           window.location.reload();
-        }
-        function getPaging(data){
-           var url = "volcab.html";  
-           var vol = data.id;        
-           window.open(encodeURI(url +"?vol="+ vol+"&accent="+accent));   
-        }
-        
+        }                         
     </script>
+                                
 </div>
