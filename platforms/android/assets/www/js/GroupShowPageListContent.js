@@ -7,7 +7,7 @@ function showGroupList(){
 	$("#privateGroupList").children().remove();
 	$("#publicGroupList").children().remove();
 	$.ajax({
-		url: "http://140.130.35.62/csie40343142/Tour_System_server/php/TourGroupShowList.php",
+		url: "http://140.130.35.62/hakka/hakkamanager/php/TourGroupShowList.php",
 		type: "POST",
 		dataType: "json",
 		success: function(result){
@@ -83,7 +83,7 @@ function joinWinShow(groupName, type){
 		data = {userUUID:localStorage.getItem("deviceID"), joinGroup:groupName, joinName: joinName, joinPass: joinPass};
 
 		$.ajax({
-			url: "http://140.130.35.62/csie40343142/Tour_System_server/php/TourGroupJoin.php",
+			url: "http://140.130.35.62/hakka/hakkamanager/php/TourGroupJoin.php",
 			type: "POST",
 			data: data,
 			dataType: "text",

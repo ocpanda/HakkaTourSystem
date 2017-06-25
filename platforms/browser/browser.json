@@ -26,12 +26,15 @@
         },
         "cordova-plugin-device": {
             "PACKAGE_NAME": "com.ocpanda.test"
+<<<<<<< HEAD
         },
         "cordova-plugin-compat": {
             "PACKAGE_NAME": "com.ocpanda.test"
         },
         "cordova-plugin-file": {
             "PACKAGE_NAME": "com.ocpanda.test"
+=======
+>>>>>>> develop
         }
     },
     "dependent_plugins": {},
@@ -57,6 +60,7 @@
             "id": "cordova-plugin-device.DeviceProxy",
             "pluginId": "cordova-plugin-device",
             "runs": true
+<<<<<<< HEAD
         },
         {
             "file": "plugins/cordova-plugin-file/www/DirectoryEntry.js",
@@ -236,13 +240,19 @@
             "merges": [
                 "window.FileSystem"
             ]
+=======
+>>>>>>> develop
         }
     ],
     "plugin_metadata": {
         "cordova-plugin-whitelist": "1.2.2",
         "cordova-plugin-bluetoothle": "4.2.1",
+<<<<<<< HEAD
         "cordova-plugin-device": "1.1.2",
         "cordova-plugin-compat": "1.1.0",
         "cordova-plugin-file": "4.3.3"
+=======
+        "cordova-plugin-device": "1.1.2"
+>>>>>>> develop
     }
 }

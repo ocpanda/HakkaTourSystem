@@ -65,19 +65,11 @@ var app = {
             data: "school=nfu&app=test",
             dataType: "jsonp",
             jsonp: "callback",
-<<<<<<< HEAD
             success: function(json,textStatus){    
                 console.log("jsonp.success:"+json.name);    
             },    
             error: function(XMLHttpRequest,textStatus,errorThrown){    
                 console.log("jsonp.error:"+textStatus);    
-=======
-            success: function(json,textStatus){
-                console.log("jsonp.success:"+json.name);
-            },
-            error: function(XMLHttpRequest,textStatus,errorThrown){
-                console.log("jsonp.error:"+textStatus);
->>>>>>> calc_location
             }
         });*/
 
@@ -100,7 +92,11 @@ var app = {
     addUser: function(data){
       console.log(data);
       $.ajax({
+<<<<<<< HEAD
           url:"http://140.130.35.62/hakka/Tour_System_server/php/TourGetMobileUUID.php",
+=======
+          url:"http://140.130.35.62/hakka/hakkamanager/php/TourGetMobileUUID.php",
+>>>>>>> develop
           type: "POST",
           data: data,
           dataType: "text",
@@ -274,17 +270,28 @@ var calcLocation = {
     getBeaconData: function(){
         if(beaconData["config"] === undefined){
             $.ajax({
+<<<<<<< HEAD
                 url: "http://140.130.35.62/csie40343142/Tour_System_server/php/TourGetBeaconData.php",
+=======
+                url: "http://140.130.35.62/hakka/hakkamanager/php/TourGetBeaconData.php",
+>>>>>>> develop
                 type: "POST",
                 dataType: "json",
                 success: function(result){
                     //將目前展區beacon 位置資訊讀入
                     //將beaconData陣列的config初始化(給定beacon數量)
                     calcLocation.addBeaconData("config", 0, 0);
+<<<<<<< HEAD
                     for(var i=0; i<result['beaconName'].length; i++){
                         console.log("outside:"+result['location_x'][i]+" "+ result['location_y'][i]);
                         var x = result['location_x'][i]; var y = result['location_y'][i];
                         calcLocation.addBeaconData(result['beaconName'][i], x, y);
+=======
+                    for(var i=0; i<result['uuid'].length; i++){
+                        console.log("outside:"+result['locationX'][i]+" "+ result['locationY'][i]);
+                        var x = result['location_x'][i]; var y = result['locationY'][i];
+                        calcLocation.addBeaconData(result['uuid'][i], x, y);
+>>>>>>> develop
                     }
                 },
                 error: function(){
@@ -325,9 +332,17 @@ var calcLocation = {
                   //掃描beacon
                   //var name1 = result.name.replace(/(\W+)/g, "");
                   var name = result.address.replace(/(\W+)/g, "");
+<<<<<<< HEAD
                   //alert(name);
                   calcLocation.addScanedBeacon(name, result.rssi);
                   calcLocation.addBeaconData(name, 0, 0);
+=======
+                  if(beaconData[name] != undefined){
+                    //alert(name);
+                    calcLocation.addScanedBeacon(name, result.rssi);
+                    calcLocation.addBeaconData(name, 0, 0);
+                  }
+>>>>>>> develop
                 }
             },
             function(error){console.log("scan error! "+error); return;},{sercvices:[]});
@@ -425,9 +440,12 @@ var GaussianElimination={
     if(name === "config"){
       if(gaussianProcessData["config"] == undefined){
         gaussianProcessData["config"] = {number: 0, s: [], a: []};
+<<<<<<< HEAD
         gaussianProcessData["config"].a[0] = [];
         gaussianProcessData["config"].a[1] = [];
         gaussianProcessData["config"].a[2] = [];
+=======
+>>>>>>> develop
         /*
         網頁伺服器讚實無法改動
         因此先給定值
@@ -452,6 +470,12 @@ var GaussianElimination={
       var aj = beaconData[name].beaconLocX - beaconData[beaconData["config"].nameList[0]].beaconLocX;
       var bj = beaconData[name].beaconLocY - beaconData[beaconData["config"].nameList[0]].beaconLocY;
       var cj = (aj + bj - (Math.pow(beaconData[name].distance, 2.0)-Math.pow(beaconData[beaconData["config"].nameList[0]].distance, 2.0)));
+<<<<<<< HEAD
+=======
+      var tmp = [];
+      tmp.push(aj);
+      tmp.push(bj);
+>>>>>>> develop
 
       if(gaussianProcessData[name] != undefined){
         gaussianProcessData["config"].number += 1;
@@ -460,9 +484,14 @@ var GaussianElimination={
       console.log("this is bj = "+bj);
       console.log("this is cj = "+cj);
       //a[0]為a1~an, a[1]為b1~bn, a[2]為c1~cn
+<<<<<<< HEAD
       gaussianProcessData["config"].a[0].push(aj);
       gaussianProcessData["config"].a[1].push(bj);
       gaussianProcessData["config"].a[2].push(cj);
+=======
+      gaussianProcessData["config"].a.push(tmp);
+      gaussianProcessData["config"].s.push(cj);
+>>>>>>> develop
       //console.log("asdawdqaefwefawrgawgwrg     " + gaussianProcessData["config"].a[0]);
     }
   },
@@ -480,6 +509,7 @@ var GaussianElimination={
     }
     if(beaconData["config"].nameList.length >=3){
         console.log("realy calc!!!!!!!!!!!");
+<<<<<<< HEAD
         gaussianProcessData["config"].s = GaussianElimination.gaussianCalc();
     }
   },
@@ -539,4 +569,131 @@ var GaussianElimination={
         //console.log("x is " + x);
         return x;
     }
+=======
+        gaussianProcessData["config"].s = GaussianElimination.gaussianCalc(gaussianProcessData["config"].a, gaussianProcessData["config"].s);
+    }
+  },
+  gaussianCalc: function(A, x){
+        var abs = Math.abs;
+
+        /**
+         * Gaussian elimination
+         * @param  array A matrix
+         * @param  array x vector
+         * @return array x solution vector
+         */
+          var i, k, j;
+
+          // Just make a single matrix
+          for (i=0; i < A.length; i++) { 
+              A[i].push(x[i]);
+          }
+          var n = A.length;
+
+          for (i=0; i < n; i++) { 
+              // Search for maximum in this column
+              var maxEl = abs(A[i][i]),
+                  maxRow = i;
+              for (k=i+1; k < n; k++) { 
+                  if (abs(A[k][i]) > maxEl) {
+                      maxEl = abs(A[k][i]);
+                      maxRow = k;
+                  }
+              }
+
+
+              // Swap maximum row with current row (column by column)
+              for (k=i; k < n+1; k++) { 
+                  var tmp = A[maxRow][k];
+                  A[maxRow][k] = A[i][k];
+                  A[i][k] = tmp;
+              }
+
+              // Make all rows below this one 0 in current column
+              for (k=i+1; k < n; k++) { 
+                  var c = -A[k][i]/A[i][i];
+                  for (j=i; j < n+1; j++) { 
+                      if (i===j) {
+                          A[k][j] = 0;
+                      } else {
+                          A[k][j] += c * A[i][j];
+                      }
+                  }
+              }
+          }
+
+          // Solve equation Ax=b for an upper triangular matrix A
+          x = array_fill(0, n, 0);
+          for (i=n-1; i > -1; i--) { 
+              x[i] = A[i][n]/A[i][i];
+              for (k=i-1; k > -1; k--) { 
+                  A[k][n] -= A[k][i] * x[i];
+              }
+          }
+
+          return x;
+        },
+        // console.log("this is a[0] = "+gaussianProcessData["config"].a[0]);
+        // console.log("this is a[1] = "+gaussianProcessData["config"].a[1]);
+        // console.log("this is a[2] = "+gaussianProcessData["config"].a[2]);
+        // var aa = [];
+        // //將橫向陣列內容轉為直向
+        // for(var i=0; i<gaussianProcessData["config"].a[0].length; i++){
+        //     aa[i] = [];
+        //     for(var o=0; o<3; o++){
+        //       aa[i].push(gaussianProcessData["config"].a[o][i]);
+        //     }
+        // }
+
+
+        // var n = aa.length;
+        // for(var i=0; i<n; i++){
+        //   var maxEl = Math.abs(aa[i][i]);
+        //   var maxRow = i;
+        //   // Search for maximum in this column
+        //   for(var o=i+1; o<n; o++){
+        //     if(Math.abs(aa[o][i]) > maxEl){
+        //       maxEl = Math.abs(aa[o][i]);
+        //       maxRow = o;
+        //     }
+        //   }
+        //   // Swap maximum row with current row (column by column)
+        //   for (var o=i; o<n+1; o++) {
+        //       var tmp = aa[maxRow][o];
+        //       aa[maxRow][o] = aa[i][o];
+        //       aa[i][o] = tmp;
+        //   }
+        //   // Make all rows below this one 0 in current column
+        //   for (var o=i+1; o<n; o++) {
+        //       var c = -aa[o][i]/aa[i][i];
+        //       for(var j=i; j<n+1; j++) {
+        //           if (i==j) {
+        //               aa[o][j] = 0;
+        //           } else {
+        //               aa[o][j] += c * aa[i][j];
+        //           }
+        //       }
+        //   }
+        // }
+        // console.log("aa is "+aa);
+        // // Solve equation Ax=b for an upper triangular matrix A
+        // var x= new Array(n);
+        // for (var i=n-1; i>-1; i--) {
+        //     x[i] = aa[i][n]/aa[i][i];
+        //     console.log("x["+i+"] is " + x[i]);
+        //     for (var k=i-1; k>-1; k--) {
+        //         aa[k][n] -= aa[k][i] * x[i];
+        //     }
+        // }
+        // //console.log("x is " + x);
+        // return x;
+    array_fill: function(i, n, v){
+      var a = [];
+      for (; i < n; i++) {
+          a.push(v);
+      }
+      return a;
+    }
+
+>>>>>>> develop
 }
