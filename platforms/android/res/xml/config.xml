@@ -25,8 +25,12 @@
     <allow-intent href="sms:*" />
     <allow-intent href="mailto:*" />
     <allow-intent href="geo:*" />
-    <icon src="www/image/android/xdpi.png" />
     <allow-intent href="market:*" />
+    <icon density="mdpi" src="www/image/android/mdpi.png" />
+    <icon density="hdpi" src="www/image/android/hdpi.png" />
+    <icon density="xhdpi" src="www/image/android/xhdpi.png" />
+    <icon density="xxhdpi" src="www/image/android/xxhdpi.png" />
+    <icon density="xxxhdpi" src="www/image/android/xxxhdpi.png" />
     <preference name="loglevel" value="DEBUG" />
     <preference name="orientation" value="portrait" />
 </widget>

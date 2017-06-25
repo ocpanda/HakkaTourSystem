@@ -17,9 +17,13 @@
     <allow-intent href="mailto:*" />
     <allow-intent href="geo:*" />
     <preference name="orientation" value="portrait" />
-    <icon src="www/image/android/xdpi.png" />
     <platform name="android">
         <allow-intent href="market:*" />
+        <icon src="www/image/android/mdpi.png" density="mdpi" />
+        <icon src="www/image/android/hdpi.png" density="hdpi" />
+        <icon src="www/image/android/xhdpi.png" density="xhdpi" />
+        <icon src="www/image/android/xxhdpi.png" density="xxhdpi" />
+        <icon src="www/image/android/xxxhdpi.png" density="xxxhdpi" />
     </platform>
     <platform name="ios">
         <allow-intent href="itms:*" />

@@ -1,4 +1,6 @@
 /*app 設定資料*/
+var ORIGIN_DIS = -58.3;
+var ENVIRONMENT_VAR = 4;
 var calcRec = [];       //
 var fundDevices = [];
 var beaconData = [];
@@ -180,10 +182,10 @@ var calcLocation = {
       console.log("scan error! "+error.error+" "+error.message); 
       return;
     }, {sercvices: []});
-    //setTimeout(bluetoothle.stopScan, 200, function(){
+    setTimeout(bluetoothle.stopScan, 200, function(){
       //開始計算距離
       calcLocation.startCalc();         
-    //});
+    });
     
   },
   /*
@@ -194,25 +196,32 @@ var calcLocation = {
   use: calcLocation.startCalc()
   */
   startCalc: function(){
-    console. log("start calc called!!!");
+    
+    console.log("start calc called!!!");
+    console.log("fundDevices number ="+fundDevices["config"].number);
     //計算使用者與各beacon距離
     for(var i=0; i<fundDevices["config"].number; i++){
       var beaconName = fundDevices["config"].nameList[i];
       var rss = fundDevices[fundDevices["config"].nameList[i]].rssi;
       console.log("beaconName:"+beaconName+" rss:"+rss);
       //(一公尺RSS強度 - 目前接收RSS強度) / (10 * 路徑衰減函數)
-      var temp = (-58.3 - rss) / (10 * 5);
+      var temp = (ORIGIN_DIS - rss) / (10 * ENVIRONMENT_VAR);
       var temp2 = Math.pow(10, temp);
       addData.addBeaconData(beaconName, beaconData[beaconName].beaconLocX, beaconData[beaconName].beaconLocY, temp2);
 
       var beaconNum = fundDevices["config"].nameList.indexOf(beaconName);
       if($("#beacon"+beaconNum).length > 0){
-        $("#beacon"+beaconNum).html("與"+beaconName+"平均距離"+temp2);
+        $("#beacon"+beaconNum).html(beaconName+" "+beaconData[beaconName].beaconLocX+" "+beaconData[beaconName].beaconLocY+" "+temp2);
       }
       else{
-        $("#dsa").append("<a id='beacon"+beaconNum+"'>"+"與"+beaconName+"平均距離："+temp2+"</a><br>");
+        $("#dsa").append("<a id='beacon"+beaconNum+"'>"+beaconName+" "+beaconData[beaconName].beaconLocX+" "+beaconData[beaconName].beaconLocY+" "+temp2+"</a><br>");
       }
     }
+    // bluetoothle.stopScan(function(result){
+    //   console.log("startcalc bluetooth stop!");
+    // },function(result){
+    //   console.log("startcalc bluetooth stop error!");
+    // });
     GaussianElimination.main();
   }
 };
@@ -248,12 +257,17 @@ var GaussianElimination = {
     }
     else{
       //由aj bj cj 組合為一個a陣列 給高斯演算法做計算
+      console.log("oriaddData "+beaconData["config"].nameList[0]);
+      console.log("orilocationX "+beaconData[beaconData["config"].nameList[0]].beaconLocX);
+      console.log("orilocationY "+beaconData[beaconData["config"].nameList[0]].beaconLocY);      
+      console.log("orildis "+beaconData[beaconData["config"].nameList[0]].distance);
+      console.log("addData "+name);
+      console.log("locationX "+beaconData[name].beaconLocX);
+      console.log("locationY "+beaconData[name].beaconLocY);      
+      console.log("dis "+beaconData[name].distance);
       var aj = beaconData[name].beaconLocX - beaconData[beaconData["config"].nameList[0]].beaconLocX;
       var bj = beaconData[name].beaconLocY - beaconData[beaconData["config"].nameList[0]].beaconLocY;
       var cj = (aj + bj - (Math.pow(beaconData[name].distance, 2.0)-Math.pow(beaconData[beaconData["config"].nameList[0]].distance, 2.0)));
-      var tmp = [];
-      tmp.push(aj);
-      tmp.push(bj);
 
       if(gaussianProcessData[name] != undefined){
         gaussianProcessData["config"].number += 1;
@@ -262,7 +276,8 @@ var GaussianElimination = {
       console.log("this is bj = "+bj);
       console.log("this is cj = "+cj);
       //a[0]為a1~an, a[1]為b1~bn, a[2]為c1~cn
-      gaussianProcessData["config"].a.push(tmp);
+      gaussianProcessData["config"].a.push(aj);
+      gaussianProcessData["config"].a.push(bj);
       gaussianProcessData["config"].s.push(cj);
     }
   },
@@ -274,14 +289,18 @@ var GaussianElimination = {
   use: GaussianElimination.getData()
   */
   getData: function(){
+    console.log("getData called!!!!");
+    console.log("beacondata number : "+beaconData["config"].number);
     GaussianElimination.addData("config");
-    for(var i=1; i<beaconData["config"].nameList.length; i++){
+    for(var i=1; i<beaconData["config"].number; i++){
       GaussianElimination.addData(beaconData["config"].nameList[i]);
     }
-    if(beaconData["config"].nameList.length >=3){
+    if(beaconData["config"].number >= 3){
       console.log("realy calc!!!!!!!!!!!");
       console.log(gaussianProcessData["config"].a+" "+gaussianProcessData["config"].s);
       gaussianProcessData["config"].s = GaussianElimination.gaussianCalc(gaussianProcessData["config"].a, gaussianProcessData["config"].s);
+      console.log("calc complete!!");
+      console.log(gaussianProcessData["config"].s);
       if($("#gauss").length > 0){
         $("#gauss").html("X："+gaussianProcessData["config"].s[0]+"  Y："+gaussianProcessData["config"].s[1]);
         
@@ -293,6 +312,9 @@ var GaussianElimination = {
       gaussianProcessData["config"].s = 0;
       gaussianProcessData["config"].a = 0;
       //console.log(gaussianProcessData["config"].s);
+    }else{
+      gaussianProcessData["config"].s = 0;
+      gaussianProcessData["config"].a = 0;
     }
   },
   gaussianCalc: function(A, x){
@@ -350,7 +372,7 @@ var GaussianElimination = {
   arrayFill: function(i, n, v){
     var a = [];
     for (; i < n; i++) {
-        a.push(v);
+        //a.push(v);
     }
     return a;
   }
