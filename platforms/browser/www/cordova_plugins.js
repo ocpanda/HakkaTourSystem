@@ -21,7 +21,6 @@ module.exports = [
         "id": "cordova-plugin-device.DeviceProxy",
         "pluginId": "cordova-plugin-device",
         "runs": true
-<<<<<<< HEAD
     },
     {
         "file": "plugins/cordova-plugin-file/www/DirectoryEntry.js",
@@ -201,22 +200,16 @@ module.exports = [
         "merges": [
             "window.FileSystem"
         ]
-=======
->>>>>>> develop
     }
 ];
 module.exports.metadata = 
 // TOP OF METADATA
 {
-    "cordova-plugin-whitelist": "1.2.2",
     "cordova-plugin-bluetoothle": "4.2.1",
-<<<<<<< HEAD
-    "cordova-plugin-device": "1.1.2",
     "cordova-plugin-compat": "1.1.0",
-    "cordova-plugin-file": "4.3.3"
-=======
-    "cordova-plugin-device": "1.1.2"
->>>>>>> develop
+    "cordova-plugin-device": "1.1.2",
+    "cordova-plugin-file": "4.3.3",
+    "cordova-plugin-whitelist": "1.2.2"
 }
 // BOTTOM OF METADATA
 });

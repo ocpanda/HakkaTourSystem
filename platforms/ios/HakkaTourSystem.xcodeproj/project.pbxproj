@@ -15,12 +15,13 @@
 		3047A5121AB8059700498E2A /* build-debug.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 3047A50F1AB8059700498E2A /* build-debug.xcconfig */; };
 		3047A5131AB8059700498E2A /* build-release.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 3047A5101AB8059700498E2A /* build-release.xcconfig */; };
 		3047A5141AB8059700498E2A /* build.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 3047A5111AB8059700498E2A /* build.xcconfig */; };
-		D9D6E4A8725846549ADB9A7E /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C9F3C899CB548AE94B5F49B /* CoreBluetooth.framework */; };
-		B91661F4C3884AABA6A27CD0 /* BluetoothLePlugin.m in Sources */ = {isa = PBXBuildFile; fileRef = 5FC326AFC42C40D684397C65 /* BluetoothLePlugin.m */; };
-		4E8580DDECA7461CACF4A8A7 /* CDVDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = B413EF920CE54879ABCF93DC /* CDVDevice.m */; };
-		CF1D8FDB96244BE8A46BA6EE /* CDVFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E0E2D50756A49E3A202C5DC /* CDVFile.m */; };
-		7AB8DAD29A9E44988ECACD57 /* CDVLocalFilesystem.m in Sources */ = {isa = PBXBuildFile; fileRef = F83E26088A0844AD88F6FB72 /* CDVLocalFilesystem.m */; };
-		E910CF4621314BEF909AD1B9 /* CDVAssetLibraryFilesystem.m in Sources */ = {isa = PBXBuildFile; fileRef = 5150B264FAE948138F1B7E43 /* CDVAssetLibraryFilesystem.m */; };
+		6AFF5BF91D6E424B00AB3073 /* CDVLaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6AFF5BF81D6E424B00AB3073 /* CDVLaunchScreen.storyboard */; };
+		8B554C903BA243E5800CF9B5 /* BluetoothLePlugin.m in Sources */ = {isa = PBXBuildFile; fileRef = 314DB65DA59E4D52A1AE21DF /* BluetoothLePlugin.m */; };
+		AB528E89757D4CDBA3470964 /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B009EAB02ECD480A929A47A3 /* CoreBluetooth.framework */; };
+		234AFC68ABED445AAA3C039A /* CDVDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = D5EA64D4FD054260B29B57AF /* CDVDevice.m */; };
+		9AD69880AD7645F29B52AFB7 /* CDVFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B9BC37254754F6090ABD854 /* CDVFile.m */; };
+		A7EE54A4A23643BFBA4F6C67 /* CDVLocalFilesystem.m in Sources */ = {isa = PBXBuildFile; fileRef = D023C187E05C408C8D2D4032 /* CDVLocalFilesystem.m */; };
+		E14D816F2AFC4AB1A18BB68D /* CDVAssetLibraryFilesystem.m in Sources */ = {isa = PBXBuildFile; fileRef = C40ABE6D9B8949898D331A0D /* CDVAssetLibraryFilesystem.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,22 +56,23 @@
 		3047A5101AB8059700498E2A /* build-release.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = "build-release.xcconfig"; path = cordova/build-release.xcconfig; sourceTree = SOURCE_ROOT; };
 		3047A5111AB8059700498E2A /* build.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = build.xcconfig; path = cordova/build.xcconfig; sourceTree = SOURCE_ROOT; };
 		32CA4F630368D1EE00C91783 /* HakkaTourSystem-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "HakkaTourSystem-Prefix.pch"; sourceTree = "<group>"; };
+		6AFF5BF81D6E424B00AB3073 /* CDVLaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = CDVLaunchScreen.storyboard; path = "HakkaTourSystem/CDVLaunchScreen.storyboard"; sourceTree = SOURCE_ROOT; };
 		8D1107310486CEB800E47090 /* HakkaTourSystem-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "HakkaTourSystem-Info.plist"; path = "HakkaTourSystem/HakkaTourSystem-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = SOURCE_ROOT; };
 		EB87FDF31871DA8E0020F90C /* www */ = {isa = PBXFileReference; lastKnownFileType = folder; name = www; path = ../../www; sourceTree = "<group>"; };
 		EB87FDF41871DAF40020F90C /* config.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = config.xml; path = ../../config.xml; sourceTree = "<group>"; };
 		F840E1F0165FE0F500CFE078 /* config.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = config.xml; path = "HakkaTourSystem/config.xml"; sourceTree = "<group>"; };
 		ED33DF2A687741AEAF9F8254 /* Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "Bridging-Header.h"; path = "Bridging-Header.h"; sourceTree = "<group>"; };
-		2C9F3C899CB548AE94B5F49B /* CoreBluetooth.framework */ = {isa = PBXFileReference; name = "CoreBluetooth.framework"; path = "System/Library/Frameworks/CoreBluetooth.framework"; sourceTree = SDKROOT; fileEncoding = undefined; lastKnownFileType = wrapper.framework; explicitFileType = undefined; includeInIndex = 0; };
-		5FC326AFC42C40D684397C65 /* BluetoothLePlugin.m */ = {isa = PBXFileReference; name = "BluetoothLePlugin.m"; path = "cordova-plugin-bluetoothle/BluetoothLePlugin.m"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; explicitFileType = undefined; includeInIndex = 0; };
-		1772537D89364BA097700CFE /* BluetoothLePlugin.h */ = {isa = PBXFileReference; name = "BluetoothLePlugin.h"; path = "cordova-plugin-bluetoothle/BluetoothLePlugin.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
-		B413EF920CE54879ABCF93DC /* CDVDevice.m */ = {isa = PBXFileReference; name = "CDVDevice.m"; path = "cordova-plugin-device/CDVDevice.m"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; explicitFileType = undefined; includeInIndex = 0; };
-		9E6C0C480C714DAAB1B5FA83 /* CDVDevice.h */ = {isa = PBXFileReference; name = "CDVDevice.h"; path = "cordova-plugin-device/CDVDevice.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
-		5E0E2D50756A49E3A202C5DC /* CDVFile.m */ = {isa = PBXFileReference; name = "CDVFile.m"; path = "cordova-plugin-file/CDVFile.m"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; explicitFileType = undefined; includeInIndex = 0; };
-		F83E26088A0844AD88F6FB72 /* CDVLocalFilesystem.m */ = {isa = PBXFileReference; name = "CDVLocalFilesystem.m"; path = "cordova-plugin-file/CDVLocalFilesystem.m"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; explicitFileType = undefined; includeInIndex = 0; };
-		5150B264FAE948138F1B7E43 /* CDVAssetLibraryFilesystem.m */ = {isa = PBXFileReference; name = "CDVAssetLibraryFilesystem.m"; path = "cordova-plugin-file/CDVAssetLibraryFilesystem.m"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; explicitFileType = undefined; includeInIndex = 0; };
-		C21BB02EAC0C47B09C57B5B1 /* CDVFile.h */ = {isa = PBXFileReference; name = "CDVFile.h"; path = "cordova-plugin-file/CDVFile.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
-		0C1B28BC371341EDB267813E /* CDVLocalFilesystem.h */ = {isa = PBXFileReference; name = "CDVLocalFilesystem.h"; path = "cordova-plugin-file/CDVLocalFilesystem.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
-		E1568525A3D243478132A638 /* CDVAssetLibraryFilesystem.h */ = {isa = PBXFileReference; name = "CDVAssetLibraryFilesystem.h"; path = "cordova-plugin-file/CDVAssetLibraryFilesystem.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
+		314DB65DA59E4D52A1AE21DF /* BluetoothLePlugin.m */ = {isa = PBXFileReference; name = "BluetoothLePlugin.m"; path = "cordova-plugin-bluetoothle/BluetoothLePlugin.m"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; explicitFileType = undefined; includeInIndex = 0; };
+		F714B3CE8EE84B33918BDEFB /* BluetoothLePlugin.h */ = {isa = PBXFileReference; name = "BluetoothLePlugin.h"; path = "cordova-plugin-bluetoothle/BluetoothLePlugin.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
+		B009EAB02ECD480A929A47A3 /* CoreBluetooth.framework */ = {isa = PBXFileReference; name = "CoreBluetooth.framework"; path = "System/Library/Frameworks/CoreBluetooth.framework"; sourceTree = SDKROOT; fileEncoding = undefined; lastKnownFileType = wrapper.framework; explicitFileType = undefined; includeInIndex = 0; };
+		D5EA64D4FD054260B29B57AF /* CDVDevice.m */ = {isa = PBXFileReference; name = "CDVDevice.m"; path = "cordova-plugin-device/CDVDevice.m"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; explicitFileType = undefined; includeInIndex = 0; };
+		FF6A8F212F9C4FA99F80651D /* CDVDevice.h */ = {isa = PBXFileReference; name = "CDVDevice.h"; path = "cordova-plugin-device/CDVDevice.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
+		6B9BC37254754F6090ABD854 /* CDVFile.m */ = {isa = PBXFileReference; name = "CDVFile.m"; path = "cordova-plugin-file/CDVFile.m"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; explicitFileType = undefined; includeInIndex = 0; };
+		D023C187E05C408C8D2D4032 /* CDVLocalFilesystem.m */ = {isa = PBXFileReference; name = "CDVLocalFilesystem.m"; path = "cordova-plugin-file/CDVLocalFilesystem.m"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; explicitFileType = undefined; includeInIndex = 0; };
+		C40ABE6D9B8949898D331A0D /* CDVAssetLibraryFilesystem.m */ = {isa = PBXFileReference; name = "CDVAssetLibraryFilesystem.m"; path = "cordova-plugin-file/CDVAssetLibraryFilesystem.m"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; explicitFileType = undefined; includeInIndex = 0; };
+		92F760BFDC6947DC9ECF5C56 /* CDVFile.h */ = {isa = PBXFileReference; name = "CDVFile.h"; path = "cordova-plugin-file/CDVFile.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
+		0A0942EE768742B58DAFC533 /* CDVLocalFilesystem.h */ = {isa = PBXFileReference; name = "CDVLocalFilesystem.h"; path = "cordova-plugin-file/CDVLocalFilesystem.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
+		BFA3B62320DC49C99DABC53B /* CDVAssetLibraryFilesystem.h */ = {isa = PBXFileReference; name = "CDVAssetLibraryFilesystem.h"; path = "cordova-plugin-file/CDVAssetLibraryFilesystem.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,7 +81,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				301BF552109A68D80062928A /* libCordova.a in Frameworks */,
-				D9D6E4A8725846549ADB9A7E /* CoreBluetooth.framework in Frameworks */,
+				AB528E89757D4CDBA3470964 /* CoreBluetooth.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -141,6 +143,7 @@
 				0207DA571B56EA530066E2B4 /* Images.xcassets */,
 				3047A50E1AB8057F00498E2A /* config */,
 				8D1107310486CEB800E47090 /* HakkaTourSystem-Info.plist */,
+				6AFF5BF81D6E424B00AB3073 /* CDVLaunchScreen.storyboard */,
 			);
 			name = Resources;
 			path = "HakkaTourSystem/Resources";
@@ -149,7 +152,7 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				2C9F3C899CB548AE94B5F49B /* CoreBluetooth.framework */,
+				B009EAB02ECD480A929A47A3 /* CoreBluetooth.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -175,16 +178,16 @@
 		307C750510C5A3420062BCA9 /* Plugins */ = {
 			isa = PBXGroup;
 			children = (
-				5FC326AFC42C40D684397C65 /* BluetoothLePlugin.m */,
-				1772537D89364BA097700CFE /* BluetoothLePlugin.h */,
-				B413EF920CE54879ABCF93DC /* CDVDevice.m */,
-				9E6C0C480C714DAAB1B5FA83 /* CDVDevice.h */,
-				5E0E2D50756A49E3A202C5DC /* CDVFile.m */,
-				F83E26088A0844AD88F6FB72 /* CDVLocalFilesystem.m */,
-				5150B264FAE948138F1B7E43 /* CDVAssetLibraryFilesystem.m */,
-				C21BB02EAC0C47B09C57B5B1 /* CDVFile.h */,
-				0C1B28BC371341EDB267813E /* CDVLocalFilesystem.h */,
-				E1568525A3D243478132A638 /* CDVAssetLibraryFilesystem.h */,
+				314DB65DA59E4D52A1AE21DF /* BluetoothLePlugin.m */,
+				F714B3CE8EE84B33918BDEFB /* BluetoothLePlugin.h */,
+				D5EA64D4FD054260B29B57AF /* CDVDevice.m */,
+				FF6A8F212F9C4FA99F80651D /* CDVDevice.h */,
+				6B9BC37254754F6090ABD854 /* CDVFile.m */,
+				D023C187E05C408C8D2D4032 /* CDVLocalFilesystem.m */,
+				C40ABE6D9B8949898D331A0D /* CDVAssetLibraryFilesystem.m */,
+				92F760BFDC6947DC9ECF5C56 /* CDVFile.h */,
+				0A0942EE768742B58DAFC533 /* CDVLocalFilesystem.h */,
+				BFA3B62320DC49C99DABC53B /* CDVAssetLibraryFilesystem.h */,
 			);
 			name = Plugins;
 			path = "HakkaTourSystem/Plugins";
@@ -264,10 +267,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				302D95F214D2391D003F00A1 /* MainViewController.xib in Resources */,
-				3047A5131AB8059700498E2A /* build-release.xcconfig in Resources */,
-				3047A5141AB8059700498E2A /* build.xcconfig in Resources */,
 				0207DA581B56EA530066E2B4 /* Images.xcassets in Resources */,
-				3047A5121AB8059700498E2A /* build-debug.xcconfig in Resources */,
+				6AFF5BF91D6E424B00AB3073 /* CDVLaunchScreen.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -299,11 +300,11 @@
 				1D60589B0D05DD56006BFB54 /* main.m in Sources */,
 				1D3623260D0F684500981E51 /* AppDelegate.m in Sources */,
 				302D95F114D2391D003F00A1 /* MainViewController.m in Sources */,
-				B91661F4C3884AABA6A27CD0 /* BluetoothLePlugin.m in Sources */,
-				4E8580DDECA7461CACF4A8A7 /* CDVDevice.m in Sources */,
-				CF1D8FDB96244BE8A46BA6EE /* CDVFile.m in Sources */,
-				7AB8DAD29A9E44988ECACD57 /* CDVLocalFilesystem.m in Sources */,
-				E910CF4621314BEF909AD1B9 /* CDVAssetLibraryFilesystem.m in Sources */,
+				8B554C903BA243E5800CF9B5 /* BluetoothLePlugin.m in Sources */,
+				234AFC68ABED445AAA3C039A /* CDVDevice.m in Sources */,
+				9AD69880AD7645F29B52AFB7 /* CDVFile.m in Sources */,
+				A7EE54A4A23643BFBA4F6C67 /* CDVLocalFilesystem.m in Sources */,
+				E14D816F2AFC4AB1A18BB68D /* CDVAssetLibraryFilesystem.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -335,7 +336,9 @@
 				GCC_THUMB_SUPPORT = NO;
 				GCC_VERSION = "";
 				INFOPLIST_FILE = "HakkaTourSystem/HakkaTourSystem-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
+				TARGETED_DEVICE_FAMILY = "1,2";
 				PRODUCT_NAME = "HakkaTourSystem";
 			};
 			name = Debug;
@@ -355,6 +358,9 @@
 				GCC_THUMB_SUPPORT = NO;
 				GCC_VERSION = "";
 				INFOPLIST_FILE = "HakkaTourSystem/HakkaTourSystem-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
+				TARGETED_DEVICE_FAMILY = "1,2";
 				PRODUCT_NAME = "HakkaTourSystem";
 			};
 			name = Release;
@@ -382,7 +388,6 @@
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = NO;
-				PRODUCT_NAME = "HakkaTourSystem";
 			};
 			name = Debug;
 		};
@@ -408,7 +413,6 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = NO;
-				PRODUCT_NAME = "HakkaTourSystem";
 			};
 			name = Release;
 		};

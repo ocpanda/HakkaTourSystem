@@ -1,4 +1,5 @@
 <!--日常頁//-->
+<meta charset="utf-8">
 <div id="day" data-role="page">
 
     <link rel="stylesheet" href="web_api/jquery/jquery.mobile-1.4.5.min.css">
@@ -43,21 +44,18 @@
                              <div class="row">
                                 <div class="col-xs-4 col-sm-4 ">
                                 <button id="buton2"  value="2" onclick="btn(this.value);">大埔</button>
-                            </div>
+                                </div>
                                 <div class="col-xs-4 col-sm-4 " >
                                     <button id="buton3" value="3"  onclick="btn(this.value);">饒平</button>
                                 </div>
                                 <div class="col-xs-4 col-sm-2 ">
                                     <button id="buton4"  value="4" onclick="btn(this.value);">詔安</button>
                                 </div>
-                            </div>                                     
-                         
-                    </div>
-                </div>                           
-            
-                    
-            </div>  
-        </div>
+                            </div>                 
+                        </div>
+                    </div>                                        
+        </div>  
+    </div>
                    
         <div data-role="popup" data-arrow="b" id="homePopup">
             <div data-role="header">
@@ -122,12 +120,8 @@
         </div>
         <!-- <button id="test">按我</button> -->
         <div>
-            <button id="star" onclick="fav();">加入最愛</button>  
-            <script type="text/javascript">
-                $("#test").click(function(){
-                   alert("asdsad");
-                });
-            </script>
+            <button id="star" onclick="fav();">加入最愛</button>
+            <button id="recordBtn" onclick="location.href='record.html'">學習紀錄</button>  
         </div>
         
     
@@ -143,14 +137,17 @@
         </div>
     </div>
     <script type="text/javascript" scr="js/day.js"></script>
+    <script type="text/javascript" src="js/file.js"></script>
     <script type="text/javascript" src="cordova.js" defer></script>
     <script type="text/javascript" src="js/popupExplan.js" defer></script>
     <script type="text/javascript">
+
             $("#vocabulary").children().remove();
             $("#star").children().remove();
             var obj;
             var record=0;
-            var i=0;                  
+            var i=0;
+            var check = 0;
             var accent = ["種類","客語","發音","中文",
                         "英文","客語例句","中文例句","腔調","例句語音"];
             $.ajax({
@@ -178,7 +175,7 @@
                 console.log(thrownError); 
                 }
             });
-            $("#ha").table("refresh");       
+           // $("#ha").table("refresh");       
     </script>
     <script type="text/javascript">
         var data=0;
@@ -195,9 +192,98 @@
             $('#voice').html("<audio class='gradient' controls='controls'><source src='"+obj[value]["voice"]+"' type='audio/mp3'></audio>");
         
             record=value;
+
         }
+
+        function createAndWriteFile(){
+              //持久化数据保存
+               document.addEventListener("deviceready", function() { 
+                window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, successCallback, errorCallback);
+            }, false);
+
+               function successCallback(fs) {
+
+                  fs.root.getFile('log.txt', {create: true}, function(fileEntry) {
+
+                     fileEntry.createWriter(function(fileWriter) {
+                        fileWriter.onwriteend = function(e) {
+                           //alert('Write completed.');
+                        };
+
+                        fileWriter.onerror = function(e) {
+                           //alert('Write failed: ' + e.toString());
+                        };
+                     }, errorCallback);
+
+                  }, errorCallback);
+
+               }
+
+               function errorCallback(error) {
+                  alert("ERROR: " + error.code)
+               }
+        }
+
+        function writeFile(fileEntry, dataObj, isAppend) {
+            document.addEventListener("deviceready", function() { 
+                window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, successCallback, errorCallback);
+            }, false);
+
+           function successCallback(fs) {
+
+              fs.root.getFile('log.txt', {create: true}, function(fileEntry) {
+
+                 fileEntry.createWriter(function(fileWriter) {
+                    fileWriter.onwriteend = function(e) {
+                        //alert('Write completed.');
+                       
+                    };
+
+                    fileWriter.onerror = function(e) {
+                       alert('Write failed: ' + e.toString());
+                    };                   
+                    
+                    var check = fileWriter.length;
+                    if(check){
+                      fileWriter.seek(fileWriter.length-1);
+                      var st = ",{" + '"' + 'kind'+'"' + ':['+ '"' + obj[record]['kind']+ '"' +'],'+ '"' + 'hakka_risigned' + '"' + ':[' + '"' + obj[record]['hakka_risigned'] + '"' +
+                      '],'+ '"' +'chinese_risigned' + '"' + ':[' + '"'+ obj[record]['chinese_risigned'] + '"' + '],' + '"' + 'english_risigned' + '"' + ':['+ '"' + 
+                      obj[record]['english_risigned'] + '"' + '],' + '"' + 'accent' + '"' + ':[' + '"' +
+                      obj[record]['accent']+ '"]' +"}]";
+                      var data = new Blob([st], { type: 'text/plain' });
+                      fileWriter.write(data);
+                    }else{
+                     
+                      fileWriter.write(dataObj);  
+                    }
+                    
+                    
+                 }, errorCallback);
+
+              }, errorCallback);
+
+           }
+
+           function errorCallback(error) {
+              alert("ERROR: " + error.code)
+           }
+        }
+
         function fav(){
             alert("data stored");
-        }
+            createAndWriteFile();
+                            
+            var string = [{'kind':obj[record]['kind'],
+            'hakka_risigned':obj[record]['hakka_risigned'],
+            'chinese_risigned':obj[record]['chinese_risigned'],
+            'english_risigned':obj[record]['english_risigned'],
+            'accent':obj[record]['accent']}
+            ];    
+            var jsonse = JSON.stringify(string);
+            var dataObj = new Blob([jsonse], { type: 'text/plain' });           
+            writeFile('log.txt', dataObj, true);           
+            //console.log(check);        
+        }       
     </script>
+                                
 </div>
