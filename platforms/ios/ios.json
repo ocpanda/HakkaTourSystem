@@ -16,6 +16,10 @@
                         {
                             "xml": "<feature name=\"Device\"><param name=\"ios-package\" value=\"CDVDevice\" /></feature>",
                             "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"UniversalAnalytics\"><param name=\"ios-package\" value=\"UniversalAnalyticsPlugin\" /></feature>",
+                            "count": 1
                         }
                     ]
                 }
@@ -30,6 +34,9 @@
             "PACKAGE_NAME": "com.ocpanda.test"
         },
         "cordova-plugin-device": {
+            "PACKAGE_NAME": "com.ocpanda.test"
+        },
+        "cordova-plugin-google-analytics": {
             "PACKAGE_NAME": "com.ocpanda.test"
         }
     },
@@ -50,11 +57,21 @@
             "clobbers": [
                 "device"
             ]
+        },
+        {
+            "file": "plugins/cordova-plugin-google-analytics/www/analytics.js",
+            "id": "cordova-plugin-google-analytics.UniversalAnalytics",
+            "pluginId": "cordova-plugin-google-analytics",
+            "clobbers": [
+                "analytics",
+                "ga"
+            ]
         }
     ],
     "plugin_metadata": {
         "cordova-plugin-whitelist": "1.2.2",
         "cordova-plugin-bluetoothle": "4.2.1",
-        "cordova-plugin-device": "1.1.2"
+        "cordova-plugin-device": "1.1.2",
+        "cordova-plugin-google-analytics": "1.8.3"
     }
 }

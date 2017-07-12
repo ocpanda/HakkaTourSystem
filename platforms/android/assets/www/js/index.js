@@ -390,6 +390,10 @@ var app = {
     document.addEventListener("pause", this.onPause, false);
   },
   onDeviceReady: function() {
+    window.ga.startTrackerWithId('UA-102252553-1',function(){
+      console.log("Started analytics OK!");
+      window.ga.trackView('Home');
+    });
     app.receivedEvent('deviceready');
   },
   receivedEvent: function(id) {

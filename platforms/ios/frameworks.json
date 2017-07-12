@@ -1,3 +1,8 @@
 {
-    "CoreBluetooth.framework": 1
+    "CoreBluetooth.framework": 1,
+    "SystemConfiguration.framework": 1,
+    "CoreData.framework": 1,
+    "AdSupport.framework": 1,
+    "libz.dylib": 1,
+    "libsqlite3.dylib": 1
 }

@@ -361,9 +361,9 @@ var GaussianElimination = {
     }
     // Solve equation Ax=b for an upper triangular matrix A
     x = this.arrayFill(0, n, 0);
-    for (i=n-1; i > -1; i--) { 
+    for (i=n-1; i >= 0; i--) { 
         x[i] = A[i][n]/A[i][i];
-        for (k=i-1; k > -1; k--) { 
+        for (k=i-1; k >= 0; k--) { 
             A[k][n] -= A[k][i] * x[i];
         }
     }
@@ -372,7 +372,7 @@ var GaussianElimination = {
   arrayFill: function(i, n, v){
     var a = [];
     for (; i < n; i++) {
-        //a.push(v);
+        a.push(v);
     }
     return a;
   }
@@ -390,6 +390,10 @@ var app = {
     document.addEventListener("pause", this.onPause, false);
   },
   onDeviceReady: function() {
+    window.ga.startTrackerWithId('UA-102252553-1',function(){
+      console.log("Started analytics OK!");
+      window.ga.trackView('Get in Home');
+    });
     app.receivedEvent('deviceready');
   },
   receivedEvent: function(id) {

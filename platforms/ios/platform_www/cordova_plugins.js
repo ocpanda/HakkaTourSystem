@@ -15,6 +15,15 @@ module.exports = [
         "clobbers": [
             "device"
         ]
+    },
+    {
+        "file": "plugins/cordova-plugin-google-analytics/www/analytics.js",
+        "id": "cordova-plugin-google-analytics.UniversalAnalytics",
+        "pluginId": "cordova-plugin-google-analytics",
+        "clobbers": [
+            "analytics",
+            "ga"
+        ]
     }
 ];
 module.exports.metadata = 
@@ -22,7 +31,8 @@ module.exports.metadata =
 {
     "cordova-plugin-whitelist": "1.2.2",
     "cordova-plugin-bluetoothle": "4.2.1",
-    "cordova-plugin-device": "1.1.2"
+    "cordova-plugin-device": "1.1.2",
+    "cordova-plugin-google-analytics": "1.8.3"
 }
 // BOTTOM OF METADATA
 });
