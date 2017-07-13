@@ -119,7 +119,7 @@
     <script type="text/javascript" src="js/popupExplan.js" defer></script>
     <script type="text/javascript">
         readFile('log.txt');
-        var data=0;       
+        var accent;       
         //读取文件
         function readFile(fileEntry) {
 
@@ -140,19 +140,26 @@
                             var str = JSON.parse(this.result);
                             var i = 0;
                             var rec;
-                            var f = 1;
+                            //var f = 1;
                             while(i < str.length){
-                                if(f){
+                                /*if(f){
                                     rec = str[i]['chinese_risigned'];
+                                    accent = str[i]['accent'];
                                     $("#record-body").append("<li id="+rec+" onclick='getPaging(this)'>"+str[i]['chinese_risigned']+"</li>");
                                     $("#record-body").append("<hr>");
                                     f=0;
                                 }else{
                                     rec = str[i]['chinese_risigned'];
-                                     $("#record-body").append("<li onclick='location.href=\""+"volcab.html?"+rec+"\"'>"+str[i]['chinese_risigned']+"</li>");
+                                    $("#record-body").append("<li id="+rec+" onclick='getPaging(this)'>"+str[i]['chinese_risigned']+"</li>");
+                                     //$("#record-body").append("<li onclick='location.href=\""+"volcab.html?"+rec+"\"'>"+str[i]['chinese_risigned']+"</li>");
                                      
                                     $("#record-body").append("<hr>");
-                                }   
+                                } */  
+                                rec = str[i]['chinese_risigned'];
+                                    accent = str[i]['accent'];
+                                    $("#record-body").append("<li id="+rec+" onclick='getPaging(this)'>"+rec+"<ul>"+accent+"</ul>"+"</li>");
+                                    $("#record-body").append("<br>");
+                                    $("#record-body").append("<hr>");
                                 i++;                             
                             }
                            
@@ -191,10 +198,10 @@
            window.location.reload();
         }
         function getPaging(data){
-           alert(data.id);
            var url = "volcab.html";  
-           var vol = data.id;  
-           window.open(encodeURI(url +"?"+ vol));   
+           var vol = data.id;        
+           window.open(encodeURI(url +"?vol="+ vol+"&accent="+accent));   
         }
+        
     </script>
 </div>
