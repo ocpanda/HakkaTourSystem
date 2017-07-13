@@ -1,17 +1,20 @@
 <?xml version='1.0' encoding='utf-8'?>
 <widget id="com.ocpanda.test" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-    <preference name="loglevel" value="DEBUG" />
-    <feature name="Whitelist">
-        <param name="android-package" value="org.apache.cordova.whitelist.WhitelistPlugin" />
-        <param name="onload" value="true" />
-    </feature>
     <feature name="BluetoothLePlugin">
         <param name="android-package" value="com.randdusing.bluetoothle.BluetoothLePlugin" />
     </feature>
     <feature name="Device">
         <param name="android-package" value="org.apache.cordova.device.Device" />
     </feature>
-    <allow-intent href="market:*" />
+    <feature name="File">
+        <param name="android-package" value="org.apache.cordova.file.FileUtils" />
+        <param name="onload" value="true" />
+    </feature>
+    <allow-navigation href="cdvfile:*" />
+    <feature name="Whitelist">
+        <param name="android-package" value="org.apache.cordova.whitelist.WhitelistPlugin" />
+        <param name="onload" value="true" />
+    </feature>
     <name>HakkaTourSystem</name>
     <description>
         A sample Apache Cordova application that responds to the deviceready event.
@@ -27,6 +30,12 @@
     <allow-intent href="sms:*" />
     <allow-intent href="mailto:*" />
     <allow-intent href="geo:*" />
+    <allow-intent href="market:*" />
+    <icon density="mdpi" src="www/image/android/mdpi.png" />
+    <icon density="hdpi" src="www/image/android/hdpi.png" />
+    <icon density="xhdpi" src="www/image/android/xhdpi.png" />
+    <icon density="xxhdpi" src="www/image/android/xxhdpi.png" />
+    <icon density="xxxhdpi" src="www/image/android/xxxhdpi.png" />
+    <preference name="loglevel" value="DEBUG" />
     <preference name="orientation" value="portrait" />
-    <icon src="www/image/android/xdpi.png" />
 </widget>

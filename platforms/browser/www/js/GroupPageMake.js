@@ -24,7 +24,7 @@ $("#submitBtn").on("click", function(event) {
 		}
 	}
 	$.ajax({
-		url: "http://140.130.35.62/csie40343142/Tour_System_server/php/TourGroupMake.php",
+		url: "http://140.130.35.62/hakka/hakkamanager/php/TourGroupMake.php",
 		type: "POST",
 		data: data,
 		dataType: "text",
@@ -44,7 +44,7 @@ $("#submitBtn").on("click", function(event) {
 				if(timeOutTime == 1000){
 					console.log("page change!!!!!!!");
 					nowPage = 0;
-					$("input[name='groupName']").val("");	
+					$("input[name='groupName']").val("");
 					pageTopBKColorInit();
 					pageRender();
 					htmlShow();

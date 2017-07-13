@@ -1,0 +1,129 @@
+<!--日常頁//-->
+<div id="day" data-role="page">
+
+    <link rel="stylesheet" href="web_api/jquery/jquery.mobile-1.4.5.min.css">
+    <link rel="stylesheet" type="text/css" href="web_api/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="web_api/bootstrap/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" type="text/css" href="css/day.css">
+
+    <script src="web_api/jquery/jquery-1.11.3.min.js"></script>
+    <script src="web_api/jquery/jquery.mobile-1.4.5.min.js"></script>
+    <script src="web_api/bootstrap/js/bootstrap.min.js"></script>
+    <script src="web_api/jquery/jquery-2.2.4.js"></script>
+    <script src="cordova.js"></script>
+    <!--下方功能選單區塊-->
+    <div data-role="main" class="ui-content">
+        <!-- 首頁說明彈出區塊
+            api: jquery-1.11.3.min.js
+            api: jquery.mobile-1.4.5.min.js
+        //-->
+        <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h1 class="panel-title">學習紀錄</h1>
+                </div>
+                <div class="panel-body">
+                    <table id="ha" border="1">
+                        <tbody id="vocabulary" class="panel-body"> 
+                            
+                        </tbody>
+                    </table>
+                </div>
+            
+                                                
+        </div>  
+    </div>
+                   
+        <div data-role="popup" data-arrow="b" id="homePopup">
+            <div data-role="header">
+                <h1>說明</h1>
+            </div>
+            <div data-role="main" class="ui-content">
+                <h1 align="center" valign="center">首頁</h1>
+                <p>主要功能頁面。</p>
+            </div>
+        </div>
+        <!-- 搜尋彈出區塊 
+            api: jquery-1.11.3.min.js
+            api: jquery.mobile-1.4.5.min.js
+        //-->
+        <div data-role="popup" data-arrow="b" id="searchPopup">
+            <div data-role="header">
+                <h1>說明</h1>
+            </div>
+            <div data-role="main" class="ui-content">
+                <h1 align="center" valign="center">搜尋</h1>
+                <p>使用此功能可以搜尋本展館之展物並進行導航。</p>
+            </div>
+        </div>
+        <!-- 群組說明彈出區塊
+            api: jquery-1.11.3.min.js
+            api: jquery.mobile-1.4.5.min.js
+        //-->
+        <div data-role="popup" data-arrow="b" id="groupPopup">
+            <div data-role="header">
+                <h1>說明</h1>
+            </div>
+            <div data-role="main" class="ui-content">
+                <h1 align="center" valign="center">群組</h1>
+                <p>使用此功能可以加入或創建群組。</p>
+            </div>
+        </div>
+        <!-- 訊息說明彈出區塊
+            api: jquery-1.11.3.min.js
+            api: jquery.mobile-1.4.5.min.js
+        //-->
+        <div data-role="popup" data-arrow="b" id="messagePopup">
+            <div data-role="header">
+                <h1>說明</h1>
+            </div>
+            <div data-role="main" class="ui-content">
+                <h1 align="center" valign="center">訊息</h1>
+                <p>使用此功能可以使用訊息功能。</p>
+            </div>
+        </div>
+        <!-- 設定說明彈出區塊
+            api: jquery-1.11.3.min.js
+            api: jquery.mobile-1.4.5.min.js
+        //-->
+        <div data-role="popup" data-arrow="b" id="settingPopup">
+            <div data-role="header">
+                <h1>說明</h1>
+            </div>
+            <div data-role="main" class="ui-content">
+                <h1 align="center" valign="center">設定</h1>
+                <p>使用此功能可以設定功能。</p>
+            </div>
+        </div>
+        <!-- <button id="test">按我</button> -->
+        <div>
+            <button id="star" onclick="fav();">加入最愛</button>
+            <button id="recordBtn" onclick="location.href='record.html'">學習紀錄</button>  
+        </div>
+        
+    
+    <div data-role="footer" data-position="fixed" data-fullscreen="true">
+        <div data-role="navbar">
+            <ul class="footNavBar">
+                <li><a href="index.html" id="homeImg" data-ajax="false"><img style="width:90%;" src="image/home.png" is="image"></a></li>
+                <li><a href="search.html" id="searchImg" data-ajax="false"><img style="width:90%;" src="image/search.png" is="image"></a></li>
+                <li><a href="group.html" id="groupImg" data-ajax="false"><img style="width:90%;" src="image/group.png" is="image"></a></li>
+                <li><a href="message.html" id="messageImg" data-ajax="false"><img style="width:90%;" src="image/message.png" is="image"></a></li>
+                <li><a href="setting.html" id="settingImg" data-ajax="false"><img style="width:90%;" src="image/setting.png" is="image"></a></li>
+            </ul>
+        </div>
+    </div>
+    <script type="text/javascript" scr="js/day.js"></script>
+    <script type="text/javascript" src="js/file.js"></script>
+    <script type="text/javascript" src="cordova.js" defer></script>
+    <script type="text/javascript" src="js/popupExplan.js" defer></script>
+    <script type="text/javascript">
+        
+        var urlinfo = window.location.href;
+        var temp = urlinfo.split("?");  
+        
+        alert(decodeURI(temp[1]));
+                          
+                                 
+    </script>
+                                
+</div>
