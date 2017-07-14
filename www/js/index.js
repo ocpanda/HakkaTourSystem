@@ -208,7 +208,7 @@ var calcLocation = {
       var temp = (ORIGIN_DIS - rss) / (10 * ENVIRONMENT_VAR);
       var temp2 = Math.pow(10, temp);
       addData.addBeaconData(beaconName, beaconData[beaconName].beaconLocX, beaconData[beaconName].beaconLocY, temp2);
-
+      //測試用功能
       var beaconNum = fundDevices["config"].nameList.indexOf(beaconName);
       if($("#beacon"+beaconNum).length > 0){
         $("#beacon"+beaconNum).html(beaconName+" "+beaconData[beaconName].beaconLocX+" "+beaconData[beaconName].beaconLocY+" "+temp2);
@@ -250,34 +250,24 @@ var GaussianElimination = {
   use: GaussianElimination.addData(beaconName)
   */
   addData: function(name){
-    if(name === "config"){
-      if(gaussianProcessData["config"] == undefined){
-        gaussianProcessData["config"] = {number: 0, s: [], a: []};
-      }
-    }
-    else{
-      //由aj bj cj 組合為一個a陣列 給高斯演算法做計算
-      console.log("oriaddData "+beaconData["config"].nameList[0]);
-      console.log("orilocationX "+beaconData[beaconData["config"].nameList[0]].beaconLocX);
-      console.log("orilocationY "+beaconData[beaconData["config"].nameList[0]].beaconLocY);      
-      console.log("orildis "+beaconData[beaconData["config"].nameList[0]].distance);
-      console.log("addData "+name);
-      console.log("locationX "+beaconData[name].beaconLocX);
-      console.log("locationY "+beaconData[name].beaconLocY);      
-      console.log("dis "+beaconData[name].distance);
+    //由aj bj cj 組合為一個a陣列 給高斯演算法做計算
+    console.log("oriaddData "+beaconData["config"].nameList[0]);
+    console.log("orilocationX "+beaconData[beaconData["config"].nameList[0]].beaconLocX);
+    console.log("orilocationY "+beaconData[beaconData["config"].nameList[0]].beaconLocY);      
+    console.log("orildis "+beaconData[beaconData["config"].nameList[0]].distance);
+    console.log("addData "+name);
+    console.log("locationX "+beaconData[name].beaconLocX);
+    console.log("locationY "+beaconData[name].beaconLocY);      
+    console.log("dis "+beaconData[name].distance);
+    if(name != beaconData["config"].nameList[0]){
       var aj = beaconData[name].beaconLocX - beaconData[beaconData["config"].nameList[0]].beaconLocX;
       var bj = beaconData[name].beaconLocY - beaconData[beaconData["config"].nameList[0]].beaconLocY;
       var cj = (aj + bj - (Math.pow(beaconData[name].distance, 2.0)-Math.pow(beaconData[beaconData["config"].nameList[0]].distance, 2.0)));
-
-      if(gaussianProcessData[name] != undefined){
-        gaussianProcessData["config"].number += 1;
-      }
       console.log("this is aj = "+aj);
       console.log("this is bj = "+bj);
       console.log("this is cj = "+cj);
       //a[0]為a1~an, a[1]為b1~bn, a[2]為c1~cn
-      gaussianProcessData["config"].a.push(aj);
-      gaussianProcessData["config"].a.push(bj);
+      gaussianProcessData["config"].a.push([aj,bj]);
       gaussianProcessData["config"].s.push(cj);
     }
   },
@@ -289,18 +279,21 @@ var GaussianElimination = {
   use: GaussianElimination.getData()
   */
   getData: function(){
-    console.log("getData called!!!!");
-    console.log("beacondata number : "+beaconData["config"].number);
-    GaussianElimination.addData("config");
-    for(var i=1; i<beaconData["config"].number; i++){
-      GaussianElimination.addData(beaconData["config"].nameList[i]);
+    // console.log("getData called!!!!");
+    // console.log("beacondata number : "+beaconData["config"].number);
+    if(gaussianProcessData["config"] == undefined){
+      console.log("config created!");
+      gaussianProcessData["config"] = {s: [], a: []};
     }
     if(beaconData["config"].number >= 3){
+      for(var i=1; i<beaconData["config"].number; i++){
+        GaussianElimination.addData(beaconData["config"].nameList[i]);
+      }
       console.log("realy calc!!!!!!!!!!!");
-      console.log(gaussianProcessData["config"].a+" "+gaussianProcessData["config"].s);
+      console.log(gaussianProcessData["config"].a);
       gaussianProcessData["config"].s = GaussianElimination.gaussianCalc(gaussianProcessData["config"].a, gaussianProcessData["config"].s);
-      console.log("calc complete!!");
-      console.log(gaussianProcessData["config"].s);
+      // console.log("calc complete!!");
+      // console.log(gaussianProcessData["config"].s);
       if($("#gauss").length > 0){
         $("#gauss").html("X："+gaussianProcessData["config"].s[0]+"  Y："+gaussianProcessData["config"].s[1]);
         
@@ -309,12 +302,12 @@ var GaussianElimination = {
         $("#dsa").append("<a id='gauss'>X："+gaussianProcessData["config"].s[0]+"  Y："+gaussianProcessData["config"].s[1]+"</a><br>");
         // $("#dsa").append("<a>aaaaaaaa</a>");
       }
-      gaussianProcessData["config"].s = 0;
-      gaussianProcessData["config"].a = 0;
+      gaussianProcessData["config"].s.length = 0;
+      gaussianProcessData["config"].a.length = 0;
       //console.log(gaussianProcessData["config"].s);
     }else{
-      gaussianProcessData["config"].s = 0;
-      gaussianProcessData["config"].a = 0;
+      gaussianProcessData["config"].s.length = 0;
+      gaussianProcessData["config"].a.length = 0;
     }
   },
   gaussianCalc: function(A, x){
@@ -328,7 +321,8 @@ var GaussianElimination = {
     var i, k, j;
     // Just make a single matrix
     for (i=0; i < A.length; i++) { 
-        A[i].push(x[i]);
+      console.log("number "+i+" push array!");
+      A[i].push(x[i]);
     }
     var n = A.length;
     for (i=0; i < n; i++) { 
