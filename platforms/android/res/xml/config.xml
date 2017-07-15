@@ -13,6 +13,10 @@
     <feature name="UniversalAnalytics">
         <param name="android-package" value="com.danielcwilson.plugins.analytics.UniversalAnalyticsPlugin" />
     </feature>
+    <feature name="SplashScreen">
+        <param name="android-package" value="org.apache.cordova.splashscreen.SplashScreen" />
+        <param name="onload" value="true" />
+    </feature>
     <name>HakkaTourSystem</name>
     <description>
         A sample Apache Cordova application that responds to the deviceready event.
@@ -34,6 +38,16 @@
     <icon density="xhdpi" src="www/image/android/xhdpi.png" />
     <icon density="xxhdpi" src="www/image/android/xxhdpi.png" />
     <icon density="xxxhdpi" src="www/image/android/xxxhdpi.png" />
+    <splash density="land-hdpi" src="www/image/android/splash-land-hdpi.png" />
+    <splash density="land-ldpi" src="www/image/android/splash-land-ldpi.png" />
+    <splash density="land-mdpi" src="www/image/android/splash-land-mdpi.png" />
+    <splash density="land-xhdpi" src="www/image/android/splash-land-xhdpi.png" />
+    <splash density="port-hdpi" src="www/image/android/splash-port-hdpi.png" />
+    <splash density="port-ldpi" src="www/image/android/splash-port-ldpi.png" />
+    <splash density="port-mdpi" src="www/image/android/splash-port-mdpi.png" />
+    <splash density="port-xhdpi" src="www/image/android/splash-port-xhdpi.png" />
     <preference name="loglevel" value="DEBUG" />
     <preference name="orientation" value="portrait" />
+    <preference name="SplashScreenDelay" value="5000" />
+    <preference name="ShowSplashScreenSpinner" value="false" />
 </widget>

@@ -24,6 +24,14 @@ module.exports = [
             "analytics",
             "ga"
         ]
+    },
+    {
+        "file": "plugins/cordova-plugin-splashscreen/www/splashscreen.js",
+        "id": "cordova-plugin-splashscreen.SplashScreen",
+        "pluginId": "cordova-plugin-splashscreen",
+        "clobbers": [
+            "navigator.splashscreen"
+        ]
     }
 ];
 module.exports.metadata = 
@@ -32,7 +40,8 @@ module.exports.metadata =
     "cordova-plugin-whitelist": "1.2.2",
     "cordova-plugin-bluetoothle": "4.2.1",
     "cordova-plugin-device": "1.1.2",
-    "cordova-plugin-google-analytics": "1.8.3"
+    "cordova-plugin-google-analytics": "1.8.3",
+    "cordova-plugin-splashscreen": "4.0.3"
 }
 // BOTTOM OF METADATA
 });

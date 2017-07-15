@@ -26,6 +26,8 @@
 		75AC24B9B7174685803DF9F4 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 20A7119B8E0749579B5E3BC5 /* AdSupport.framework */; };
 		F5171D0EB72448A49FB9DF63 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 89D8B7AE0B844CECA2222F95 /* libz.dylib */; };
 		5F38296E469449A7AF437CC7 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A142EB76294F4AA5BAB06E1F /* libsqlite3.dylib */; };
+		0C7DB85C69144AD0A88F2A66 /* CDVSplashScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = B61E3FFEB6584F7F897DBF09 /* CDVSplashScreen.m */; };
+		151CFC1D73E048BB963E99C6 /* CDVViewController+SplashScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = E8BB6C8AD6B74F67B1BDE72D /* CDVViewController+SplashScreen.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -89,6 +91,10 @@
 		20A7119B8E0749579B5E3BC5 /* AdSupport.framework */ = {isa = PBXFileReference; name = "AdSupport.framework"; path = "System/Library/Frameworks/AdSupport.framework"; sourceTree = SDKROOT; fileEncoding = undefined; lastKnownFileType = wrapper.framework; explicitFileType = undefined; includeInIndex = 0; };
 		89D8B7AE0B844CECA2222F95 /* libz.dylib */ = {isa = PBXFileReference; name = "libz.dylib"; path = "usr/lib/libz.dylib"; sourceTree = SDKROOT; fileEncoding = undefined; lastKnownFileType = compiled.mach-o.dylib; explicitFileType = undefined; includeInIndex = 0; };
 		A142EB76294F4AA5BAB06E1F /* libsqlite3.dylib */ = {isa = PBXFileReference; name = "libsqlite3.dylib"; path = "usr/lib/libsqlite3.dylib"; sourceTree = SDKROOT; fileEncoding = undefined; lastKnownFileType = compiled.mach-o.dylib; explicitFileType = undefined; includeInIndex = 0; };
+		B61E3FFEB6584F7F897DBF09 /* CDVSplashScreen.m */ = {isa = PBXFileReference; name = "CDVSplashScreen.m"; path = "cordova-plugin-splashscreen/CDVSplashScreen.m"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; explicitFileType = undefined; includeInIndex = 0; };
+		E8BB6C8AD6B74F67B1BDE72D /* CDVViewController+SplashScreen.m */ = {isa = PBXFileReference; name = "CDVViewController+SplashScreen.m"; path = "cordova-plugin-splashscreen/CDVViewController+SplashScreen.m"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; explicitFileType = undefined; includeInIndex = 0; };
+		60257C1271434355BA524B97 /* CDVSplashScreen.h */ = {isa = PBXFileReference; name = "CDVSplashScreen.h"; path = "cordova-plugin-splashscreen/CDVSplashScreen.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
+		26CBE56A652F4EE19FB02E1C /* CDVViewController+SplashScreen.h */ = {isa = PBXFileReference; name = "CDVViewController+SplashScreen.h"; path = "cordova-plugin-splashscreen/CDVViewController+SplashScreen.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -223,6 +229,10 @@
 				C4F9729718B04084B1AB37E7 /* GAIEcommerceProduct.h */,
 				2666F16A088344EEA8DD6161 /* GAIEcommerceProductAction.h */,
 				E5BC86262A1B456DB54D45EC /* GAIEcommercePromotion.h */,
+				B61E3FFEB6584F7F897DBF09 /* CDVSplashScreen.m */,
+				E8BB6C8AD6B74F67B1BDE72D /* CDVViewController+SplashScreen.m */,
+				60257C1271434355BA524B97 /* CDVSplashScreen.h */,
+				26CBE56A652F4EE19FB02E1C /* CDVViewController+SplashScreen.h */,
 			);
 			name = Plugins;
 			path = "HakkaTourSystem/Plugins";
@@ -340,6 +350,8 @@
 				B91661F4C3884AABA6A27CD0 /* BluetoothLePlugin.m in Sources */,
 				4E8580DDECA7461CACF4A8A7 /* CDVDevice.m in Sources */,
 				23178831723442319607AA16 /* UniversalAnalyticsPlugin.m in Sources */,
+				0C7DB85C69144AD0A88F2A66 /* CDVSplashScreen.m in Sources */,
+				151CFC1D73E048BB963E99C6 /* CDVViewController+SplashScreen.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

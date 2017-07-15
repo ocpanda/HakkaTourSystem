@@ -24,6 +24,10 @@
     <feature name="UniversalAnalytics">
         <param name="ios-package" value="UniversalAnalyticsPlugin" />
     </feature>
+    <feature name="SplashScreen">
+        <param name="ios-package" value="CDVSplashScreen" />
+        <param name="onload" value="true" />
+    </feature>
     <name>HakkaTourSystem</name>
     <description>
         A sample Apache Cordova application that responds to the deviceready event.

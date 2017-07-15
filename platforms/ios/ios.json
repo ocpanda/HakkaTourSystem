@@ -20,6 +20,10 @@
                         {
                             "xml": "<feature name=\"UniversalAnalytics\"><param name=\"ios-package\" value=\"UniversalAnalyticsPlugin\" /></feature>",
                             "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"SplashScreen\"><param name=\"ios-package\" value=\"CDVSplashScreen\" /><param name=\"onload\" value=\"true\" /></feature>",
+                            "count": 1
                         }
                     ]
                 }
@@ -37,6 +41,9 @@
             "PACKAGE_NAME": "com.ocpanda.test"
         },
         "cordova-plugin-google-analytics": {
+            "PACKAGE_NAME": "com.ocpanda.test"
+        },
+        "cordova-plugin-splashscreen": {
             "PACKAGE_NAME": "com.ocpanda.test"
         }
     },
@@ -66,12 +73,21 @@
                 "analytics",
                 "ga"
             ]
+        },
+        {
+            "file": "plugins/cordova-plugin-splashscreen/www/splashscreen.js",
+            "id": "cordova-plugin-splashscreen.SplashScreen",
+            "pluginId": "cordova-plugin-splashscreen",
+            "clobbers": [
+                "navigator.splashscreen"
+            ]
         }
     ],
     "plugin_metadata": {
         "cordova-plugin-whitelist": "1.2.2",
         "cordova-plugin-bluetoothle": "4.2.1",
         "cordova-plugin-device": "1.1.2",
-        "cordova-plugin-google-analytics": "1.8.3"
+        "cordova-plugin-google-analytics": "1.8.3",
+        "cordova-plugin-splashscreen": "4.0.3"
     }
 }

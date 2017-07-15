@@ -24,10 +24,20 @@
         <icon src="www/image/android/xhdpi.png" density="xhdpi" />
         <icon src="www/image/android/xxhdpi.png" density="xxhdpi" />
         <icon src="www/image/android/xxxhdpi.png" density="xxxhdpi" />
+        <splash density="land-hdpi" src="www/image/android/splash-land-hdpi.png" />  
+        <splash density="land-ldpi" src="www/image/android/splash-land-ldpi.png" />  
+        <splash density="land-mdpi" src="www/image/android/splash-land-mdpi.png" />  
+        <splash density="land-xhdpi" src="www/image/android/splash-land-xhdpi.png" />  
+        <splash density="port-hdpi" src="www/image/android/splash-port-hdpi.png" />  
+        <splash density="port-ldpi" src="www/image/android/splash-port-ldpi.png" />  
+        <splash density="port-mdpi" src="www/image/android/splash-port-mdpi.png" />  
+        <splash density="port-xhdpi" src="www/image/android/splash-port-xhdpi.png" />
     </platform>
     <platform name="ios">
         <allow-intent href="itms:*" />
         <allow-intent href="itms-apps:*" />
     </platform>
+    <preference name="SplashScreenDelay" value="5000" />
+    <preference name="ShowSplashScreenSpinner" value="false"/>
     <engine name="android" spec="~6.1.2" />
 </widget>

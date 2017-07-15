@@ -18,6 +18,9 @@
         },
         "cordova-plugin-google-analytics": {
             "PACKAGE_NAME": "com.ocpanda.test"
+        },
+        "cordova-plugin-splashscreen": {
+            "PACKAGE_NAME": "com.ocpanda.test"
         }
     },
     "dependent_plugins": {}
