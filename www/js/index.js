@@ -205,7 +205,7 @@ var calcLocation = {
       var rss = fundDevices[fundDevices["config"].nameList[i]].rssi;
       console.log("beaconName:"+beaconName+" rss:"+rss);
       //(一公尺RSS強度 - 目前接收RSS強度) / (10 * 路徑衰減函數)
-      var temp = (-58.3 - rss) / (10 * 5);
+      var temp = (-58.3 - rss) / (10 * 9.5);
       var temp2 = Math.pow(10, temp);
       addData.addBeaconData(beaconName, beaconData[beaconName].beaconLocX, beaconData[beaconName].beaconLocY, temp2);
     }
@@ -538,7 +538,6 @@ var app = {
       if(result.status === "enabled")
         myVar = setInterval(calcLocation.deviceScan, 400); 
     }, { request: true, statusReceiver: false });
-    
   },
   gocalc: function(){
     bluetoothle.initialize(function(result){
