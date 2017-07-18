@@ -1016,18 +1016,30 @@ public class BluetoothLePlugin extends CordovaPlugin {
     if (isNotDisabled(callbackContext)) {
       return;
     }
-
-    boolean result = bluetoothAdapter.enable();
-
-    if (!result) {
-      //Throw an enabling error
-      JSONObject returnObj = new JSONObject();
-
-      addProperty(returnObj, keyError, errorEnable);
+    //Request user to enable Bluetooth
+    if (request) {
+      //Request Bluetooth to be enabled
+      Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+      cordova.startActivityForResult(this, enableBtIntent, REQUEST_BT_ENABLE);
+    } else {
+      //No request, so send back not enabled
+      addProperty(returnObj, keyStatus, statusDisabled);
       addProperty(returnObj, keyMessage, logNotEnabled);
-
-      callbackContext.error(returnObj);
+      PluginResult pluginResult = new PluginResult(PluginResult.Status.OK, returnObj);
+      pluginResult.setKeepCallback(true);
+      initCallbackContext.sendPluginResult(pluginResult);
     }
+    // boolean result = bluetoothAdapter.enable();
+
+    // if (!result) {
+    //   //Throw an enabling error
+    //   JSONObject returnObj = new JSONObject();
+
+    //   addProperty(returnObj, keyError, errorEnable);
+    //   addProperty(returnObj, keyMessage, logNotEnabled);
+
+    //   callbackContext.error(returnObj);
+    // }
 
     //Else listen to initialize callback for enabling
   }
