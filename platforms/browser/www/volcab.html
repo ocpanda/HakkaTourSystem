@@ -4,7 +4,7 @@
     <link rel="stylesheet" href="web_api/jquery/jquery.mobile-1.4.5.min.css">
     <link rel="stylesheet" type="text/css" href="web_api/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="web_api/bootstrap/css/bootstrap-theme.min.css">
-    <link rel="stylesheet" type="text/css" href="css/day.css">
+    <link rel="stylesheet" type="text/css" href="css/volcab.css">
 
     <script src="web_api/jquery/jquery-1.11.3.min.js"></script>
     <script src="web_api/jquery/jquery.mobile-1.4.5.min.js"></script>
@@ -19,7 +19,7 @@
         //-->
         <div class="panel panel-primary">
                 <div class="panel-heading">
-                    <h1 class="panel-title">學習紀錄</h1>
+                    <a class="panel-title" onclick="location.href='record.html'"><font color="white">上一頁</font></a>
                 </div>
                 <div class="panel-body">
                     <table id="ha" border="1">
@@ -94,13 +94,7 @@
                 <p>使用此功能可以設定功能。</p>
             </div>
         </div>
-        <!-- <button id="test">按我</button> -->
-        <div>
-            <button id="star" onclick="fav();">加入最愛</button>
-            <button id="recordBtn" onclick="location.href='record.html'">學習紀錄</button>  
-        </div>
-        
-    
+
     <div data-role="footer" data-position="fixed" data-fullscreen="true">
         <div data-role="navbar">
             <ul class="footNavBar">
@@ -118,12 +112,77 @@
     <script type="text/javascript" src="js/popupExplan.js" defer></script>
     <script type="text/javascript">
         
-        var urlinfo = window.location.href;
-        var temp = urlinfo.split("?");  
         
-        alert(decodeURI(temp[1]));
-                          
-                                 
+        function getArgs() { 
+           var args = new Object(); 
+           //location = volcab.htm?vol=vol&accent=data" 
+           //locatin.search = ?vol=vol&accent=data" 
+           var query = location.search.substring(1); //vol=vol&accent=data" 
+           var pairs = query.split("&"); 
+           for(var i=0;i<pairs.length;i++) { 
+              var pos = pairs[i].indexOf("="); 
+              if (pos == -1) continue; 
+              var argname = pairs[i].substring(0,pos); 
+              var value = pairs[i].substring(pos+1); 
+              args[argname] = decodeURIComponent(value); 
+           } 
+           return args; 
+        } 
+        var args = getArgs(); 
+        //alert(args.vol);
+        //alert(args.accent);
+
+        readFile('log.txt');
+        function readFile(fileEntry) {
+
+              //只用LocalFileSystem.PERSISTENT 會有問題
+            document.addEventListener("deviceready", function() { 
+                window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, successCallback, errorCallback);
+            }, false);
+            function successCallback(fs) {
+
+                fs.root.getFile('log.txt', {}, function(fileEntry) {
+
+                    fileEntry.file(function(file) {
+                    var reader = new FileReader();
+
+                        reader.onloadend = function(e) {
+                            $("#record-body").children().remove();
+                            console.log(JSON.parse(this.result));
+                            var str = JSON.parse(this.result);
+                            var i = 0;
+                            var rec;
+                            var accent;
+                            while(i < str.length){
+                                rec = str[i]['chinese_risigned'];
+                                accent = str[i]['accent'];
+                                if((rec == args.vol) && (accent == args.accent)){
+                                    $("#vocabulary").children().remove();
+                                   $("#vocabulary").append("<tr><th class='a'>"+"種類"+"</th><td id='kind' fontsize=15 >"+str[i]['kind']+"</td></tr>");
+                                   $("#vocabulary").append("<tr><th class='a'>"+"客語"+"</th><td id='kind' fontsize=15 >"+str[i]['hakka_risigned']+"</td></tr>");
+                                   $("#vocabulary").append("<tr><th class='a'>"+"發音"+"</th><td id='kind' fontsize=15 >"+str[i]['hakka_phoneticon']+"</td></tr>");
+                                   $("#vocabulary").append("<tr><th class='a'>"+"中文"+"</th><td id='kind' fontsize=15 >"+rec+"</td></tr>"); 
+                                   $("#vocabulary").append("<tr><th class='a'>"+"英文"+"</th><td id='kind' fontsize=15 >"+str[i]['english_risigned']+"</td></tr>");
+                                   $("#vocabulary").append("<tr><th class='a'>"+"客語例句"+"</th><td id='kind' fontsize=15 >"+str[i]['hakka_sentence']+"</td></tr>");
+                                   $("#vocabulary").append("<tr><th class='a'>"+"中文例句"+"</th><td id='kind' fontsize=15 >"+str[i]['chinese_risigned']+"</td></tr>");
+                                   $("#vocabulary").append("<tr><th class='a'>"+"腔調"+"</th><td id='kind' fontsize=15 >"+accent+"</td></tr>");
+                                   $("#vocabulary").append("<tr><th class='a'>"+"例句語音"+"</th><td id='voice'><audio class='gradient' controls='controls'><source src='"+str[i]['chinese_risigned']+"' type='audio/mp3'></audio></td></tr>");
+                                }
+                                    
+                                i++;                             
+                            }
+                           
+                        };
+                        reader.readAsText(file);
+                    }, errorCallback);
+                }, errorCallback);
+        }           
+            //读取文件失败响应
+        function errorCallback(error){
+          //console.log("文件读取失败!");
+          check = 0;
+        }
+        }                         
     </script>
                                 
 </div>
