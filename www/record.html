@@ -124,9 +124,8 @@
         var accent;
         var count = -1;
         var temp;
-        var k;
-        var delayMillis = 1000; //1 second
-        var s;
+        var record;
+        
         
         function createAndWriteFile(){
               //持久化数据保存
@@ -157,8 +156,8 @@
                }
         }
 
-        function writeFile(fileEntry, dataObj, isAppend , str) {
-          console.log(str);
+        function writeFile(fileEntry, dataObj, isAppend) {
+          
             document.addEventListener("deviceready", function() { 
                 window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, successCallback, errorCallback);
             }, false);
@@ -179,14 +178,14 @@
                     console.log(fileWriter.length);
                     if(check){
                       fileWriter.seek(fileWriter.length-1);
-                      var st = ",{" + '"' + 'kind'+'"' + ':['+ '"' + str['kind']+ '"' +'],'+ '"' + 'hakka_risigned' + '"' + ':[' + '"' + str['hakka_risigned'] + '"' +
-                      '],'+ '"' +'hakka_phoneticon' + '"' + ':[' + '"'+ str['hakka_phoneticon'] + '"' + '],' + '"' + 'chinese_risigned' + '"' + ':['+ '"' + 
-                      str['chinese_risigned'] + '"' + '],' + '"' + 'english_risigned' + '"' + ':[' +'"'+
-                      str['english_risigned']+'"'+'],'+'"' + 'hakka_sentence' + '"' + ':[' +'"'+
-                      str['hakka_sentence']+'"'+'],'+'"' + 'chinese_translation' + '"' + ':[' +'"'+
-                      str['chinese_translation']+'"'+'],'+'"' + 'accent' + '"' + ':[' +'"'+
-                      str['accent']+'"'+'],'+'"' + 'voice' + '"' + ':[' +'"'+
-                      str['voice']+'"'+']'+"}]";
+                      var st = ",{" + '"' + 'kind'+'"' + ':['+ '"' + record['kind']+ '"' +'],'+ '"' + 'hakka_risigned' + '"' + ':[' + '"' + record['hakka_risigned'] + '"' +
+                      '],'+ '"' +'hakka_phoneticon' + '"' + ':[' + '"'+ record['hakka_phoneticon'] + '"' + '],' + '"' + 'chinese_risigned' + '"' + ':['+ '"' + 
+                      record['chinese_risigned'] + '"' + '],' + '"' + 'english_risigned' + '"' + ':[' +'"'+
+                      record['english_risigned']+'"'+'],'+'"' + 'hakka_sentence' + '"' + ':[' +'"'+
+                      record['hakka_sentence']+'"'+'],'+'"' + 'chinese_translation' + '"' + ':[' +'"'+
+                      record['chinese_translation']+'"'+'],'+'"' + 'accent' + '"' + ':[' +'"'+
+                      record['accent']+'"'+'],'+'"' + 'voice' + '"' + ':[' +'"'+
+                      record['voice']+'"'+']'+"}]";
 
                       var data = new Blob([st], { type: 'text/plain' });
                       fileWriter.write(data);
@@ -319,8 +318,9 @@
         
         function crea1(data,count){
           
-          console.log(count);        
-            createAndWriteFile();     
+            console.log(count);        
+            record = data[count];
+            //createAndWriteFile();     
             var string = [{'kind':data[count]['kind'],
             'hakka_risigned':data[count]['hakka_risigned'],
             'hakka_phoneticon':data[count]['hakka_phoneticon'],
@@ -332,7 +332,7 @@
             'voice':data[count]['voice']}];
             var jsonse = JSON.stringify(string);
             var dataObj = new Blob([jsonse], { type: 'text/plain' });                             
-            writeFile('log.txt', dataObj, true , data[count]);
+            writeFile('log.txt', dataObj, true);
     
         }
     </script>
