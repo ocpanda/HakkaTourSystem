@@ -13,14 +13,11 @@
         "cordova-plugin-device": {
             "PACKAGE_NAME": "com.ocpanda.test"
         },
-        "cordova-plugin-whitelist": {
-            "PACKAGE_NAME": "com.ocpanda.test"
-<<<<<<< HEAD
-        },
         "cordova-plugin-file": {
             "PACKAGE_NAME": "com.ocpanda.test"
-=======
->>>>>>> develop
+        },
+        "cordova-plugin-whitelist": {
+            "PACKAGE_NAME": "com.ocpanda.test"
         }
     },
     "dependent_plugins": {

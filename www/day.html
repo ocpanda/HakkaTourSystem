@@ -251,7 +251,9 @@
                       obj[record]['english_risigned']+'"'+'],'+'"' + 'hakka_sentence' + '"' + ':[' +'"'+
                       obj[record]['hakka_sentence']+'"'+'],'+'"' + 'chinese_translation' + '"' + ':[' +'"'+
                       obj[record]['chinese_translation']+'"'+'],'+'"' + 'accent' + '"' + ':[' +'"'+
-                      obj[record]['accent']+'"'+']'+"}]";
+                      obj[record]['accent']+'"'+'],'+'"' + 'voice' + '"' + ':[' +'"'+
+                      obj[record]['voice']+'"'+']'+"}]";
+
                       var data = new Blob([st], { type: 'text/plain' });
                       fileWriter.write(data);
                     }else{
@@ -282,8 +284,8 @@
             'english_risigned':obj[record]['english_risigned'],
             'hakka_sentence':obj[record]['hakka_sentence'],
             'chinese_translation':obj[record]['chinese_translation'],
-            'accent':obj[record]['accent']}
-            ];    
+            'accent':obj[record]['accent'],
+            'voice':obj[record]['voice']}];  
             var jsonse = JSON.stringify(string);
             var dataObj = new Blob([jsonse], { type: 'text/plain' });           
             writeFile('log.txt', dataObj, true);           

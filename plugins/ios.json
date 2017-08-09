@@ -7,9 +7,6 @@
         "files": {}
     },
     "installed_plugins": {
-        "cordova-plugin-whitelist": {
-            "PACKAGE_NAME": "com.ocpanda.test"
-        },
         "cordova-plugin-bluetoothle": {
             "PACKAGE_NAME": "com.ocpanda.test"
         },
@@ -17,6 +14,9 @@
             "PACKAGE_NAME": "com.ocpanda.test"
         },
         "cordova-plugin-file": {
+            "PACKAGE_NAME": "com.ocpanda.test"
+        },
+        "cordova-plugin-whitelist": {
             "PACKAGE_NAME": "com.ocpanda.test"
         }
     },

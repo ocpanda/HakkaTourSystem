@@ -17,15 +17,15 @@
                             "count": 1
                         },
                         {
-                            "xml": "<feature name=\"Whitelist\"><param name=\"android-package\" value=\"org.apache.cordova.whitelist.WhitelistPlugin\" /><param name=\"onload\" value=\"true\" /></feature>",
-                            "count": 1
-                        },
-                        {
                             "xml": "<feature name=\"File\"><param name=\"android-package\" value=\"org.apache.cordova.file.FileUtils\" /><param name=\"onload\" value=\"true\" /></feature>",
                             "count": 1
                         },
                         {
                             "xml": "<allow-navigation href=\"cdvfile:*\" />",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"Whitelist\"><param name=\"android-package\" value=\"org.apache.cordova.whitelist.WhitelistPlugin\" /><param name=\"onload\" value=\"true\" /></feature>",
                             "count": 1
                         }
                     ]
@@ -61,16 +61,16 @@
         "cordova-plugin-bluetoothle": {
             "PACKAGE_NAME": "com.ocpanda.test"
         },
-        "cordova-plugin-device": {
-            "PACKAGE_NAME": "com.ocpanda.test"
-        },
-        "cordova-plugin-whitelist": {
-            "PACKAGE_NAME": "com.ocpanda.test"
-        },
         "cordova-plugin-compat": {
             "PACKAGE_NAME": "com.ocpanda.test"
         },
+        "cordova-plugin-device": {
+            "PACKAGE_NAME": "com.ocpanda.test"
+        },
         "cordova-plugin-file": {
+            "PACKAGE_NAME": "com.ocpanda.test"
+        },
+        "cordova-plugin-whitelist": {
             "PACKAGE_NAME": "com.ocpanda.test"
         }
     },
@@ -268,9 +268,8 @@
     ],
     "plugin_metadata": {
         "cordova-plugin-bluetoothle": "4.2.1",
-        "cordova-plugin-device": "1.1.2",
-        "cordova-plugin-whitelist": "1.2.2",
         "cordova-plugin-compat": "1.1.0",
+        "cordova-plugin-device": "1.1.2",
         "cordova-plugin-file": "4.3.3",
         "cordova-plugin-whitelist": "1.2.2"
     }

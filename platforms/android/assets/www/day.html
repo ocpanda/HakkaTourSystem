@@ -120,8 +120,6 @@
         <!-- <button id="test">按我</button> -->
         <div>
             <button id="star" onclick="fav();">加入最愛</button>
-            <button id="read" onclick="read();">讀取</button>  
-            <button id="remove" onclick="clean();">刪除</button>
             <button id="recordBtn" onclick="location.href='record.html'">學習紀錄</button>  
         </div>
         
@@ -198,7 +196,9 @@
 
         function createAndWriteFile(){
               //持久化数据保存
-               window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, successCallback, errorCallback)
+               document.addEventListener("deviceready", function() { 
+                window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, successCallback, errorCallback);
+            }, false);
 
                function successCallback(fs) {
 
@@ -224,7 +224,9 @@
         }
 
         function writeFile(fileEntry, dataObj, isAppend) {
-            window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, successCallback, errorCallback)
+            document.addEventListener("deviceready", function() { 
+                window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, successCallback, errorCallback);
+            }, false);
 
            function successCallback(fs) {
 
@@ -239,21 +241,17 @@
                     fileWriter.onerror = function(e) {
                        alert('Write failed: ' + e.toString());
                     };                   
-                    // if (isAppend) {
-                    //     try {
-                    //         fileWriter.seek(fileWriter.length);
-                    //     }
-                    //     catch (e) {
-                    //         console.log("file doesn't exist!");
-                    //     }
-                    // }
+                    
                     var check = fileWriter.length;
                     if(check){
                       fileWriter.seek(fileWriter.length-1);
                       var st = ",{" + '"' + 'kind'+'"' + ':['+ '"' + obj[record]['kind']+ '"' +'],'+ '"' + 'hakka_risigned' + '"' + ':[' + '"' + obj[record]['hakka_risigned'] + '"' +
-                      '],'+ '"' +'chinese_risigned' + '"' + ':[' + '"'+ obj[record]['chinese_risigned'] + '"' + '],' + '"' + 'english_risigned' + '"' + ':['+ '"' + 
-                      obj[record]['english_risigned'] + '"' + '],' + '"' + 'accent' + '"' + ':[' + '"' +
-                      obj[record]['accent']+ '"]' +"}]";
+                      '],'+ '"' +'hakka_phoneticon' + '"' + ':[' + '"'+ obj[record]['hakka_phoneticon'] + '"' + '],' + '"' + 'chinese_risigned' + '"' + ':['+ '"' + 
+                      obj[record]['chinese_risigned'] + '"' + '],' + '"' + 'english_risigned' + '"' + ':[' +'"'+
+                      obj[record]['english_risigned']+'"'+'],'+'"' + 'hakka_sentence' + '"' + ':[' +'"'+
+                      obj[record]['hakka_sentence']+'"'+'],'+'"' + 'chinese_translation' + '"' + ':[' +'"'+
+                      obj[record]['chinese_translation']+'"'+'],'+'"' + 'accent' + '"' + ':[' +'"'+
+                      obj[record]['accent']+'"'+']'+"}]";
                       var data = new Blob([st], { type: 'text/plain' });
                       fileWriter.write(data);
                     }else{
@@ -272,73 +270,25 @@
               alert("ERROR: " + error.code)
            }
         }
-        
-        //读取文件
-        function readFile(fileEntry) {
 
-            window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, successCallback, errorCallback)
-
-            function successCallback(fs) {
-
-                fs.root.getFile('log.txt', {}, function(fileEntry) {
-
-                fileEntry.file(function(file) {
-                var reader = new FileReader();
-
-                    reader.onloadend = function(e) {
-                            console.log(JSON.parse(this.result));
-                        };
-                        reader.readAsText(file);
-
-                    }, errorCallback);
-                }, errorCallback);
-            }           
-            //读取文件失败响应
-            function errorCallback(error){
-              console.log("文件读取失败!");
-              check = 0;
-            }
-        }
-
-        function removeFile() {
-            var type = window.TEMPORARY;
-            var size = 5*1024*1024;
-
-            window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, successCallback, errorCallback)
-
-            function successCallback(fs) {
-            fs.root.getFile('log.txt', {create: false}, function(fileEntry) {
-
-                    fileEntry.remove(function() {
-                    alert('File removed.');
-                    }, errorCallback);
-                }, errorCallback);
-            }
-           function errorCallback(error) {
-              alert("ERROR: " + error.code)
-           }   
-        }
         function fav(){
-            //alert("data stored");
+            alert("data stored");
             createAndWriteFile();
                             
             var string = [{'kind':obj[record]['kind'],
             'hakka_risigned':obj[record]['hakka_risigned'],
+            'hakka_phoneticon':obj[record]['hakka_phoneticon'],
             'chinese_risigned':obj[record]['chinese_risigned'],
             'english_risigned':obj[record]['english_risigned'],
+            'hakka_sentence':obj[record]['hakka_sentence'],
+            'chinese_translation':obj[record]['chinese_translation'],
             'accent':obj[record]['accent']}
             ];    
             var jsonse = JSON.stringify(string);
             var dataObj = new Blob([jsonse], { type: 'text/plain' });           
             writeFile('log.txt', dataObj, true);           
             //console.log(check);        
-        }
-        function clean(){
-            removeFile();          
-        }
-        function read(){
-            readFile('log.txt'); 
-        }
+        }       
     </script>
                                 
 </div>
