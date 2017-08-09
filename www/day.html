@@ -155,7 +155,8 @@
                 dataType:'json',
 
                 success: function(data){ 
-               
+                createAndWriteFile();
+
                 obj=data;
                      console.log(data);                 
                 $("#vocabulary").append("<tr><th class='a'>"+accent[0]+"</th><td id='kind' fontsize=15 >"+data[i]['kind']+"</td></tr>");
@@ -206,7 +207,7 @@
 
                      fileEntry.createWriter(function(fileWriter) {
                         fileWriter.onwriteend = function(e) {
-                           //alert('Write completed.');
+                           
                         };
 
                         fileWriter.onerror = function(e) {
@@ -243,12 +244,18 @@
                     };                   
                     
                     var check = fileWriter.length;
+                    
                     if(check){
                       fileWriter.seek(fileWriter.length-1);
                       var st = ",{" + '"' + 'kind'+'"' + ':['+ '"' + obj[record]['kind']+ '"' +'],'+ '"' + 'hakka_risigned' + '"' + ':[' + '"' + obj[record]['hakka_risigned'] + '"' +
-                      '],'+ '"' +'chinese_risigned' + '"' + ':[' + '"'+ obj[record]['chinese_risigned'] + '"' + '],' + '"' + 'english_risigned' + '"' + ':['+ '"' + 
-                      obj[record]['english_risigned'] + '"' + '],' + '"' + 'accent' + '"' + ':[' + '"' +
-                      obj[record]['accent']+ '"]' +"}]";
+                      '],'+ '"' +'hakka_phoneticon' + '"' + ':[' + '"'+ obj[record]['hakka_phoneticon'] + '"' + '],' + '"' + 'chinese_risigned' + '"' + ':['+ '"' + 
+                      obj[record]['chinese_risigned'] + '"' + '],' + '"' + 'english_risigned' + '"' + ':[' +'"'+
+                      obj[record]['english_risigned']+'"'+'],'+'"' + 'hakka_sentence' + '"' + ':[' +'"'+
+                      obj[record]['hakka_sentence']+'"'+'],'+'"' + 'chinese_translation' + '"' + ':[' +'"'+
+                      obj[record]['chinese_translation']+'"'+'],'+'"' + 'accent' + '"' + ':[' +'"'+
+                      obj[record]['accent']+'"'+'],'+'"' + 'voice' + '"' + ':[' +'"'+
+                      obj[record]['voice']+'"'+']'+"}]";
+
                       var data = new Blob([st], { type: 'text/plain' });
                       fileWriter.write(data);
                     }else{
@@ -269,15 +276,18 @@
         }
 
         function fav(){
-            alert("data stored");
-            createAndWriteFile();
-                            
+            //alert("data stored");
+            
+            createAndWriteFile();                
             var string = [{'kind':obj[record]['kind'],
             'hakka_risigned':obj[record]['hakka_risigned'],
+            'hakka_phoneticon':obj[record]['hakka_phoneticon'],
             'chinese_risigned':obj[record]['chinese_risigned'],
             'english_risigned':obj[record]['english_risigned'],
-            'accent':obj[record]['accent']}
-            ];    
+            'hakka_sentence':obj[record]['hakka_sentence'],
+            'chinese_translation':obj[record]['chinese_translation'],
+            'accent':obj[record]['accent'],
+            'voice':obj[record]['voice']}];
             var jsonse = JSON.stringify(string);
             var dataObj = new Blob([jsonse], { type: 'text/plain' });           
             writeFile('log.txt', dataObj, true);           
