@@ -427,11 +427,11 @@ var map = {
     this.canvas.width = w;
     this.canvas.height = h;
     this.context = this.canvas.getContext("2d");
-    //document.body.insertBefore(this.canvas, document.body.childNodes[0]);
-    //userLocationMap.img.onload = function(){
-      //console.log("start interval!");
-      //this.interval = setInterval(updateMap);
-    //}
+    document.body.insertBefore(this.canvas, document.body.childNodes[0]);
+    // userLocationMap.img.onload = function(){
+      console.log("start interval!");
+      this.interval = setInterval(updateMap);
+    // }
   },
   clear: function(){
     this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
@@ -449,12 +449,12 @@ function userSourceComponent(x,y,w,h){
   this.y = y;
   this.speedX = 0;
   this.speedY = 0;
-  //this.img = new Image();
+  this.img = new Image();
   // this.img.onload = function(){
   //   //window.onresize = update;
   //   update();
   // }
-  //this.img.src = "/image/6.jpg";
+  this.img.src = "/image/6.jpg";
   // function fitToContainer(){
   //   ctx = map.context;
   //   ctx.drawImage(this.img, this.x, this.y, this.w, this.h, 0, 0, this.w, this.h);
@@ -462,9 +462,9 @@ function userSourceComponent(x,y,w,h){
   this.update = function(){
     ctx = map.context;
     //背景地圖待修復
-    //ctx.drawImage(this.img, this.x, this.y, this.w, this.h, 0, 0, this.w, this.h);
-    // ctx.fillStyle = "red";
-    // ctx.fillRect(this.x, this.y, this.w-10, this.h-10);
+    ctx.drawImage(this.img, this.x, this.y, this.w, this.h, 0, 0, this.w, this.h);
+    ctx.fillStyle = "red";
+    ctx.fillRect(this.x, this.y, this.w-10, this.h-10);
     for(var i=0; i<beaconData["config"].number; i++){
       ctx.beginPath();
       ctx.fillStyle = "black";
@@ -501,9 +501,10 @@ var app = {
     this.bindEvents();
   },
   bindEvents: function(){
-    document.addEventListener('deviceready', this.onDeviceReady, false);
+    document.addEventListener("deviceready", this.onDeviceReady, false);
     document.addEventListener("resume", this.onResume, false);
     document.addEventListener("pause", this.onPause, false);
+    document.addEventListener("pageshow", this.pageShow, false);
   },
   onDeviceReady: function() {
     window.ga.startTrackerWithId('UA-102252553-1',function(){
@@ -518,6 +519,10 @@ var app = {
     if(devicePlatform == "browser"){
         deviceID = "Test-Device";
     }
+    console.log("Bluetooth initialize");
+    bluetoothle.initialize(function(result){
+        console.log("bluetooth adapter status: "+result.status);
+    }, { request: true, statusReceiver: false });
     //localStorage.removeItem("deviceID");
     if(deviceID != localStorage.getItem("deviceID")){
         console.log("change deviceID");
@@ -539,12 +544,7 @@ var app = {
             console.log("jsonp.error:"+textStatus);    
         }
     });*/
-
-    console.log("Bluetooth initialize");
-    bluetoothle.initialize(function(result){
-        console.log("bluetooth adapter status: "+result.status);
-    }, { request: true, statusReceiver: false });
-    app.gocalc();
+    // app.gocalc();
   },
   onPause: function(){
     clearInterval(myVar);
@@ -562,3 +562,12 @@ var app = {
   }
 };
 app.initialize();
+
+function changePage(){
+  clearInterval(myVar);
+  bluetoothle.stopScan(function(result){
+    console.log("stop scan and put app to background!!");
+  },function(result){
+    console.log("stop scan and put app to background error!!");
+  })
+}
