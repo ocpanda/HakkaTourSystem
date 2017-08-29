@@ -538,7 +538,6 @@ var app = {
       if(result.status === "enabled")
         myVar = setInterval(calcLocation.deviceScan, 400); 
     }, { request: true, statusReceiver: false });
-    
   },
   gocalc: function(){
     bluetoothle.initialize(function(result){
