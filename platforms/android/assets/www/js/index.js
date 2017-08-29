@@ -381,7 +381,8 @@ var GaussianElimination = {
 //-------------------------------------------------
 //Code: C.H Chiang 蔣政樺
 //function: 藍牙室內定位 方法 RSS whit 高斯消去法
-//-------------------------------------------------
+//-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^-
+
 //-------------------------------------------------
 //Code: C.H Chiang 蔣政樺
 //function: 繪製使用者地圖標示其目前位置
@@ -398,13 +399,12 @@ function initializeMap(){
   var deviceHeight = screen.height/window.devicePixelRatio;
   console.log(deviceWidth+" "+deviceHeight)
   ;
-  var canvas = document.getElementById("mapCanvas");
-  var ctx = canvas.getContext("2d");
+  //var canvas = document.getElementById("mapCanvas");
+  //var ctx = canvas.getContext("2d");
   //var img = new Image();
   //img.src = "image/6.jpg";
   //ctx.drawImage(img, 0, 0);
   userLocationMap = new userSourceComponent(0, 0, deviceWidth, deviceHeight);
-  //map.test();
   map.start(deviceWidth, deviceHeight);
 }
 /*
@@ -413,27 +413,18 @@ class: 使用者所在的地圖，初始化地圖以及更新畫面上地圖顯�
 */
 var map = {
   canvas: document.getElementById("mapCanvas"),
-  test: function(){
-    var ctx = this.canvas.getContext("2d");
-    ctx.beginPath();
-    ctx.lineWidth = "5";
-    ctx.strokeStyle = "green";
-    ctx.moveTo(0,75);
-    ctx.lineTo(80,75);
-    ctx.stroke();
-  },
   start: function(w, h){
   console.log("draw map start!!");
     this.canvas.width = w;
     this.canvas.height = h;
     this.context = this.canvas.getContext("2d");
-    document.body.insertBefore(this.canvas, document.body.childNodes[0]);
-    // userLocationMap.img.onload = function(){
-      console.log("start interval!");
-      this.interval = setInterval(updateMap);
-    // }
+    userLocationMap.img.onload = function(){
+     console.log("start interval!");
+     this.interval = setInterval(updateMap, 200);
+    }
   },
   clear: function(){
+    this.context.fillStyle = "white";
     this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
   }
 }
@@ -452,19 +443,14 @@ function userSourceComponent(x,y,w,h){
   this.img = new Image();
   // this.img.onload = function(){
   //   //window.onresize = update;
-  //   update();
+  //   userLocationMap.update();
   // }
-  this.img.src = "/image/6.jpg";
-  // function fitToContainer(){
-  //   ctx = map.context;
-  //   ctx.drawImage(this.img, this.x, this.y, this.w, this.h, 0, 0, this.w, this.h);
-  // }
+  this.img.src = "image/6.jpg";
   this.update = function(){
     ctx = map.context;
     //背景地圖待修復
+    console.log("drawImage update");
     ctx.drawImage(this.img, this.x, this.y, this.w, this.h, 0, 0, this.w, this.h);
-    ctx.fillStyle = "red";
-    ctx.fillRect(this.x, this.y, this.w-10, this.h-10);
     for(var i=0; i<beaconData["config"].number; i++){
       ctx.beginPath();
       ctx.fillStyle = "black";
@@ -491,11 +477,14 @@ function updateMap(){
 //-------------------------------------------------
 //Code: C.H Chiang 蔣政樺
 //function: 繪製使用者地圖標示其目前位置
+//-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^-
+
+
+
 //-------------------------------------------------
-
-
-
-/*app 初始化及事件處理*/
+//Code: C.H Chiang 蔣政樺
+//function: app初始化及事件綁定
+//-vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv-
 var app = {
   initialize: function(){
     this.bindEvents();
@@ -519,10 +508,6 @@ var app = {
     if(devicePlatform == "browser"){
         deviceID = "Test-Device";
     }
-    console.log("Bluetooth initialize");
-    bluetoothle.initialize(function(result){
-        console.log("bluetooth adapter status: "+result.status);
-    }, { request: true, statusReceiver: false });
     //localStorage.removeItem("deviceID");
     if(deviceID != localStorage.getItem("deviceID")){
         console.log("change deviceID");
@@ -530,6 +515,7 @@ var app = {
         var data={deviceID: localStorage.getItem("deviceID")};
         //app.addUser(data);
     }
+    initializeMap();
     /*紀錄app登入次數  上線將下方註解拿掉即可使用*/
     /*$.ajax({
         url: "http://140.115.197.16/",
@@ -544,9 +530,11 @@ var app = {
             console.log("jsonp.error:"+textStatus);    
         }
     });*/
-    // app.gocalc();
+    app.gocalc();
   },
+  //當app畫面切換至背景時觸發
   onPause: function(){
+    clearInterval(map.interval);
     clearInterval(myVar);
     bluetoothle.stopScan(function(result){
       console.log("stop scan and put app to background!!");
@@ -554,11 +542,29 @@ var app = {
       console.log("stop scan and put app to background error!!");
     })
   },
+  //當app畫面從背景切換至前景時觸發
   onResume: function(){
-    myVar = setInterval(calcLocation.deviceScan, 400);
+    bluetoothle.initialize(function(result){
+        console.log("bluetooth adapter status: "+result.status);
+        if(result.status === "enabled"){
+          myVar = setInterval(calcLocation.deviceScan, 400);
+          map.interval = setInterval(updateMap, 200);
+        }
+    }, { request: true, statusReceiver: false });
   },
   gocalc: function(){
-    calcLocation.main();
+    console.log("Bluetooth initialize");
+    bluetoothle.initialize(function(result){
+        console.log("bluetooth adapter status: "+result.status);
+        if(result.status === "enabled"){
+          initializeMap();
+          calcLocation.main();
+        }
+    }, { request: true, statusReceiver: false });
+  },
+  pageShow: function(){
+    console.log("pageshow event trigger!");
+    app.gocalc();
   }
 };
 app.initialize();
@@ -571,3 +577,7 @@ function changePage(){
     console.log("stop scan and put app to background error!!");
   })
 }
+//-------------------------------------------------
+//Code: C.H Chiang 蔣政樺
+//function: app初始化及事件綁定
+//-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^-
