@@ -1,4 +1,4 @@
-<!--日常頁//-->
+<!--學習紀錄單字頁//-->
 <div id="day" data-role="page">
 
     <link rel="stylesheet" href="web_api/jquery/jquery.mobile-1.4.5.min.css">
@@ -166,7 +166,7 @@
                                    $("#vocabulary").append("<tr><th class='a'>"+"客語例句"+"</th><td id='kind' fontsize=15 >"+str[i]['hakka_sentence']+"</td></tr>");
                                    $("#vocabulary").append("<tr><th class='a'>"+"中文例句"+"</th><td id='kind' fontsize=15 >"+str[i]['chinese_risigned']+"</td></tr>");
                                    $("#vocabulary").append("<tr><th class='a'>"+"腔調"+"</th><td id='kind' fontsize=15 >"+accent+"</td></tr>");
-                                   $("#vocabulary").append("<tr><th class='a'>"+"例句語音"+"</th><td id='voice'><audio class='gradient' controls='controls'><source src='"+str[i]['chinese_risigned']+"' type='audio/mp3'></audio></td></tr>");
+                                   $("#vocabulary").append("<tr><th class='a'>"+"例句語音"+"</th><td id='voice'><audio class='gradient' controls='controls'><source src='"+str[i]['voice']+"' type='audio/mp3'></audio></td></tr>");
                                 }
                                     
                                 i++;                             
