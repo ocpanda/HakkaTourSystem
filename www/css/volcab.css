@@ -1,4 +1,4 @@
-
+@charset "UTF-8";
 
 .col{
     display: inline-block;
@@ -13,18 +13,18 @@
 
 }
 
-#aa table{
-    width: 50%;
-    height: 50%;
+#vocabulary table{
+    width: 70%;
+    height: 70%;
 }
-#aa th{
+#vocabulary th{
     width: 10%;
     height: 30%;
 } 
 
-#aa td{
-    width: 30%;
-    height: 30%;
+#vocabulary td{
+    width: 50%;
+    height: 50%;
 }
 
 .a {
@@ -63,10 +63,10 @@ background: -webkit-linear-gradient(top, #494949 0%, #434242 31%, #393838 55%, #
 
 @media screen and (min-width: 768px){
     
-    #aa th{
+    #vocabulary th{
         font-size: 40px;
     }
-    #aa td{
+    #vocabulary td{
        color: red;
        font-size: 40px;
    }
@@ -78,10 +78,10 @@ background: -webkit-linear-gradient(top, #494949 0%, #434242 31%, #393838 55%, #
 }
 
 @media screen and (min-width: 992px){
-    #aa th{
+    #vocabulary th{
         font-size: 45px;
     }
-    #aa td{
+    #vocabulary td{
        color: red;
        font-size: 45px;
    }
@@ -92,10 +92,10 @@ background: -webkit-linear-gradient(top, #494949 0%, #434242 31%, #393838 55%, #
 }
 
 @media screen and (min-width: 1200px){
-    #aa th{
+    #vocabulary th{
         font-size: 55px;
     }
-    #aa td{
+    #vocabulary td{
        color: red;
        font-size: 55px;
    }
