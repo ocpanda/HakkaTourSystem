@@ -25,6 +25,7 @@
                             "count": 1
                         },
                         {
+<<<<<<< HEAD
                             "xml": "<feature name=\"UniversalAnalytics\"><param name=\"android-package\" value=\"com.danielcwilson.plugins.analytics.UniversalAnalyticsPlugin\" /></feature>",
                             "count": 1
                         },
@@ -33,6 +34,8 @@
                             "count": 1
                         },
                         {
+=======
+>>>>>>> feature/day
                             "xml": "<feature name=\"Whitelist\"><param name=\"android-package\" value=\"org.apache.cordova.whitelist.WhitelistPlugin\" /><param name=\"onload\" value=\"true\" /></feature>",
                             "count": 1
                         }
@@ -96,6 +99,7 @@
             "PACKAGE_NAME": "com.ocpanda.test"
         },
         "cordova-plugin-compat": {
+<<<<<<< HEAD
             "PACKAGE_NAME": "com.ocpanda.test"
         },
         "cordova-plugin-device": {
@@ -110,6 +114,16 @@
         "cordova-plugin-splashscreen": {
             "PACKAGE_NAME": "com.ocpanda.test"
         },
+=======
+            "PACKAGE_NAME": "com.ocpanda.test"
+        },
+        "cordova-plugin-device": {
+            "PACKAGE_NAME": "com.ocpanda.test"
+        },
+        "cordova-plugin-file": {
+            "PACKAGE_NAME": "com.ocpanda.test"
+        },
+>>>>>>> feature/day
         "cordova-plugin-whitelist": {
             "PACKAGE_NAME": "com.ocpanda.test"
         }

@@ -66,7 +66,11 @@ Podfile.prototype.__parseForPods = function(text) {
     //     pod 'Foobar', '1.2'
     //     pod 'Foobar', 'abc 123 1.2'
     //     pod 'PonyDebugger', :configurations => ['Debug', 'Beta']
+<<<<<<< HEAD
     var podRE = new RegExp('pod \'(\\w+)\'\\s*,?\\s*(.*)');
+=======
+    var podRE = new RegExp('pod \'([^\']*)\'\\s*,?\\s*(.*)');
+>>>>>>> feature/day
 
     // only grab lines that don't have the pod spec'
     return arr.filter(function(line) {

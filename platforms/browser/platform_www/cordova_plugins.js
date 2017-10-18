@@ -237,15 +237,21 @@ module.exports.metadata =
 {
     "cordova-plugin-bluetoothle": "4.2.1",
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> feature/day
     "cordova-plugin-compat": "1.1.0",
     "cordova-plugin-device": "1.1.2",
     "cordova-plugin-file": "4.3.3",
     "cordova-plugin-whitelist": "1.2.2"
+<<<<<<< HEAD
 =======
     "cordova-plugin-device": "1.1.2",
     "cordova-plugin-google-analytics": "1.8.3",
     "cordova-plugin-splashscreen": "4.0.3"
 >>>>>>> feature/claclocation
+=======
+>>>>>>> feature/day
 }
 // BOTTOM OF METADATA
 });

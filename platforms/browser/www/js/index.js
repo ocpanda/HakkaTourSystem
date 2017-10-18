@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 //-------------------------------------------------
 //Code: C.H Chiang 蔣政樺
 //function: 藍牙室內定位 方法 RSS whit 高斯消去法
@@ -8,6 +9,11 @@
 var ORIGIN_DIS = -58.3;
 var ENVIRONMENT_VAR = 4;
 >>>>>>> feature/claclocation
+=======
+/*app 設定資料*/
+var ORIGIN_DIS = -58.3;
+var ENVIRONMENT_VAR = 4;
+>>>>>>> feature/day
 var calcRec = [];       //
 var fundDevices = [];
 var beaconData = [];
@@ -115,6 +121,7 @@ var addData = {
       addNameList(name);
       beaconData[name] = {beaconLocX: x, beaconLocY: y, distance: dist};
     }
+<<<<<<< HEAD
 
     function addNameList(name){
       if(beaconData[name] === undefined){
@@ -249,12 +256,126 @@ var calcLocation = {
       //   $("#dsa").append("<a id='beacon"+beaconNum+"'>"+beaconName+" "+beaconData[beaconName].beaconLocX+" "+beaconData[beaconName].beaconLocY+" "+temp2+"</a><br>");
       // }
     }
+=======
+
+    function addNameList(name){
+      if(beaconData[name] === undefined){
+        beaconData["config"].nameList.push(name);
+        beaconData["config"].number++;
+      } 
+    }
+  }
+};
+
+var getData = {
+  /*
+  code by C.H Chiang
+  function: getBeaconData> 取得場館beacon資訊
+  input: null
+  output: null
+  use: getData.getBeaconData()
+  */
+  getBeaconData: function(){
+    if(beaconData["config"] === undefined)
+      addData.addBeaconData("config", 0, 0, 0);
+    $.ajax({
+      url: "http://140.130.35.62/hakka/hakkamanager/php/TourGetBeaconData.php",
+      type: "POST",
+      dataType: "json",
+      success: function(result){
+        for(var i=0; i<result['uuid'].length; i++){
+          addData.addBeaconData(result['uuid'][i], result['locationX'][i], result['locationY'][i], 0);
+          console.log("add beacon:" + result['uuid'][i] + "  X:"+result['locationX'][i] + "  Y:"+result['locationY'][i]);
+        }
+      },
+      error: function(){
+        console.log("get beacon data error!!");
+      }
+    });
+  }
+};
+
+var calcLocation = {
+  /*
+  code by C.H Chiang
+  function: main> calcLocation程式切入點
+  input: null
+  output: null
+  use: calcLocation.main()
+  */
+  main: function(){
+    getData.getBeaconData();  //取得場館beacon位置資訊
+    myVar = setInterval(calcLocation.deviceScan, 400);
+  },
+  deviceScan: function(){
+    console.log("start scan!");
+    bluetoothle.startScan(
+      function(result){
+        if(result.status === "scanStarted"){
+          console.log("Scanning for devices");
+          addData.addScanedBeacon("config", 0);
+          addData.addScanedCalc("config", 0);
+        }
+        else if(result.status === "scanResult"){
+          console.log("Scanning result "+name+" "+result.rssi);
+          var name = result.address.replace(/(\W+)/g, "");
+          for(var i=0; i<beaconData["config"].number; i++){
+            if(beaconData["config"].nameList.indexOf(name) >= 0){
+              console.log("replaced address name "+name);
+              addData.addScanedBeacon(name, result.rssi);
+            }
+          }
+        }
+      },
+    function(error){
+      console.log("scan error! "+error.error+" "+error.message); 
+      return;
+    }, {sercvices: []});
+    setTimeout(bluetoothle.stopScan, 200, function(){
+      //開始計算距離
+      calcLocation.startCalc();         
+    });
+    
+  },
+  /*
+  code by C.H Chiang
+  function: startCalc> 計算使用者與beacon距離
+  input: null
+  output: null
+  use: calcLocation.startCalc()
+  */
+  startCalc: function(){
+    
+    console.log("start calc called!!!");
+    console.log("fundDevices number ="+fundDevices["config"].number);
+    //計算使用者與各beacon距離
+    for(var i=0; i<fundDevices["config"].number; i++){
+      var beaconName = fundDevices["config"].nameList[i];
+      var rss = fundDevices[fundDevices["config"].nameList[i]].rssi;
+      console.log("beaconName:"+beaconName+" rss:"+rss);
+      //(一公尺RSS強度 - 目前接收RSS強度) / (10 * 路徑衰減函數)
+      var temp = (ORIGIN_DIS - rss) / (10 * ENVIRONMENT_VAR);
+      var temp2 = Math.pow(10, temp);
+      addData.addBeaconData(beaconName, beaconData[beaconName].beaconLocX, beaconData[beaconName].beaconLocY, temp2);
+
+      var beaconNum = fundDevices["config"].nameList.indexOf(beaconName);
+      if($("#beacon"+beaconNum).length > 0){
+        $("#beacon"+beaconNum).html(beaconName+" "+beaconData[beaconName].beaconLocX+" "+beaconData[beaconName].beaconLocY+" "+temp2);
+      }
+      else{
+        $("#dsa").append("<a id='beacon"+beaconNum+"'>"+beaconName+" "+beaconData[beaconName].beaconLocX+" "+beaconData[beaconName].beaconLocY+" "+temp2+"</a><br>");
+      }
+    }
+>>>>>>> feature/day
     // bluetoothle.stopScan(function(result){
     //   console.log("startcalc bluetooth stop!");
     // },function(result){
     //   console.log("startcalc bluetooth stop error!");
     // });
+<<<<<<< HEAD
 >>>>>>> feature/claclocation
+=======
+>>>>>>> feature/day
     GaussianElimination.main();
   }
 };
@@ -291,6 +412,7 @@ var GaussianElimination = {
     }
     else{
       //由aj bj cj 組合為一個a陣列 給高斯演算法做計算
+<<<<<<< HEAD
 =======
     //由aj bj cj 組合為一個a陣列 給高斯演算法做計算
     console.log("oriaddData "+beaconData["config"].nameList[0]);
@@ -306,11 +428,33 @@ var GaussianElimination = {
       var aj = beaconData[name].beaconLocX - beaconData[beaconData["config"].nameList[0]].beaconLocX;
       var bj = beaconData[name].beaconLocY - beaconData[beaconData["config"].nameList[0]].beaconLocY;
       var cj = (aj + bj - (Math.pow(beaconData[name].distance, 2.0)-Math.pow(beaconData[beaconData["config"].nameList[0]].distance, 2.0)));
+=======
+      console.log("oriaddData "+beaconData["config"].nameList[0]);
+      console.log("orilocationX "+beaconData[beaconData["config"].nameList[0]].beaconLocX);
+      console.log("orilocationY "+beaconData[beaconData["config"].nameList[0]].beaconLocY);      
+      console.log("orildis "+beaconData[beaconData["config"].nameList[0]].distance);
+      console.log("addData "+name);
+      console.log("locationX "+beaconData[name].beaconLocX);
+      console.log("locationY "+beaconData[name].beaconLocY);      
+      console.log("dis "+beaconData[name].distance);
+      var aj = beaconData[name].beaconLocX - beaconData[beaconData["config"].nameList[0]].beaconLocX;
+      var bj = beaconData[name].beaconLocY - beaconData[beaconData["config"].nameList[0]].beaconLocY;
+      var cj = (aj + bj - (Math.pow(beaconData[name].distance, 2.0)-Math.pow(beaconData[beaconData["config"].nameList[0]].distance, 2.0)));
+
+      if(gaussianProcessData[name] != undefined){
+        gaussianProcessData["config"].number += 1;
+      }
+>>>>>>> feature/day
       console.log("this is aj = "+aj);
       console.log("this is bj = "+bj);
       console.log("this is cj = "+cj);
       //a[0]為a1~an, a[1]為b1~bn, a[2]為c1~cn
+<<<<<<< HEAD
       gaussianProcessData["config"].a.push([aj,bj]);
+=======
+      gaussianProcessData["config"].a.push(aj);
+      gaussianProcessData["config"].a.push(bj);
+>>>>>>> feature/day
       gaussianProcessData["config"].s.push(cj);
     }
   },
@@ -322,6 +466,7 @@ var GaussianElimination = {
   use: GaussianElimination.getData()
   */
   getData: function(){
+<<<<<<< HEAD
     // console.log("getData called!!!!");
     // console.log("beacondata number : "+beaconData["config"].number);
     if(gaussianProcessData["config"] == undefined){
@@ -347,6 +492,20 @@ var GaussianElimination = {
       // console.log(gaussianProcessData["config"].s);
 <<<<<<< HEAD
 >>>>>>> feature/claclocation
+=======
+    console.log("getData called!!!!");
+    console.log("beacondata number : "+beaconData["config"].number);
+    GaussianElimination.addData("config");
+    for(var i=1; i<beaconData["config"].number; i++){
+      GaussianElimination.addData(beaconData["config"].nameList[i]);
+    }
+    if(beaconData["config"].number >= 3){
+      console.log("realy calc!!!!!!!!!!!");
+      console.log(gaussianProcessData["config"].a+" "+gaussianProcessData["config"].s);
+      gaussianProcessData["config"].s = GaussianElimination.gaussianCalc(gaussianProcessData["config"].a, gaussianProcessData["config"].s);
+      console.log("calc complete!!");
+      console.log(gaussianProcessData["config"].s);
+>>>>>>> feature/day
       if($("#gauss").length > 0){
         $("#gauss").html("X："+gaussianProcessData["config"].s[0]+"  Y："+gaussianProcessData["config"].s[1]);
         
@@ -355,6 +514,7 @@ var GaussianElimination = {
         $("#dsa").append("<a id='gauss'>X："+gaussianProcessData["config"].s[0]+"  Y："+gaussianProcessData["config"].s[1]+"</a><br>");
         // $("#dsa").append("<a>aaaaaaaa</a>");
       }
+<<<<<<< HEAD
 <<<<<<< HEAD
       gaussianProcessData["config"].s = 0;
       gaussianProcessData["config"].a = 0;
@@ -383,6 +543,14 @@ var GaussianElimination = {
       gaussianProcessData["config"].s.length = 0;
       gaussianProcessData["config"].a.length = 0;
 >>>>>>> feature/claclocation
+=======
+      gaussianProcessData["config"].s = 0;
+      gaussianProcessData["config"].a = 0;
+      //console.log(gaussianProcessData["config"].s);
+    }else{
+      gaussianProcessData["config"].s = 0;
+      gaussianProcessData["config"].a = 0;
+>>>>>>> feature/day
     }
   },
   gaussianCalc: function(A, x){
@@ -397,11 +565,15 @@ var GaussianElimination = {
     // Just make a single matrix
     for (i=0; i < A.length; i++) { 
 <<<<<<< HEAD
+<<<<<<< HEAD
         A[i].push(x[i]);
 =======
       console.log("number "+i+" push array!");
       A[i].push(x[i]);
 >>>>>>> feature/claclocation
+=======
+        A[i].push(x[i]);
+>>>>>>> feature/day
     }
     var n = A.length;
     for (i=0; i < n; i++) { 
@@ -435,6 +607,7 @@ var GaussianElimination = {
     // Solve equation Ax=b for an upper triangular matrix A
     x = this.arrayFill(0, n, 0);
 <<<<<<< HEAD
+<<<<<<< HEAD
     for (i=n-1; i > -1; i--) { 
         x[i] = A[i][n]/A[i][i];
         for (k=i-1; k > -1; k--) { 
@@ -443,6 +616,11 @@ var GaussianElimination = {
         x[i] = A[i][n]/A[i][i];
         for (k=i-1; k >= 0; k--) { 
 >>>>>>> feature/claclocation
+=======
+    for (i=n-1; i > -1; i--) { 
+        x[i] = A[i][n]/A[i][i];
+        for (k=i-1; k > -1; k--) { 
+>>>>>>> feature/day
             A[k][n] -= A[k][i] * x[i];
         }
     }
@@ -451,11 +629,16 @@ var GaussianElimination = {
   arrayFill: function(i, n, v){
     var a = [];
     for (; i < n; i++) {
+<<<<<<< HEAD
         a.push(v);
+=======
+        //a.push(v);
+>>>>>>> feature/day
     }
     return a;
   }
 };
+<<<<<<< HEAD
 //-------------------------------------------------
 //Code: C.H Chiang 蔣政樺
 //function: 藍牙室內定位 方法 RSS whit 高斯消去法
@@ -571,6 +754,8 @@ function updateMap(){
 //function: 繪製使用者地圖標示其目前位置
 //-------------------------------------------------
 
+=======
+>>>>>>> feature/day
 
 
 /*app 初始化及事件處理*/
@@ -585,6 +770,7 @@ var app = {
   },
   onDeviceReady: function() {
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
     window.ga.startTrackerWithId('UA-102252553-1',function(){
       console.log("Started analytics OK!");
@@ -595,6 +781,8 @@ var app = {
 =======
     
 >>>>>>> feature/claclocation
+=======
+>>>>>>> feature/day
     app.receivedEvent('deviceready');
   },
   receivedEvent: function(id) {
@@ -602,6 +790,7 @@ var app = {
     var devicePlatform = device.platform;
     if(devicePlatform == "browser"){
         deviceID = "Test-Device";
+<<<<<<< HEAD
     }
     //localStorage.removeItem("deviceID");
     if(deviceID != localStorage.getItem("deviceID")){
@@ -617,11 +806,26 @@ var app = {
         type: "GET",
         data: "school=nfu&app=客家協會導覽系統",
 =======
+=======
+    }
+    //localStorage.removeItem("deviceID");
+    if(deviceID != localStorage.getItem("deviceID")){
+        console.log("change deviceID");
+        localStorage.setItem("deviceID", deviceID);
+        var data={deviceID: localStorage.getItem("deviceID")};
+        app.addUser(data);
+    }
+
+    /*紀錄app登入次數  上線將下方註解拿掉即可使用*/
+>>>>>>> feature/day
     /*$.ajax({
         url: "http://140.115.197.16/",
         type: "GET",
         data: "school=nfu&app=test",
+<<<<<<< HEAD
 >>>>>>> feature/claclocation
+=======
+>>>>>>> feature/day
         dataType: "jsonp",
         jsonp: "callback",
         success: function(json,textStatus){    
@@ -630,6 +834,7 @@ var app = {
         error: function(XMLHttpRequest,textStatus,errorThrown){    
             console.log("jsonp.error:"+textStatus);    
         }
+<<<<<<< HEAD
 <<<<<<< HEAD
     });
 =======
@@ -641,6 +846,15 @@ var app = {
     //     console.log("bluetooth adapter status: "+result.status);
     // }, { request: true, statusReceiver: false });
     // app.gocalc();
+=======
+    });*/
+
+    console.log("Bluetooth initialize");
+    bluetoothle.initialize(function(result){
+        console.log("bluetooth adapter status: "+result.status);
+    }, { request: true, statusReceiver: false });
+    app.gocalc();
+>>>>>>> feature/day
   },
   onPause: function(){
     clearInterval(myVar);
@@ -658,7 +872,10 @@ var app = {
   }
 };
 app.initialize();
+<<<<<<< HEAD
 
 function changePage(){
   alert("change page trigger!");
 }
+=======
+>>>>>>> feature/day

@@ -1,7 +1,10 @@
+<<<<<<< HEAD
 //-------------------------------------------------
 //Code: C.H Chiang 蔣政樺
 //function: 藍牙室內定位 方法 RSS whit 高斯消去法
 //-vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv-
+=======
+>>>>>>> feature/day
 /*app 設定資料*/
 var calcRec = [];       //
 var fundDevices = [];

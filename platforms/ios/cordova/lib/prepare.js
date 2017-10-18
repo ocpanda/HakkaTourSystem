@@ -17,6 +17,7 @@
     under the License.
 */
 
+'use strict';
 var Q = require('q');
 var fs = require('fs');
 var path = require('path');
@@ -33,6 +34,10 @@ var PlatformJson = require('cordova-common').PlatformJson;
 var PlatformMunger = require('cordova-common').ConfigChanges.PlatformMunger;
 var PluginInfoProvider = require('cordova-common').PluginInfoProvider;
 var FileUpdater = require('cordova-common').FileUpdater;
+<<<<<<< HEAD
+=======
+var projectFile = require('./projectFile');
+>>>>>>> feature/day
 
 // launch storyboard and related constants
 var LAUNCHIMAGE_BUILD_SETTING  = 'ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME';
@@ -62,6 +67,10 @@ module.exports.prepare = function (cordovaProject, options) {
         updateIcons(cordovaProject, self.locations);
         updateSplashScreens(cordovaProject, self.locations);
         updateLaunchStoryboardImages(cordovaProject, self.locations);
+<<<<<<< HEAD
+=======
+        updateFileResources(cordovaProject, self.locations);
+>>>>>>> feature/day
     })
     .then(function () {
         events.emit('verbose', 'Prepared iOS project successfully');
@@ -88,6 +97,10 @@ module.exports.clean = function (options) {
         cleanIcons(projectRoot, projectConfig, self.locations);
         cleanSplashScreens(projectRoot, projectConfig, self.locations);
         cleanLaunchStoryboardImages(projectRoot, projectConfig, self.locations);
+<<<<<<< HEAD
+=======
+        cleanFileResources(projectRoot, projectConfig, self.locations);
+>>>>>>> feature/day
     });
 };
 
@@ -452,6 +465,78 @@ function cleanSplashScreens(projectRoot, projectConfig, locations) {
     }
 }
 
+<<<<<<< HEAD
+=======
+function updateFileResources(cordovaProject, locations) {
+    const platformDir = path.relative(cordovaProject.root, locations.root);
+    const files = cordovaProject.projectConfig.getFileResources('ios');
+
+    const project = projectFile.parse(locations);
+
+    // if there are resource-file elements in config.xml
+    if (files.length === 0) {
+        events.emit('verbose', 'This app does not have additional resource files defined');
+        return;
+    }
+
+    let resourceMap = {};
+    files.forEach(function(res) {
+        let src = res.src,
+            target = res.target;
+
+        if (!target) {
+            target = src;
+        }
+
+        let targetPath = path.join(project.resources_dir, target);
+        targetPath = path.relative(cordovaProject.root, targetPath);
+
+        const resfile = path.join('Resources', path.relative(project.resources_dir, targetPath));
+        project.xcode.addResourceFile(resfile);
+
+        resourceMap[targetPath] = src;
+    });
+
+    events.emit('verbose', 'Updating resource files at ' + platformDir);
+    FileUpdater.updatePaths(
+        resourceMap, { rootDir: cordovaProject.root }, logFileOp);
+
+    project.write();
+}
+
+function cleanFileResources(projectRoot, projectConfig, locations) {
+    const platformDir = path.relative(projectRoot, locations.root);
+    const files = projectConfig.getFileResources('ios');
+    if (files.length > 0) {
+        events.emit('verbose', 'Cleaning resource files at ' + platformDir);
+
+        const project = projectFile.parse(locations);
+
+        var resourceMap = {};
+        files.forEach(function(res) {
+            let src = res.src,
+                target = res.target;
+
+            if (!target) {
+                target = src;
+            }
+
+            let targetPath = path.join(project.resources_dir, target);
+            targetPath = path.relative(projectRoot, targetPath);
+            const resfile = path.join('Resources', path.basename(targetPath));
+            project.xcode.removeResourceFile(resfile);
+
+            resourceMap[targetPath] = null;
+        });
+
+        FileUpdater.updatePaths(
+                resourceMap, { rootDir: projectRoot, all: true}, logFileOp);
+
+        project.write();
+    }
+}
+
+>>>>>>> feature/day
 /**
  * Returns an array of images for each possible idiom, scale, and size class. The images themselves are
  * located in the platform's splash images by their pattern (@scale~idiom~sizesize). All possible
@@ -551,8 +636,73 @@ function mapLaunchStoryboardResources(splashScreens, launchStoryboardImagesDir) 
     platformLaunchStoryboardImages.forEach(function (item) {
         if (item.target) {
             pathMap[item.target] = item.src;
+<<<<<<< HEAD
+=======
         }
     });
+    return pathMap;
+}
+
+/**
+ * Builds the object that represents the contents.json file for the LaunchStoryboard image set. 
+ * 
+ * The resulting return looks like this:
+ * 
+ *     {
+ *         images: [
+ *             {
+ *                 idiom: 'universal|ipad|iphone',
+ *                 scale: '1x|2x|3x',
+ *                 width-class: undefined|'compact',
+ *                 height-class: undefined|'compact'
+ *             }, ...
+ *         ],
+ *         info: {
+ *             author: 'Xcode',
+ *             version: 1
+ *         }
+ *     }
+ * 
+ * A bit of minor logic is used to map from the array of images returned from mapLaunchStoryboardContents
+ * to the format requried by Xcode.
+ * 
+ * @param  {Array<Object>} splashScreens         splash screens as defined in config.xml for this platform
+ * @param  {string} launchStoryboardImagesDir    project-root/Images.xcassets/LaunchStoryboard.imageset/
+ * @return {Object}
+ */
+function getLaunchStoryboardContentsJSON(splashScreens, launchStoryboardImagesDir) {
+
+    var platformLaunchStoryboardImages = mapLaunchStoryboardContents(splashScreens, launchStoryboardImagesDir);
+    var contentsJSON = {
+        images: [],
+        info: {
+            author: 'Xcode',
+            version: 1
+        }
+    };
+    contentsJSON.images = platformLaunchStoryboardImages.map(function(item) {
+        var newItem = {
+            idiom: item.idiom,
+            scale: item.scale
+        };
+
+        // Xcode doesn't want any size class property if the class is "any"
+        // If our size class is "com", Xcode wants "compact". 
+        if (item.width !== CDV_ANY_SIZE_CLASS) {
+            newItem['width-class'] = IMAGESET_COMPACT_SIZE_CLASS;
+        }
+        if (item.height !== CDV_ANY_SIZE_CLASS) {
+            newItem['height-class'] = IMAGESET_COMPACT_SIZE_CLASS;
+        }
+
+        // Xcode doesn't want a filename property if there's no image for these traits       
+        if (item.filename) {
+            newItem.filename = item.filename;
+>>>>>>> feature/day
+        }
+        return newItem;
+    });
+<<<<<<< HEAD
     return pathMap;
 }
 
@@ -614,6 +764,8 @@ function getLaunchStoryboardContentsJSON(splashScreens, launchStoryboardImagesDi
         }
         return newItem;
     });
+=======
+>>>>>>> feature/day
     return contentsJSON;
 }
 

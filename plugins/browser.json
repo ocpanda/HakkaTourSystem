@@ -17,10 +17,13 @@
             "PACKAGE_NAME": "com.ocpanda.test"
         },
         "cordova-plugin-whitelist": {
+<<<<<<< HEAD
         "cordova-plugin-google-analytics": {
             "PACKAGE_NAME": "com.ocpanda.test"
         },
         "cordova-plugin-splashscreen": {
+=======
+>>>>>>> feature/day
             "PACKAGE_NAME": "com.ocpanda.test"
         }
     },
