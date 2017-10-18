@@ -18,26 +18,32 @@
         }
     },
     "installed_plugins": {
+<<<<<<< HEAD
         "cordova-plugin-bluetoothle": {
             "PACKAGE_NAME": "com.ocpanda.test"
         },
         "cordova-plugin-compat": {
+=======
+        "cordova-plugin-whitelist": {
             "PACKAGE_NAME": "com.ocpanda.test"
+        },
+        "cordova-plugin-bluetoothle": {
+>>>>>>> release/debugSearch
+            "PACKAGE_NAME": "com.ocpanda.test"
+<<<<<<< HEAD
         },
         "cordova-plugin-device": {
             "PACKAGE_NAME": "com.ocpanda.test"
 <<<<<<< HEAD
         },
-<<<<<<< HEAD
         "cordova-plugin-file": {
             "PACKAGE_NAME": "com.ocpanda.test"
         },
-        "cordova-plugin-whitelist": {
-=======
         "cordova-plugin-google-analytics": {
             "PACKAGE_NAME": "com.ocpanda.test"
         },
         "cordova-plugin-splashscreen": {
+<<<<<<< HEAD
 >>>>>>> feature/claclocation
 =======
         },
@@ -46,7 +52,14 @@
         },
         "cordova-plugin-whitelist": {
 >>>>>>> feature/day
+=======
+>>>>>>> master
             "PACKAGE_NAME": "com.ocpanda.test"
+        },
+        "cordova-plugin-whitelist": {
+            "PACKAGE_NAME": "com.ocpanda.test"
+=======
+>>>>>>> release/debugSearch
         }
     },
     "dependent_plugins": {},
@@ -72,9 +85,9 @@
             "id": "cordova-plugin-device.DeviceProxy",
             "pluginId": "cordova-plugin-device",
             "runs": true
+<<<<<<< HEAD
         },
         {
-<<<<<<< HEAD
             "file": "plugins/cordova-plugin-file/www/DirectoryEntry.js",
             "id": "cordova-plugin-file.DirectoryEntry",
             "pluginId": "cordova-plugin-file",
@@ -253,7 +266,12 @@
                 "window.FileSystem"
             ]
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+        },
+        {
+>>>>>>> master
             "file": "plugins/cordova-plugin-google-analytics/www/analytics.js",
             "id": "cordova-plugin-google-analytics.UniversalAnalytics",
             "pluginId": "cordova-plugin-google-analytics",
@@ -281,28 +299,46 @@
             "id": "cordova-plugin-splashscreen.SplashScreenProxy",
             "pluginId": "cordova-plugin-splashscreen",
             "runs": true
+<<<<<<< HEAD
 >>>>>>> feature/claclocation
 =======
 >>>>>>> feature/day
+=======
+>>>>>>> master
         }
     ],
     "plugin_metadata": {
         "cordova-plugin-bluetoothle": "4.2.1",
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> feature/day
+=======
+>>>>>>> master
         "cordova-plugin-compat": "1.1.0",
         "cordova-plugin-device": "1.1.2",
         "cordova-plugin-file": "4.3.3",
+        "cordova-plugin-google-analytics": "1.8.3",
+        "cordova-plugin-splashscreen": "4.0.3",
         "cordova-plugin-whitelist": "1.2.2"
 <<<<<<< HEAD
 =======
+<<<<<<< HEAD
         "cordova-plugin-device": "1.1.2",
         "cordova-plugin-google-analytics": "1.8.3",
         "cordova-plugin-splashscreen": "4.0.3"
 >>>>>>> feature/claclocation
 =======
 >>>>>>> feature/day
+=======
+        }
+    ],
+    "plugin_metadata": {
+        "cordova-plugin-whitelist": "1.2.2",
+        "cordova-plugin-bluetoothle": "4.2.1",
+        "cordova-plugin-device": "1.1.2"
+>>>>>>> release/debugSearch
+>>>>>>> master
     }
 }

@@ -16,6 +16,7 @@
         "cordova-plugin-file": {
             "PACKAGE_NAME": "com.ocpanda.test"
         },
+<<<<<<< HEAD
         "cordova-plugin-whitelist": {
 <<<<<<< HEAD
         "cordova-plugin-google-analytics": {
@@ -24,11 +25,20 @@
         "cordova-plugin-splashscreen": {
 =======
 >>>>>>> feature/day
+=======
+        "cordova-plugin-google-analytics": {
+            "PACKAGE_NAME": "com.ocpanda.test"
+        },
+        "cordova-plugin-whitelist": {
+>>>>>>> master
             "PACKAGE_NAME": "com.ocpanda.test"
         }
     },
     "dependent_plugins": {
         "cordova-plugin-compat": {
+            "PACKAGE_NAME": "com.ocpanda.test"
+        },
+        "cordova-plugin-splashscreen": {
             "PACKAGE_NAME": "com.ocpanda.test"
         }
     }
