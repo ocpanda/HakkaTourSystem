@@ -4,55 +4,44 @@
     <link rel="stylesheet" type="text/css" href="css/jQuery_UI/jquery-ui.css">
     <link rel="stylesheet" type="text/css" href="css/jQuery_UI/jquery-ui.min.css">
     <link rel="stylesheet" href="web_api/jquery/jquery.mobile-1.4.5.min.css">
+    <link rel="stylesheet" href="css/jquery.dataTables.min.css">
     <link rel="stylesheet" type="text/css" href="css/scan.css">
     <script src="web_api/jquery/jquery-1.11.3.min.js"></script>
     <script src="web_api/jquery/jquery.mobile-1.4.5.min.js"></script>
-    <script src="js/jquery-ui-1.12.1/jquery-ui.js"></script>
-    <script src="js/jquery-ui-1.12.1/jquery-ui.min.js"></script>
+    <script src="js/jquery.dataTables.min.js"></script>
     <div data-role="main" class="ui-content">
         <!--<button type="button" class="btn btn-default btn1" id="stopScanBtn">stop scan</button>//-->
         <div data-role="header" data-position="fixed">
             <div data-role="navbar">
                 <ul>
-                    <li><button id="goPageOne">搜尋</button></li>
-                    <li><button id="goPageTwo">推薦</button></li>
+                    <li>
+                        <button id="goPageOne">搜尋</button>
+                    </li>
+                    <li>
+                        <button id="goPageTwo">自由導覽</button>
+                    </li>
                 </ul>
             </div>
         </div>
         <div id="pageOne">
-            <input id="keyWord" name="keyWord" type="text" value="鍵入關鍵字" onFocus="this.value='';" onBlur="if(this.value==''){this.value='鍵入關鍵字';}">
-            <div class='ui-grid-b' style='height:150px;width:100%'>
-                <div class='ui-block-a' style='height:100%;'>
-                    <div is='icon' style='width:100%; height:100%; position:relative'>
-                        <span class='ui-li-count' style='position:absolute; display:none; z-index:1; right:0; top:6px;'></span>
-                        <a href='#' class='ui-btn ui-mini ui-corner-all ui-shadow'
-                            style='display:block;margin:5px;height:50%;background-image: url("image/data/1.png"); background-size: 95% 80%; background-position: 50% 50%; background-repeat: no-repeat no-repeat;'>
-                        </a>
-                        <div style='text-align:center;'>雙頭鋸</div>
-                    </div>
-                </div>
-                <div class='ui-block-b' style='height:100%;'>
-                    <div is='icon' style='width:100%; height:100%; position:relative'>
-                        <span class='ui-li-count' style='position:absolute; display:none; z-index:1; right:0; top:6px;'></span>
-                        <a href='#' class='ui-btn ui-mini ui-corner-all ui-shadow'
-                            style='display:block;margin:5px;height:50%;background-image: url("image/data/2.png"); background-size: 95% 80%; background-position: 50% 50%; background-repeat: no-repeat no-repeat;'>
-                        </a>
-                        <div style='text-align:center;'>鋒仔</div>
-                    </div>
-                </div>
-                <div class='ui-block-c' style='height:100%;'>
-                    <div is='icon' style='width:100%; height:100%; position:relative'>
-                        <span class='ui-li-count' style='position:absolute; display:none; z-index:1; right:0; top:6px;'></span>
-                        <a href='#' class='ui-btn ui-mini ui-corner-all ui-shadow'
-                            style='display:block;margin:5px;height:50%;background-image: url("image/data/3.png"); background-size: 95% 80%; background-position: 50% 50%; background-repeat: no-repeat no-repeat;'>
-                        </a>
-                        <div style='text-align:center;'>米篩目板</div>
-                    </div>
-                </div>
-            </div>
+            <table id="example" class="display" cellspacing="0" width="100%">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>圖片</th>
+                    <th>名字</th>
+                </tr>
+            </thead>
+            <tfoot>
+                <tr>
+                    <th>ID</th>
+                    <th>圖片</th>
+                    <th>名字</th>
+                </tr>
+            </tfoot>
+        </table>
         </div>
         <div id="pageTwo">
-            
         </div>
         <!-- 首頁彈出區塊 
             api: jquery-1.11.3.min.js
@@ -126,11 +115,21 @@
     <div data-role="footer" data-position="fixed" data-fullscreen="true">
         <div data-role="navbar">
             <ul id="searchfootNavBar">
-                <li><a href="index.html" id="homeImg" data-ajax="false"><img style="width:90%;" src="image/home.png" is="image"></a></li>
-                <li><a href="group.html" id="groupImg" data-ajax="false"><img style="width:90%;" src="image/group.png" is="image"></a></li>
-                <li><a href="day.html" id="dayImg" data-ajax="false"><img style="width:90%;" src="image/day.png" is="image"></a></li>
-                <li><a href="message.html" id="messageImg" data-ajax="false"><img style="width:90%;" src="image/message.png" is="image"></a></li>
-                <li><a href="setting.html" id="settingImg" data-ajax="false"><img style="width:90%;" src="image/setting.png" is="image"></a></li>
+                <li>
+                    <a href="index.html" id="homeImg" data-ajax="false"><img style="width:90%;" src="image/home.png" is="image"></a>
+                </li>
+                <li>
+                    <a href="group.html" id="groupImg" data-ajax="false"><img style="width:90%;" src="image/group.png" is="image"></a>
+                </li>
+                <li>
+                    <a href="day.html" id="dayImg" data-ajax="false"><img style="width:90%;" src="image/day.png" is="image"></a>
+                </li>
+                <li>
+                    <a href="message.html" id="messageImg" data-ajax="false"><img style="width:90%;" src="image/message.png" is="image"></a>
+                </li>
+                <li>
+                    <a href="setting.html" id="settingImg" data-ajax="false"><img style="width:90%;" src="image/setting.png" is="image"></a>
+                </li>
             </ul>
         </div>
     </div>
