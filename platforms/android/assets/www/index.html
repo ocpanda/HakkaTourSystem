@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+     KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+<html>
+    <head>
+        <!--
+        Customize this policy to fit your own app's needs. For more guidance, see:
+            https://github.com/apache/cordova-plugin-whitelist/blob/master/README.md#content-security-policy
+        Some notes:
+            * gap: is required only on iOS (when using UIWebView) and is needed for JS->native communication
+            * https://ssl.gstatic.com is required only on Android and is needed for TalkBack to function properly
+            * Disables use of inline scripts in order to mitigate risk of XSS vulnerabilities. To change this:
+                * Enable inline JS: add 'unsafe-inline' to default-src
+        -->
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <!-- 會有權限影響所以註解掉 //-->
+        <!--<meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *">
+        <meta name="format-detection" content="telephone=no">
+        <meta name="msapplication-tap-highlight" content="no">//-->
+
+        
+
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width height=device-height">
+        <link rel="stylesheet" type="text/css" href="web_api/bootstrap/css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="web_api/bootstrap/css/bootstrap-theme.min.css">
+        <link rel="stylesheet" href="web_api/jquery/jquery.mobile-1.4.5.min.css">
+        <link rel="stylesheet" type="text/css" href="css/home.css">
+        
+        <script src="web_api/jquery/jquery-2.2.4.js"></script>
+        <script src="web_api/jquery/jquery-1.11.3.min.js"></script>
+        <script src="web_api/jquery/jquery.mobile-1.4.5.min.js"></script>
+        <script src="web_api/bootstrap/js/bootstrap.min.js"></script>
+
+        <title>HakkaTourSystem</title>
+    </head>
+    <body>
+        <div class="app">
+            <!--主頁//-->
+            <div id="home" data-role="page">  <!--  1 進入頁 -->
+                <script src="web_api/jquery/jquery-1.11.3.min.js"></script>
+                <script src="web_api/jquery/jquery.mobile-1.4.5.min.js"></script>
+                <div id="mapcontext" class="cont" data-role="context">
+                    <canvas id="mapCanvas" width="400" height="500">error</canvas>
+                </div>
+                <div data-role="main" class="ui-content">
+                    <!-- 搜尋彈出區塊
+                        api: jquery-1.11.3.min.js
+                        api: jquery.mobile-1.4.5.min.js
+                    //-->
+                    <div data-role="popup" data-arrow="b" id="searchPopup">
+                        <div data-role="header">
+                            <h1>說明</h1>
+                        </div>
+                        <div data-role="main" class="ui-content">
+                            <h1 align="center" valign="center">搜尋</h1>
+                            <p>使用此功能可以搜尋本展館之展物並進行導航。</p>
+                        </div>
+                    </div>
+                    <!-- 群組說明彈出區塊
+                        api: jquery-1.11.3.min.js
+                        api: jquery.mobile-1.4.5.min.js
+                    //-->
+                    <div data-role="popup" data-arrow="b" id="groupPopup">
+                        <div data-role="header">
+                            <h1>說明</h1>
+                        </div>
+                        <div data-role="main" class="ui-content">
+                            <h1 align="center" valign="center">群組</h1>
+                            <p>使用此功能可以加入或創建群組。</p>
+                        </div>
+                    </div>
+                    <!-- 每日說明彈出區塊
+                        api: jquery-1.11.3.min.js
+                        api: jquery.mobile-1.4.5.min.js
+                    //-->
+                    <div data-role="popup" data-arrow="b" id="dayPopup">
+                        <div data-role="header" class="a">
+                            <h1>說明</h1>
+                        </div>
+                        <div data-role="main" class="ui-content">
+                            <h1 align="center" valign="center">每日</h1>
+                            <p>使用此功能可以使用每日功能。</p>
+                        </div>
+                    </div>
+                    <!-- 訊息說明彈出區塊
+                        api: jquery-1.11.3.min.js
+                        api: jquery.mobile-1.4.5.min.js
+                    //-->
+                    <div data-role="popup" data-arrow="b" id="messagePopup">
+                        <div data-role="header">
+                            <h1>說明</h1>
+                        </div>
+                        <div data-role="main" class="ui-content">
+                            <h1 align="center" valign="center">訊息</h1>
+                            <p>使用此功能可以使用訊息功能。</p>
+                        </div>
+                    </div>
+                    <!-- 設定說明彈出區塊
+                        api: jquery-1.11.3.min.js
+                        api: jquery.mobile-1.4.5.min.js
+                    //-->
+                    <div data-role="popup" data-arrow="b" id="settingPopup">
+                        <div data-role="header">
+                            <h1>說明</h1>
+                        </div>
+                        <div data-role="main" class="ui-content">
+                            <h1 align="center" valign="center">設定</h1>
+                            <p>使用此功能可以設定功能。</p>
+                        </div>
+                    </div>
+
+                    <!-- <div id="dsa"></div> -->
+
+                    <div data-role="popup" id="dataMsg" data-theme="a">
+                        <div style="padding:10px 20px;">
+                            <h1 id="devicedd">訊息</h1>
+                            <div data-role="main" id="dataPopupMsg" class="ui-content">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--
+                    下方功能選單區塊
+                    api: jquery.mobile-1.4.5.min.js
+                    api: jquery-1.11.3.min.js
+                -->
+                <div data-role="footer" data-position="fixed" data-fullscreen="true">
+                    <div data-role="navbar">
+                        <ul id="homefootNavBar">
+                            <li><a onclick="changePage();" href="search.html" id="searchImg" data-ajax="false"><img style="width:90%;" src="image/search.png" is="image"></a></li>
+                            <li><a onclick="changePage();" href="group.html" id="groupImg" data-ajax="false"><img style="width:90%;" src="image/group.png" is="image"></a></li>
+                            <li><a onclick="changePage();" href="day.html"  id="dayImg" data-ajax="false"><img style="width:90%;" src="image/day.png" is="image"></a></li>
+                            <li><a onclick="changePage();" href="message.html" id="messageImg" data-ajax="false"><img style="width:90%;" src="image/message.png" is="image"></a></li>
+                            <li><a onclick="changePage();" href="setting.html" id="settingImg" data-ajax="false"><img style="width:90%;" src="image/setting.png" is="image"></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script type="text/javascript" src="cordova.js" defer></script>
+        <!-- <script type="text/javascript" src="js/WebSQLDatabase.js"></script> -->
+        <script types="text/javascript" src="js/index.js" defer></script>
+        <!--<script type="text/javascript" src="js/changePage.js" defer></script>//-->
+        <script type="text/javascript" src="js/popupExplan.js" defer></script>
+    </body>
+</html>
