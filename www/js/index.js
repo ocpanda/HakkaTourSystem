@@ -15,7 +15,7 @@ var addData = {
   code by C.H Chiang
   function: addUser> 將使用者UUID傳至server紀錄是否已使用過此APP
   input: 使用者UUID
-  output: null
+  output: nullddd
   use: addData.addUser(UUID)
   */
   addUser: function(data){
