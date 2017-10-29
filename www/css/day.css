@@ -192,7 +192,11 @@ background: -webkit-linear-gradient(top, #494949 0%, #434242 31%, #393838 55%, #
         height: 120px;
         padding-bottom: 30px;
     }
-
+    #recordBtn{
+        font-size: 50px;
+        height: 120px;
+        padding-bottom: 30px;
+    }
 }
 
 @media screen and (min-width: 992px){
@@ -237,6 +241,11 @@ background: -webkit-linear-gradient(top, #494949 0%, #434242 31%, #393838 55%, #
         height: 170px;
         padding-bottom: 100px;
     }
+    #recordBtn{
+        font-size: 60px;
+        height: 170px;
+        padding-bottom: 100px;
+}
 }
 
 @media screen and (min-width: 1200px){
@@ -281,4 +290,9 @@ background: -webkit-linear-gradient(top, #494949 0%, #434242 31%, #393838 55%, #
         height: 170px;
         padding-bottom: 100px;
     }
+    #recordBtn{
+        font-size: 60px;
+        height: 170px;
+        padding-bottom: 100px;
+}
 }
