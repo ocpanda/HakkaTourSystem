@@ -3,12 +3,47 @@
     <link rel="stylesheet" href="web_api/jquery/jquery.mobile-1.4.5.min.css">
     <script src="web_api/jquery/jquery-1.11.3.min.js"></script>
     <script src="web_api/jquery/jquery.mobile-1.4.5.min.js"></script>
+    <script src="js/moment.min.js"></script>
+    <script src="js/jquery.rss.js"></script>
+    <script src="js/messageRSSblock.js"></script>
+    <!--<script src="js/messageRSSblock.js"></script>-->
+    <div data-role="header" data-position="fixed">
+        <h3>最新消息</h3>
+    </div>
+
+    <div role="main" class="ui-content">
+        <div data-role="navbar" id="root_navbar">
+            <ul>
+                <li>
+                    <a onclick='HallClick()' class="ui-btn-active ui-state-persist">館內活動</a>
+                </li>
+                <li>
+                    <a onclick='DocClick()'>DOC課程</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <!--<div id="gk-11279qZ9" is="rss-news" service="http://rss.cnn.com/rss/edition_world.rss" rownum="10">
+        <ul data-role="listview" data-autodividers="true" data-inset="true" is="json-listview">
+            <li divider="{{publishedDate}}" is="listview-li">
+                <span style>{{title}}</span>
+                <br>
+                <span style="color:#666;font-size:0.8em;white-space: normal;">{{contentSnippet}}</span>
+            </li>
+        </ul>
+    </div>-->
+    <div id="Hall">
+        <div id="divRssHall"></div>
+    </div>
+    <div id="Doc">
+        <div id="divRssDoc"></div>
+    </div>
+
     <!--
         下方功能選單區塊
         api: jquery.mobile-1.4.5.min.js
     -->
     <div data-role="main" class="ui-content">
-        <p>message</p>
         <!-- 首頁說明彈出區塊
             api: jquery-1.11.3.min.js
             api: jquery.mobile-1.4.5.min.js
@@ -74,12 +109,6 @@
                 <p>使用此功能可以設定功能。</p>
             </div>
         </div>
-        <button id="test">按我</button>
-        <script type="text/javascript">
-            $("#test").click(function(){
-                alert("asdsad");
-            });
-        </script>
     </div>
     <div data-role="footer" data-position="fixed" data-fullscreen="true">
         <div data-role="navbar">

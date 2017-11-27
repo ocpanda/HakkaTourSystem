@@ -1,9 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<<<<<<< HEAD
 <widget id="com.ocpanda.test" version="1.0.2" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-=======
-<widget id="com.ocpanda.test" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
->>>>>>> release/debugSearch
     <feature name="Device">
         <param name="browser-package" value="Device" />
     </feature>
@@ -22,12 +18,7 @@
     <allow-intent href="sms:*" />
     <allow-intent href="mailto:*" />
     <allow-intent href="geo:*" />
-<<<<<<< HEAD
     <preference name="orientation" value="portrait" />
     <preference name="SplashScreenDelay" value="5000" />
     <preference name="ShowSplashScreenSpinner" value="false" />
-=======
-    <icon src="www/image/android/xdpi.png" />
-    <preference name="orientation" value="portrait" />
->>>>>>> release/debugSearch
 </widget>

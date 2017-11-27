@@ -1,5 +1,4 @@
-<<<<<<< HEAD
-
+@charset "UTF-8";
 
 .col{
     display: inline-block;
@@ -14,18 +13,18 @@
 
 }
 
-#aa table{
-    width: 50%;
-    height: 50%;
+#vocabulary table{
+    width: 70%;
+    height: 70%;
 }
-#aa th{
+#vocabulary th{
     width: 10%;
     height: 30%;
 } 
 
-#aa td{
-    width: 30%;
-    height: 30%;
+#vocabulary td{
+    width: 50%;
+    height: 50%;
 }
 
 .a {
@@ -64,10 +63,10 @@ background: -webkit-linear-gradient(top, #494949 0%, #434242 31%, #393838 55%, #
 
 @media screen and (min-width: 768px){
     
-    #aa th{
+    #vocabulary th{
         font-size: 40px;
     }
-    #aa td{
+    #vocabulary td{
        color: red;
        font-size: 40px;
    }
@@ -79,10 +78,10 @@ background: -webkit-linear-gradient(top, #494949 0%, #434242 31%, #393838 55%, #
 }
 
 @media screen and (min-width: 992px){
-    #aa th{
+    #vocabulary th{
         font-size: 45px;
     }
-    #aa td{
+    #vocabulary td{
        color: red;
        font-size: 45px;
    }
@@ -93,124 +92,14 @@ background: -webkit-linear-gradient(top, #494949 0%, #434242 31%, #393838 55%, #
 }
 
 @media screen and (min-width: 1200px){
-    #aa th{
+    #vocabulary th{
         font-size: 55px;
     }
-    #aa td{
+    #vocabulary td{
        color: red;
        font-size: 55px;
    }
     #vocabulary{
         font-size: 35px;
     }
-
-    
-=======
-
-
-.col{
-    display: inline-block;
-}
-
-#ha{
-
-    width: 100%;
-    height: 100%;
-    border: 1px ;
-    font-size: 2vw;
-
-}
-
-#aa table{
-    width: 50%;
-    height: 50%;
-}
-#aa th{
-    width: 10%;
-    height: 30%;
-} 
-
-#aa td{
-    width: 30%;
-    height: 30%;
-}
-
-.a {
-    text-align: center;
-}
-
-.panel{
-    background: #CCFF99;
-}
-
-.gradient {
-    border: 1px solid black;
-    width: 200px;
-    -webkit-box-shadow: inset 0 1px 0px rgba(255,255,255,.2);
-    -moz-box-shadow: inset 0 1px 0px rgba(255,255,255,.2);
-    box-shadow: inset 0 1px 0px rgba(255,255,255,.2);
-    background: #494949; /* Old browsers */
-background: -webkit-linear-gradient(top, #494949 0%, #434242 31%, #393838 55%, #242323 83%, #1b1a1a 100%, #161515 100%, #0b0b0b 100%);
- 
-    background: -moz-linear-gradient(top, #494949 0%, #434242 31%, #393838 55%, #242323 83%, #1b1a1a 100%, #161515 100%, #0b0b0b 100%);
-    background: -o-linear-gradient(top, #494949 0%, #434242 31%, #393838 55%, #242323 83%, #1b1a1a 100%, #161515 100%, #0b0b0b 100%);
-    background: -ms-linear-gradient(top, #494949 0%, #434242 31%, #393838 55%, #242323 83%, #1b1a1a 100%, #161515 100%, #0b0b0b 100%);
-    background: linear-gradient(top, #494949 0%, #434242 31%, #393838 55%, #242323 83%, #1b1a1a 100%, #161515 100%, #0b0b0b 100%); /* W3C */
--image  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#494949', endColorstr='#0b0b0b',GradientType=0 ); /* IE6-9 */
-}
-
-#vocabulary{
-    font-size: 25px;
-    background: #FFFFFF;
-}
-
-#vocabulary td{
-    padding-left: 20px;
-}
-
-
-@media screen and (min-width: 768px){
-    
-    #aa th{
-        font-size: 40px;
-    }
-    #aa td{
-       color: red;
-       font-size: 40px;
-   }
-    #vocabulary{
-        font-size: 25px;
-    }
-
-
-}
-
-@media screen and (min-width: 992px){
-    #aa th{
-        font-size: 45px;
-    }
-    #aa td{
-       color: red;
-       font-size: 45px;
-   }
-    #vocabulary{
-        font-size: 30px;
-    }
-
-}
-
-@media screen and (min-width: 1200px){
-    #aa th{
-        font-size: 55px;
-    }
-    #aa td{
-       color: red;
-       font-size: 55px;
-   }
-    #vocabulary{
-        font-size: 35px;
-    }
-
-    
->>>>>>> master
 }
