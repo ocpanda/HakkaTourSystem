@@ -250,10 +250,8 @@
                       obj[record]['chinese_risigned'] + '"' + '],' + '"' + 'english_risigned' + '"' + ':[' +'"'+
                       obj[record]['english_risigned']+'"'+'],'+'"' + 'hakka_sentence' + '"' + ':[' +'"'+
                       obj[record]['hakka_sentence']+'"'+'],'+'"' + 'chinese_translation' + '"' + ':[' +'"'+
-                      obj[record]['chinese_translation']+'"'+'],'+'"' + 'accent' + '"' + ':[' +'"'+
-                      obj[record]['accent']+'"'+'],'+'"' + 'voice' + '"' + ':[' +'"'+
-                      obj[record]['voice']+'"'+']'+"}]";
-
+                      obj[record]['chinese_translation']+'"'+'],'+'"'+'voice'+'"'+':['+'"'+obj[record]['voice']+'"'+'],'+'"' + 'accent' + '"' + ':[' +'"'+
+                      obj[record]['accent']+'"'+']'+"}]";
                       var data = new Blob([st], { type: 'text/plain' });
                       fileWriter.write(data);
                     }else{
@@ -274,7 +272,7 @@
         }
 
         function fav(){
-            //alert("data stored");
+            alert("data stored");
             createAndWriteFile();
                             
             var string = [{'kind':obj[record]['kind'],
@@ -284,8 +282,9 @@
             'english_risigned':obj[record]['english_risigned'],
             'hakka_sentence':obj[record]['hakka_sentence'],
             'chinese_translation':obj[record]['chinese_translation'],
-            'accent':obj[record]['accent'],
-            'voice':obj[record]['voice']}];  
+            'voice':obj[record]['voice'],
+            'accent':obj[record]['accent']}
+            ];    
             var jsonse = JSON.stringify(string);
             var dataObj = new Blob([jsonse], { type: 'text/plain' });           
             writeFile('log.txt', dataObj, true);           

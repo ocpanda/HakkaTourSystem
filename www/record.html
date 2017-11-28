@@ -103,7 +103,6 @@
 
         <div>
             <button id="remove" onclick="removeFile();">刪除紀錄</button>  
-            
         </div>
     <div data-role="footer" data-position="fixed" data-fullscreen="true">
         <div data-role="navbar">
@@ -117,97 +116,14 @@
         </div>
     </div>
     <script type="text/javascript" src="cordova.js" defer></script>
-    <script type="text/javascript" src="js/file.js"></script>
     <script type="text/javascript" src="js/popupExplan.js" defer></script>
     <script type="text/javascript">
         readFile('log.txt');
-        var accent;
-        var count = -1;
-        var temp;
-        var record;
-        
-        
-        function createAndWriteFile(){
-              //持久化数据保存
-               document.addEventListener("deviceready", function() { 
-                window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, successCallback, errorCallback);
-            }, false);
-
-               function successCallback(fs) {
-
-                  fs.root.getFile('log.txt', {create: true}, function(fileEntry) {
-
-                     fileEntry.createWriter(function(fileWriter) {
-                        fileWriter.onwriteend = function(e) {
-                           
-                        };
-
-                        fileWriter.onerror = function(e) {
-                           //alert('Write failed: ' + e.toString());
-                        };
-                     }, errorCallback);
-
-                  }, errorCallback);
-
-               }
-                  console.log("sucess");
-               function errorCallback(error) {
-                  console.log("ERROR: " + error.code);
-               }
-        }
-
-        function writeFile(fileEntry, dataObj, isAppend) {
-          
-            document.addEventListener("deviceready", function() { 
-                window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, successCallback, errorCallback);
-            }, false);
-
-           function successCallback(fs) {
-
-              fs.root.getFile('log.txt', {create: true}, function(fileEntry) {
-                 fileEntry.createWriter(function(fileWriter) {
-                    fileWriter.onwriteend = function(e) {
-                      
-                    };
-
-                    fileWriter.onerror = function(e) {
-                       alert('Write failed: ' + e.toString());
-                    };                   
-                    
-                    var check = fileWriter.length;
-                    console.log(fileWriter.length);
-                    if(check){
-                      fileWriter.seek(fileWriter.length-1);
-                      var st = ",{" + '"' + 'kind'+'"' + ':['+ '"' + record['kind']+ '"' +'],'+ '"' + 'hakka_risigned' + '"' + ':[' + '"' + record['hakka_risigned'] + '"' +
-                      '],'+ '"' +'hakka_phoneticon' + '"' + ':[' + '"'+ record['hakka_phoneticon'] + '"' + '],' + '"' + 'chinese_risigned' + '"' + ':['+ '"' + 
-                      record['chinese_risigned'] + '"' + '],' + '"' + 'english_risigned' + '"' + ':[' +'"'+
-                      record['english_risigned']+'"'+'],'+'"' + 'hakka_sentence' + '"' + ':[' +'"'+
-                      record['hakka_sentence']+'"'+'],'+'"' + 'chinese_translation' + '"' + ':[' +'"'+
-                      record['chinese_translation']+'"'+'],'+'"' + 'accent' + '"' + ':[' +'"'+
-                      record['accent']+'"'+'],'+'"' + 'voice' + '"' + ':[' +'"'+
-                      record['voice']+'"'+']'+"}]";
-
-                      var data = new Blob([st], { type: 'text/plain' });
-                      fileWriter.write(data);
-                    }else{
-                     
-                      fileWriter.write(dataObj);  
-                    }
-                    
-                    
-                 }, errorCallback);
-
-              }, errorCallback);
-
-           }
-
-           function errorCallback(error) {
-              alert("ERROR: " + error.code);
-           }
-        }
-
+        var accent;       
         //读取文件
         function readFile(fileEntry) {
+
+              //只用LocalFileSystem.PERSISTENT 會有問題
             document.addEventListener("deviceready", function() { 
                 window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, successCallback, errorCallback);
             }, false);
@@ -220,120 +136,72 @@
 
                         reader.onloadend = function(e) {
                             $("#record-body").children().remove();
-                            //console.log(JSON.parse(this.result));
+                            console.log(JSON.parse(this.result));
                             var str = JSON.parse(this.result);
-                            temp=str;
                             var i = 0;
                             var rec;
-                            k = str.length;
                             //var f = 1;
                             while(i < str.length){
-                                
+                                /*if(f){
+                                    rec = str[i]['chinese_risigned'];
+                                    accent = str[i]['accent'];
+                                    $("#record-body").append("<li id="+rec+" onclick='getPaging(this)'>"+str[i]['chinese_risigned']+"</li>");
+                                    $("#record-body").append("<hr>");
+                                    f=0;
+                                }else{
+                                    rec = str[i]['chinese_risigned'];
+                                    $("#record-body").append("<li id="+rec+" onclick='getPaging(this)'>"+str[i]['chinese_risigned']+"</li>");
+                                     //$("#record-body").append("<li onclick='location.href=\""+"volcab.html?"+rec+"\"'>"+str[i]['chinese_risigned']+"</li>");
+                                     
+                                    $("#record-body").append("<hr>");
+                                } */  
                                 rec = str[i]['chinese_risigned'];
                                     accent = str[i]['accent'];
-                                    $("#record-body").append("<div><li id="+rec+" onclick='getPaging(this)'>"+rec+"<ul>"+accent+"</ul>"+"</li></div>");
+                                    $("#record-body").append("<li id="+rec+" onclick='getPaging(this)'>"+rec+"<ul>"+accent+"</ul>"+"</li>");
+                                    $("#record-body").append("<br>");
                                     $("#record-body").append("<hr>");
                                 i++;                             
                             }
-                            
+                           
                         };
                         reader.readAsText(file);
                     }, errorCallback);
                 }, errorCallback);
-            }           
+        }           
             //读取文件失败响应
-            function errorCallback(error){
-              //console.log("記錄讀取失败!");
-              console.log("readFile ERROR: " + error.code);
-              
-              
-            }
+        function errorCallback(error){
+          //console.log("文件读取失败!");
+          check = 0;
         }
-        
-        function removeFile() {
+        }
 
+        function removeFile() {
+            var type = window.TEMPORARY;
+            var size = 5*1024*1024;
+
+            //window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, successCallback, errorCallback)
             document.addEventListener("deviceready", function() { 
                 window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, successCallback, errorCallback);
             }, false);
             function successCallback(fs) {
-            fs.root.getFile('log.txt', {create: false, exclusive: false}, function(fileEntry) {
+            fs.root.getFile('log.txt', {create: false}, function(fileEntry) {
 
                     fileEntry.remove(function() {
-                    
-                    window.location.reload();
+                    alert('File removed.');
                     }, errorCallback);
                 }, errorCallback);
             }
            function errorCallback(error) {
               //alert("ERROR: " + error.code)
            }
-           
+           //history.go(0);
+           window.location.reload();
         }
-
-        function removeFile1() {
-
-            document.addEventListener("deviceready", function() { 
-                window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, successCallback, errorCallback);
-            }, false);
-            function successCallback(fs) {
-            fs.root.getFile('log.txt', {create: false, exclusive: false}, function(fileEntry) {
-
-                    fileEntry.remove(function() {
-                        console.log("sucess");
-                    }, errorCallback);
-                }, errorCallback);
-            }
-           function errorCallback(error) {
-              console.log("removeFile ERROR: " + error.code);
-           }
-           
-        }
-        function remoFile() {
-            count=0;
-            var i = 0;
-            var length = 0;
-             if (count!=-1 && k>0){
-                
-                temp.splice(count,1);     
-                    
-               // removeFile1();                                        
-                 while(length < temp.length){
-                    console.log("正要寫入" + temp[length]['accent']);                   
-                      crea1(temp,length);
-                    length++;
-                }
-                count = -1;         
-            }          
-        }
-
         function getPaging(data){
            var url = "volcab.html";  
            var vol = data.id;        
            window.open(encodeURI(url +"?vol="+ vol+"&accent="+accent));   
         }
         
-        function relo(){
-            window.location.reload();
-        }
-        
-        function crea1(data,count){
-          
-            console.log(count);        
-            record = data[count];
-            //createAndWriteFile();     
-            var string = [{'kind':data[count]['kind'],
-            'hakka_risigned':data[count]['hakka_risigned'],
-            'hakka_phoneticon':data[count]['hakka_phoneticon'],
-            'chinese_risigned':data[count]['chinese_risigned'],
-            'english_risigned':data[count]['english_risigned'],
-            'hakka_sentence':data[count]['hakka_sentence'],
-            'chinese_translation':data[count]['chinese_translation'],
-            'accent':data[count]['accent'],
-            'voice':data[count]['voice']}];
-            var jsonse = JSON.stringify(string);
-            var dataObj = new Blob([jsonse], { type: 'text/plain' });                             
-            writeFile('log.txt', dataObj, true);
-    
-        }
     </script>
 </div>

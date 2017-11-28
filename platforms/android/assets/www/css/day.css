@@ -1,4 +1,4 @@
-
+@charset "UTF-8";
 #buton{
     float: left;
     font-size: 20px;
@@ -192,7 +192,14 @@ background: -webkit-linear-gradient(top, #494949 0%, #434242 31%, #393838 55%, #
         height: 120px;
         padding-bottom: 30px;
     }
-
+    #recordBtn{
+        width: 100%;
+        height: 120px;
+        font-size: 50px;
+        display: inline-block;
+        background: orange;
+        color: white;
+    }
 }
 
 @media screen and (min-width: 992px){
@@ -237,6 +244,14 @@ background: -webkit-linear-gradient(top, #494949 0%, #434242 31%, #393838 55%, #
         height: 170px;
         padding-bottom: 100px;
     }
+    #recordBtn{
+        width: 100%;
+        height: 170px;
+        font-size: 60px;
+        display: inline-block;
+        background: orange;
+        color: white;
+    }
 }
 
 @media screen and (min-width: 1200px){
@@ -280,5 +295,13 @@ background: -webkit-linear-gradient(top, #494949 0%, #434242 31%, #393838 55%, #
         font-size: 60px;
         height: 170px;
         padding-bottom: 100px;
+    }
+    #recordBtn{
+        width: 100%;
+        height: 170px;
+        font-size: 60px;
+        display: inline-block;
+        background: orange;
+        color: white;   
     }
 }
