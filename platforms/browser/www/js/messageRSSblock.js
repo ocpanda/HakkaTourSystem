@@ -1,34 +1,6 @@
 /**
  * Created by GuanTyng on 2017/11/27.
  */
-$(document).on("gkComponentsReady", function () {
-    var $ele = $("#gk-11279qZ9"),
-        FEED_URL = $ele.attr("service"),
-        $listview = $("#gk-11279qZ9").find('[data-role="listview"]');
-    rowNum = $ele.attr('rowNum');
-
-    if (FEED_URL) {
-        $.ajax({
-            beforeSend: function () {
-                $listview.css('visibility', 'hidden');
-            },
-            url: 'http://ajax.googleapis.com/ajax/services/feed/load?v=1.0&num=' + rowNum + '&callback=?&q=' + encodeURIComponent(FEED_URL),
-            dataType: 'json',
-            success: function (data) {
-                if (data.responseData.feed && data.responseData.feed.entries) {
-                    var models = data.responseData.feed.entries;
-                    $listview.gk('model', models);
-                    $listview.css('visibility', 'visible');
-                }
-            }
-        });
-    }
-
-    $listview.gk('onRow', function (vo) {
-        alert(JSON.stringify(vo));
-    });
-
-});
 //var pages = ["#Hall", "#Doc"];
 //var nowPage = 0;
 

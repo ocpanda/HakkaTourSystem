@@ -13,7 +13,7 @@
             MaxCount: 5,
             ShowDesc: true,
             ShowPubDate: true,
-            DescCharacterLimit: 0,
+            DescCharacterLimit: 100,
             TitleLinkTarget: "_blank",
             DateFormat: "",
             DateFormatLang:"en"

@@ -9,6 +9,21 @@
     <div data-role="header" data-position="fixed">
         <h3>電子閱讀</h3>
     </div>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#ereadRSS').FeedEk({
+                FeedUrl: 'http://140.130.35.62/hakka/index.php/%E9%9B%BB%E5%AD%90%E6%9B%B8?format=feed',
+                MaxCount: 5,
+                ShowDesc: true,
+                ShowPubDate: true,
+                DescCharacterLimit: 50
+            });
+        });
+    </script>
+    <div>
+        <div id="ereadRSS"></div>
+    </div>
     <!--
         下方功能選單區塊
         api: jquery.mobile-1.4.5.min.js
