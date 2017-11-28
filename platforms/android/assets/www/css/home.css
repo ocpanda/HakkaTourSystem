@@ -1,0 +1,31 @@
+#topTitle{
+	margin-left: 25%;
+}
+
+#deviceready>.btn0{
+	color: #fff;
+	float: left;
+	position: absolute;
+	height: 40px;
+	width: 120px;
+	top: 20%;
+	left: 35%;
+}
+
+#deviceready>.btn0 a:hover{
+	text-decoration: none;
+}
+
+#deviceready>.btn1{
+	color: #fff;
+	float: left;
+	position: absolute;
+	height: 40px;
+	width: 120px;
+	top: 30%;
+	left: 35%;
+}
+
+#deviceready>.btn1 a:hover{
+	text-decoration: none;
+}
