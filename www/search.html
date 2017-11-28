@@ -24,11 +24,23 @@
             </div>
         </div>
         <div id="pageOne">
+            <select id="optionOfList">
+                    <option value="列表">列表</option>
+                    <option value="圖表">圖表</option>
+            </select>
+            <select id="optionOfType">
+                <option value="">顯示全部</option>
+                <option value="產業工具">產業工具</option>
+                <option value="日常用品">日常用品</option>
+                <option value="運輸工具">運輸工具</option>
+                <option value="家俱">家俱</option>                                                          
+            </select>
             <table id="example" class="display" cellspacing="0" width="100%">
             <thead>
                 <tr>
                     <th>ID</th>
                     <th>圖片</th>
+                    <th>分類</th>
                     <th>名字</th>
                 </tr>
             </thead>
@@ -36,12 +48,35 @@
                 <tr>
                     <th>ID</th>
                     <th>圖片</th>
+                    <th>分類</th>
                     <th>名字</th>
                 </tr>
             </tfoot>
         </table>
+        <div id='chart'>
+        </div>
         </div>
         <div id="pageTwo">
+            <div id="scanData">
+            </div>
+                <!-- <div class="panel panel-default">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>name</th>
+                                <th>UUID</th>
+                                <th>RSSI</th>
+                            </tr>
+                        </thead>
+                        <tbody id="scanData">
+                            
+                        </tbody>
+                    </table>
+                </div> -->
+            <center style="margin-top: 130px" id="tiger">
+                <img src="image/g3893.png" width="200" height="200" alt="">
+                <label id="scanText">123</label>
+            </center>
         </div>
         <!-- 首頁彈出區塊 
             api: jquery-1.11.3.min.js
