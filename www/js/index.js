@@ -4,7 +4,7 @@
 //-vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv-
 /*app 設定資料*/
 var ORIGIN_DIS = -58.3;
-var ENVIRONMENT_VAR = 4;
+var ENVIRONMENT_VAR = 5;
 var calcRec = [];       //
 var fundDevices = [];
 var beaconData = [];
@@ -466,12 +466,16 @@ function userSourceComponent(x,y,w,h){
     }
     tempX /= this.targetX.length;
     tempY /= this.targetY.length;
-    if(Math.abs(this.lastPosX - tempX) > 1.2 || Math.abs(this.lastPosY - tempY) > 1.2){
+    if(Math.abs(this.lastPosX - tempX) > 0.7 || Math.abs(this.lastPosY - tempY) > 0.7){
       tempX = this.lastPosX;
       tempY = this.lastPosY;
+    }else{
+      this.lastPosX = tempX;
+      this.lastPosY = tempY;
     }
     //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
+    //this.lastPosX = tempX;
+    //this.lastPosY = tempY;
     ctx = map.context;
     console.log("drawImage update");
     var newPosX = Math.round(tempX*(this.w/10));

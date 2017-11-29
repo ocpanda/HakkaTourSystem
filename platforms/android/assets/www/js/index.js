@@ -4,7 +4,7 @@
 //-vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv-
 /*app 設定資料*/
 var ORIGIN_DIS = -58.3;
-var ENVIRONMENT_VAR = 4;
+var ENVIRONMENT_VAR = 7;
 var calcRec = [];       //
 var fundDevices = [];
 var beaconData = [];
@@ -466,35 +466,40 @@ function userSourceComponent(x,y,w,h){
     }
     tempX /= this.targetX.length;
     tempY /= this.targetY.length;
-    if(tempX>1.4 || tempY>1.4){
+    if(Math.abs(this.lastPosX - tempX) > 0.7 || Math.abs(this.lastPosY - tempY) > 0.7){
       tempX = this.lastPosX;
       tempY = this.lastPosY;
+    }else{
+      this.lastPosX = tempX;
+      this.lastPosY = tempY;
     }
     //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
+    //this.lastPosX = tempX;
+    //this.lastPosY = tempY;
     ctx = map.context;
     console.log("drawImage update");
-    ctx.drawImage(this.img, this.x, this.y, this.w, this.h, 0, 0, this.w, this.h);
     var newPosX = Math.round(tempX*(this.w/10));
     var newPosY = Math.round(tempY*(this.h/10));
-    while((this.x != (this.x + newPosX)) && (this.y != (this.y + newPosY))){
-      if(newPosX > 0){
-        this.speedX = 1;
-        // this.speedX = Math.round((this.x/newPosX)*10);
-      }else if(newPosX < 0){
-        this.speedX = -1;
-        // this.speedX = -Math.round((newPosX/this.x)*10);
-      }
-      if(newPosY > 0){
-        this.speedY = 1;
-        // this.speedY = Math.round((this.y/newPosY)*10);
-      }else if(newPosY < 0){
-        this.speedY = -1;
-        // this.speedY = -Math.round((newPosY/this.y)*10);
-      }
+    ctx.drawImage(this.img, this.x + newPosX, this.y + newPosY, this.w, this.h, 0, 0, this.w, this.h);
+    
+    // while((this.x != (this.x + newPosX)) && (this.y != (this.y + newPosY))){
+    //   if(newPosX > 0){
+    //     this.speedX = 1;
+    //     // this.speedX = Math.round((this.x/newPosX)*10);
+    //   }else if(newPosX < 0){
+    //     this.speedX = -1;
+    //     // this.speedX = -Math.round((newPosX/this.x)*10);
+    //   }
+    //   if(newPosY > 0){
+    //     this.speedY = 1;
+    //     // this.speedY = Math.round((this.y/newPosY)*10);
+    //   }else if(newPosY < 0){
+    //     this.speedY = -1;
+    //     // this.speedY = -Math.round((newPosY/this.y)*10);
+    //   }
 
-      this.newPos();
-    }
+    //   this.newPos();
+    // }
 
 
     // for(var i=0; i<beaconData["config"].number; i++){
