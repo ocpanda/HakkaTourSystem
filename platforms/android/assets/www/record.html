@@ -103,7 +103,10 @@
 
         <div>
             <button id="remove" onclick="removeFile();">刪除紀錄</button>  
+<<<<<<< HEAD
             
+=======
+>>>>>>> feature/day
         </div>
     <div data-role="footer" data-position="fixed" data-fullscreen="true">
         <div data-role="navbar">
@@ -117,6 +120,7 @@
         </div>
     </div>
     <script type="text/javascript" src="cordova.js" defer></script>
+<<<<<<< HEAD
     <script type="text/javascript" src="js/file.js"></script>
     <script type="text/javascript" src="js/popupExplan.js" defer></script>
     <script type="text/javascript">
@@ -207,6 +211,16 @@
         }
         //读取文件
         function readFile(fileEntry) {
+=======
+    <script type="text/javascript" src="js/popupExplan.js" defer></script>
+    <script type="text/javascript">
+        readFile('log.txt');
+        var accent;       
+        //读取文件
+        function readFile(fileEntry) {
+
+              //只用LocalFileSystem.PERSISTENT 會有問題
+>>>>>>> feature/day
             document.addEventListener("deviceready", function() { 
                 window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, successCallback, errorCallback);
             }, false);
@@ -219,6 +233,7 @@
 
                         reader.onloadend = function(e) {
                             $("#record-body").children().remove();
+<<<<<<< HEAD
                             //console.log(JSON.parse(this.result));
                             var str = JSON.parse(this.result);
                             temp=str;
@@ -235,10 +250,40 @@
                                 i++;                             
                             }
                             
+=======
+                            console.log(JSON.parse(this.result));
+                            var str = JSON.parse(this.result);
+                            var i = 0;
+                            var rec;
+                            //var f = 1;
+                            while(i < str.length){
+                                /*if(f){
+                                    rec = str[i]['chinese_risigned'];
+                                    accent = str[i]['accent'];
+                                    $("#record-body").append("<li id="+rec+" onclick='getPaging(this)'>"+str[i]['chinese_risigned']+"</li>");
+                                    $("#record-body").append("<hr>");
+                                    f=0;
+                                }else{
+                                    rec = str[i]['chinese_risigned'];
+                                    $("#record-body").append("<li id="+rec+" onclick='getPaging(this)'>"+str[i]['chinese_risigned']+"</li>");
+                                     //$("#record-body").append("<li onclick='location.href=\""+"volcab.html?"+rec+"\"'>"+str[i]['chinese_risigned']+"</li>");
+                                     
+                                    $("#record-body").append("<hr>");
+                                } */  
+                                rec = str[i]['chinese_risigned'];
+                                    accent = str[i]['accent'];
+                                    $("#record-body").append("<li id="+rec+" onclick='getPaging(this)'>"+rec+"<ul>"+accent+"</ul>"+"</li>");
+                                    $("#record-body").append("<br>");
+                                    $("#record-body").append("<hr>");
+                                i++;                             
+                            }
+                           
+>>>>>>> feature/day
                         };
                         reader.readAsText(file);
                     }, errorCallback);
                 }, errorCallback);
+<<<<<<< HEAD
             }           
             //读取文件失败响应
             function errorCallback(error){
@@ -271,18 +316,41 @@
 
         function removeFile1() {
 
+=======
+        }           
+            //读取文件失败响应
+        function errorCallback(error){
+          //console.log("文件读取失败!");
+          check = 0;
+        }
+        }
+
+        function removeFile() {
+            var type = window.TEMPORARY;
+            var size = 5*1024*1024;
+
+            //window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, successCallback, errorCallback)
+>>>>>>> feature/day
             document.addEventListener("deviceready", function() { 
                 window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, successCallback, errorCallback);
             }, false);
             function successCallback(fs) {
+<<<<<<< HEAD
             fs.root.getFile('log.txt', {create: false, exclusive: false}, function(fileEntry) {
 
                     fileEntry.remove(function() {
                         console.log("sucess");
+=======
+            fs.root.getFile('log.txt', {create: false}, function(fileEntry) {
+
+                    fileEntry.remove(function() {
+                    alert('File removed.');
+>>>>>>> feature/day
                     }, errorCallback);
                 }, errorCallback);
             }
            function errorCallback(error) {
+<<<<<<< HEAD
               console.log("removeFile ERROR: " + error.code);
            }
            
@@ -305,12 +373,20 @@
             }          
         }
 
+=======
+              //alert("ERROR: " + error.code)
+           }
+           //history.go(0);
+           window.location.reload();
+        }
+>>>>>>> feature/day
         function getPaging(data){
            var url = "volcab.html";  
            var vol = data.id;        
            window.open(encodeURI(url +"?vol="+ vol+"&accent="+accent));   
         }
         
+<<<<<<< HEAD
         function relo(){
             window.location.reload();
         }
@@ -334,5 +410,7 @@
             writeFile('log.txt', dataObj, true);
         }
         
+=======
+>>>>>>> feature/day
     </script>
 </div>

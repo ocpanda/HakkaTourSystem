@@ -65,7 +65,12 @@ hr{
         height: 120px;
         padding-bottom: 30px;
     }
-
+    #record-body li{
+        font-size: 60px;
+    }
+    #record-body ul{
+        font-size: 60px;
+    }
 }
 
 @media screen and (min-width: 992px){
@@ -73,8 +78,12 @@ hr{
     #record{
         font-size: 30px;
     }
-
-   
+    #record-body li{
+        font-size: 75px;
+    }
+    #record-body ul{
+        font-size: 75px;
+    }   
     #remove{
         font-size: 60px;
         height: 170px;
@@ -93,5 +102,11 @@ hr{
         font-size: 60px;
         height: 170px;
         padding-bottom: 100px;
+    }
+    #record-body li{
+        font-size: 85px;
+    }
+    #record-body ul{
+        font-size: 85px;
     }
 }
