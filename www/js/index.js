@@ -3,6 +3,8 @@
 //function: 藍牙室內定位 方法 RSS whit 高斯消去法
 //-vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv-
 /*app 設定資料*/
+var ORIGIN_DIS = -58.3;
+var ENVIRONMENT_VAR = 5;
 var calcRec = [];       //
 var fundDevices = [];
 var beaconData = [];
@@ -384,7 +386,7 @@ function initializeMap(){
   //var img = new Image();
   //img.src = "image/6.jpg";
   //ctx.drawImage(img, 0, 0);
-  userLocationMap = new userSourceComponent(0, 0, deviceWidth, deviceHeight);
+  userLocationMap = new userSourceComponent(320, 1100, deviceWidth, deviceHeight);
   map.start(deviceWidth, deviceHeight);
 }
 /*
@@ -418,6 +420,10 @@ function userSourceComponent(x,y,w,h){
   this.h = h;
   this.x = x;
   this.y = y;
+  this.lastPosX = 0;
+  this.lastPosY = 0;
+  this.targetX = new Array();
+  this.targetY = new Array();
   this.speedX = 0;
   this.speedY = 0;
   this.img = new Image();
@@ -425,23 +431,73 @@ function userSourceComponent(x,y,w,h){
   //   //window.onresize = update;
   //   userLocationMap.update();
   // }
-  this.img.src = "image/6.jpg";
+  this.img.src = "image/map2000.png";
   this.update = function(){
-    ctx = map.context;
-    //背景地圖待修復
-    console.log("drawImage update");
-    ctx.drawImage(this.img, this.x, this.y, this.w, this.h, 0, 0, this.w, this.h);
-    for(var i=0; i<beaconData["config"].number; i++){
-      ctx.beginPath();
-      ctx.fillStyle = "black";
-      ctx.arc((this.w/2)+(beaconData[beaconData["config"].nameList[i]].beaconLocX*(this.w/10)), (this.h/2)+(beaconData[beaconData["config"].nameList[i]].beaconLocY*(this.h/10)),10, 0, 2*Math.PI)
-      ctx.fill();
+    //加入定位計算資料進入queue資料結構，紀錄5筆資料做比對
+    this.targetX.push(parseFloat(gaussianProcessData["config"].s[0]));
+    this.targetY.push(parseFloat(gaussianProcessData["config"].s[1]));
+    if(this.targetX.length > 5)
+      this.targetX.shift();
+    if(this.targetY.length > 5)
+      this.targetY.shift();
+    var tempX = 0;
+    var tempY = 0;
+    for(var i=0; i<this.targetX.length; i++){
+      tempX += this.targetX[i];
+      tempY += this.targetY[i];
     }
+    tempX /= this.targetX.length;
+    tempY /= this.targetY.length;
+    if(Math.abs(this.lastPosX - tempX) > 0.7 || Math.abs(this.lastPosY - tempY) > 0.7){
+      tempX = this.lastPosX;
+      tempY = this.lastPosY;
+    }else{
+      this.lastPosX = tempX;
+      this.lastPosY = tempY;
+    }
+    //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    //this.lastPosX = tempX;
+    //this.lastPosY = tempY;
+    ctx = map.context;
+    console.log("drawImage update");
+    var newPosX = Math.round(tempX*(this.w/10));
+    var newPosY = Math.round(tempY*(this.h/10));
+    ctx.drawImage(this.img, this.x + newPosX, this.y + newPosY, this.w, this.h, 0, 0, this.w, this.h);
+    
+    // while((this.x != (this.x + newPosX)) && (this.y != (this.y + newPosY))){
+    //   if(newPosX > 0){
+    //     this.speedX = 1;
+    //     // this.speedX = Math.round((this.x/newPosX)*10);
+    //   }else if(newPosX < 0){
+    //     this.speedX = -1;
+    //     // this.speedX = -Math.round((newPosX/this.x)*10);
+    //   }
+    //   if(newPosY > 0){
+    //     this.speedY = 1;
+    //     // this.speedY = Math.round((this.y/newPosY)*10);
+    //   }else if(newPosY < 0){
+    //     this.speedY = -1;
+    //     // this.speedY = -Math.round((newPosY/this.y)*10);
+    //   }
+
+    //   this.newPos();
+    // }
+
+
+    // for(var i=0; i<beaconData["config"].number; i++){
+    //   ctx.beginPath();
+    //   ctx.fillStyle = "black";
+    //   ctx.arc((this.w/2)-(beaconData[beaconData["config"].nameList[i]].beaconLocX*(this.w/10)), (this.h/2)+(beaconData[beaconData["config"].nameList[i]].beaconLocY*(this.h/10)),10, 0, 2*Math.PI)
+    //   ctx.fill();
+    // }
     ctx.beginPath();
     ctx.fillStyle = "red";
-    console.log("gaussian X: "+ ((this.w/2)+(parseFloat(gaussianProcessData["config"].s[0])*(this.w/10)))+"    Y: "+((this.h/2)+(parseFloat(gaussianProcessData["config"].s[1])*(this.h/10))));
-    ctx.arc((this.w/2)+Math.round(parseFloat(gaussianProcessData["config"].s[0])*(this.w/10)), (this.h/2)+Math.round(parseFloat(gaussianProcessData["config"].s[1])*(this.h/10)), 10, 0, 2*Math.PI);
+    //console.log("gaussian X: "+ ((this.w/2)+(parseFloat(gaussianProcessData["config"].s[0])*(this.w/10)))+"    Y: "+((this.h/2)+(parseFloat(gaussianProcessData["config"].s[1])*(this.h/10))));
+    ctx.arc((this.w/2), (this.h/2), 10, 0, 2 * Math.PI);
+    //ctx.arc(((this.w/2)+Math.round(tempX)*(this.w/10)), (this.h/2)+Math.round(parseFloat(tempY)*(this.h/10)), 10, 0, 2*Math.PI);
     ctx.fill();
+    this.lastPosX = tempX;
+    this.lastPosY = tempY;
   }
   this.newPos = function(){
     this.x += this.speedX;
@@ -452,7 +508,7 @@ function userSourceComponent(x,y,w,h){
 function updateMap(){
   map.clear();
   userLocationMap.update();
-  userLocationMap.newPos();
+  //userLocationMap.newPos();
 }
 //-------------------------------------------------
 //Code: C.H Chiang 蔣政樺
