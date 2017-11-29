@@ -103,10 +103,6 @@
 
         <div>
             <button id="remove" onclick="removeFile();">刪除紀錄</button>  
-<<<<<<< HEAD
-            
-=======
->>>>>>> feature/day
         </div>
     <div data-role="footer" data-position="fixed" data-fullscreen="true">
         <div data-role="navbar">
@@ -120,8 +116,6 @@
         </div>
     </div>
     <script type="text/javascript" src="cordova.js" defer></script>
-<<<<<<< HEAD
-    <script type="text/javascript" src="js/file.js"></script>
     <script type="text/javascript" src="js/popupExplan.js" defer></script>
     <script type="text/javascript">
         readFile('log.txt');
@@ -209,18 +203,11 @@
               alert("ERROR: " + error.code);
            }
         }
-        //读取文件
-        function readFile(fileEntry) {
-=======
-    <script type="text/javascript" src="js/popupExplan.js" defer></script>
-    <script type="text/javascript">
-        readFile('log.txt');
         var accent;       
         //读取文件
         function readFile(fileEntry) {
 
               //只用LocalFileSystem.PERSISTENT 會有問題
->>>>>>> feature/day
             document.addEventListener("deviceready", function() { 
                 window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, successCallback, errorCallback);
             }, false);
@@ -233,24 +220,6 @@
 
                         reader.onloadend = function(e) {
                             $("#record-body").children().remove();
-<<<<<<< HEAD
-                            //console.log(JSON.parse(this.result));
-                            var str = JSON.parse(this.result);
-                            temp=str;
-                            var i = 0;
-                            var rec;
-                            k = str.length;
-                            //var f = 1;
-                            while(i < str.length){
-                                
-                                rec = str[i]['chinese_risigned'];
-                                    accent = str[i]['accent'];
-                                    $("#record-body").append("<div><li id="+rec+" onclick='getPaging(this)'>"+rec+"<ul>"+accent+"</ul>"+"</li></div>");
-                                    $("#record-body").append("<hr>");
-                                i++;                             
-                            }
-                            
-=======
                             console.log(JSON.parse(this.result));
                             var str = JSON.parse(this.result);
                             var i = 0;
@@ -278,45 +247,10 @@
                                 i++;                             
                             }
                            
->>>>>>> feature/day
                         };
                         reader.readAsText(file);
                     }, errorCallback);
                 }, errorCallback);
-<<<<<<< HEAD
-            }           
-            //读取文件失败响应
-            function errorCallback(error){
-              //console.log("記錄讀取失败!");
-              console.log("readFile ERROR: " + error.code);
-              
-              
-            }
-        }
-        
-        function removeFile() {
-
-            document.addEventListener("deviceready", function() { 
-                window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, successCallback, errorCallback);
-            }, false);
-            function successCallback(fs) {
-            fs.root.getFile('log.txt', {create: false, exclusive: false}, function(fileEntry) {
-
-                    fileEntry.remove(function() {
-                    
-                    window.location.reload();
-                    }, errorCallback);
-                }, errorCallback);
-            }
-           function errorCallback(error) {
-              //alert("ERROR: " + error.code)
-           }
-           
-        }
-
-        function removeFile1() {
-
-=======
         }           
             //读取文件失败响应
         function errorCallback(error){
@@ -330,63 +264,29 @@
             var size = 5*1024*1024;
 
             //window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, successCallback, errorCallback)
->>>>>>> feature/day
             document.addEventListener("deviceready", function() { 
                 window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, successCallback, errorCallback);
             }, false);
             function successCallback(fs) {
-<<<<<<< HEAD
-            fs.root.getFile('log.txt', {create: false, exclusive: false}, function(fileEntry) {
-
-                    fileEntry.remove(function() {
-                        console.log("sucess");
-=======
             fs.root.getFile('log.txt', {create: false}, function(fileEntry) {
 
                     fileEntry.remove(function() {
                     alert('File removed.');
->>>>>>> feature/day
                     }, errorCallback);
                 }, errorCallback);
             }
            function errorCallback(error) {
-<<<<<<< HEAD
-              console.log("removeFile ERROR: " + error.code);
-           }
-           
-        }
-        function remoFile() {
-            count=0;
-            var i = 0;
-            var length = 0;
-             if (count!=-1 && k>0){
-                
-                temp.splice(count,1);     
-                    
-               // removeFile1();                                        
-                 while(length < temp.length){
-                    console.log("正要寫入" + temp[length]['accent']);                   
-                      crea1(temp,length);
-                    length++;
-                }
-                count = -1;         
-            }          
-        }
-
-=======
               //alert("ERROR: " + error.code)
            }
            //history.go(0);
            window.location.reload();
         }
->>>>>>> feature/day
         function getPaging(data){
            var url = "volcab.html";  
            var vol = data.id;        
            window.open(encodeURI(url +"?vol="+ vol+"&accent="+accent));   
         }
         
-<<<<<<< HEAD
         function relo(){
             window.location.reload();
         }
@@ -410,7 +310,5 @@
             writeFile('log.txt', dataObj, true);
         }
         
-=======
->>>>>>> feature/day
     </script>
 </div>

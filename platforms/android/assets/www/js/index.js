@@ -3,11 +3,8 @@
 //function: 藍牙室內定位 方法 RSS whit 高斯消去法
 //-vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv-
 /*app 設定資料*/
-<<<<<<< HEAD
-=======
 var ORIGIN_DIS = -58.3;
-var ENVIRONMENT_VAR = 7;
->>>>>>> feature/claclocation
+var ENVIRONMENT_VAR = 5;
 var calcRec = [];       //
 var fundDevices = [];
 var beaconData = [];
