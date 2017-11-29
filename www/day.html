@@ -22,10 +22,26 @@
                     <h1 class="panel-title">每日一詞</h1>
                 </div>
                 <div class="panel-body">
-                    <table id="ha" border="1">
-                        <tbody id="vocabulary" class="panel-body"> 
+                    <table id="ha" style="border:3px gray double;padding:5px;" rules="all" cellpadding='5';>
+                        <thead>
+                            <tr>
+                            <div data-role="navbar" id="head_navbar">
+                                <ul class="footNavBar">
+                                    <li id="inDayA" value="0" onclick="inDay(this);"><a href="#" id="btnDayA" data-ajax="false"><img style="width:90%;" id="inDay_A" src="image/day/test.png" is="image"></a></li>
+                                    <li id="inDayB" value="1" onclick="inDay(this);"><a href="#" id="btnDayB" data-ajax="false"><img style="width:90%;" id="inDay_B"  src="image/search.png" is="image"></a></li>
+                                    <li id="inDayC" value="2" onclick="inDay(this);"><a href="#" id="btnDayC" data-ajax="false"><img style="width:90%;" id="inDay_C" src="image/group.png" is="image"></a></li>
+                                    <li id="inDayD" value="3" onclick="inDay(this);"><a href="#" id="btnDayD" data-ajax="false"><img style="width:90%;" id="inDay_D" src="image/message.png" is="image"></a></li>
+                                    <li id="inDayE" value="4" onclick="inDay(this);"><a href="#" id="btnDayE" data-ajax="false"><img style="width:90%;" id="inDay_E" src="image/setting.png" is="image"></a></li>
+                                </ul>
+                            </div>
+                            </tr>
+                        </thead>
+                        <tbody id="vocabulary" > 
                             
                         </tbody>
+                        
+                            
+                        
                     </table>
                 </div>
             
@@ -140,13 +156,64 @@
     <script type="text/javascript" src="cordova.js" defer></script>
     <script type="text/javascript" src="js/popupExplan.js" defer></script>
     <script type="text/javascript">
+        var cur_id="inDayA";
+        var record=0;
+        function inDay(result){
+           let id = result.id; 
+           let value = result.value;       
+           $("#inDay_A").attr("src","image/day/test.png");
+           $("#inDay_B").attr("src","image/search.png");
+           $("#inDay_C").attr("src","image/group.png");
+           $("#inDay_D").attr("src","image/message.png");
+           $("#inDay_E").attr("src","image/setting.png");
+           console.log(value);
+           if(id != cur_id){
+
+               switch(id){
+                case "inDayA":
+                    console.log("A");
+                    $("#inDay_A").attr("src","image/day/btn.png");
+                    break;
+                case "inDayB":
+                    console.log("B");
+                    $("#inDay_B").attr("src","image/day/btn1.png");
+                    break;
+                case "inDayC":
+                    console.log("C");
+                    $("#inDay_C").attr("src","image/day/btn2.png");
+                    break;
+                case "inDayD":
+                    console.log("D");
+                    $("#inDay_D").attr("src","image/day/btn3.png");
+                    break;
+                default:
+                    console.log("E");
+                    $("#inDay_E").attr("src","image/day/btn4.png");
+                    break;
+               }
+               cur_id = id;                    
+            }
+            $('#kind').html(obj[value]['kind']);
+            $('#hakka_risigned').html(obj[value]['hakka_risigned']);
+            $('#hakka_phoneticon').html(obj[value]['hakka_phoneticon']);
+            $('#chinese_risigned').html(obj[value]['chinese_risigned']);
+            $('#hakka_sentence').html(obj[value]['hakka_sentence']);
+            $('#voice').html("<audio class='gradient' controls='controls'><source src='"+obj[value]["voice"]+"' type='audio/mp3'></audio>");
+            $('#chinese_translation').html(obj[value]['chinese_translation']);
+        
+            record=value;
+        }
+         
+    </script>
+    <script type="text/javascript">
 
             $("#vocabulary").children().remove();
             $("#star").children().remove();
             var obj;
-            var record=0;
+            
             var i=0;
             var check = 0;
+            var check_data;
             var accent = ["種類","客語","發音","中文",
                         "英文","客語例句","中文例句","腔調","例句語音"];
             $.ajax({
@@ -157,16 +224,16 @@
                 success: function(data){ 
                
                 obj=data;
+                check_data = data[i]["chinese_risigned"];
                      console.log(data);                 
                 $("#vocabulary").append("<tr><th class='a'>"+accent[0]+"</th><td id='kind' fontsize=15 >"+data[i]['kind']+"</td></tr>");
                 $("#vocabulary").append("<tr><th class='a'>"+accent[1]+"</th><td id='hakka_risigned'>"+data[i]["hakka_risigned"]+"</td></tr>");
                 $("#vocabulary").append("<tr><th class='a'>"+accent[2]+"</th><td id='hakka_phoneticon'>"+data[i]["hakka_phoneticon"]+"</td></tr>");
-                $("#vocabulary").append("<tr><th class='a'>"+accent[3]+"</th><td id='chinese_risigned'>"+data[i]["chinese_risigned"]+"</td></tr>");
-                $("#vocabulary").append("<tr><th class='a'>"+accent[4]+"</th><td id='english_risigned'>"+data[i]["english_risigned"]+"</td></tr>");
+                $("#vocabulary").append("<tr><th class='a'>"+accent[3]+"</th><td id='chinese_risigned'>"+data[i]["chinese_risigned"]+"</td></tr>");          
                 $("#vocabulary").append("<tr><th class='a'>"+accent[5]+"</th><td id='hakka_sentence'>"+data[i]["hakka_sentence"]+"</td></tr>");
-                $("#vocabulary").append("<tr><th class='a'>"+accent[6]+"</th><td id='chinese_translation'>"+data[i]["chinese_translation"]+"</td></tr>");
-                $("#vocabulary").append("<tr><th class='a'>"+accent[7]+"</th><td id='accent'>"+data[i]["accent"]+"</td></tr>");
                 $("#vocabulary").append("<tr><th class='a'>"+accent[8]+"</th><td id='voice'><audio class='gradient' controls='controls'><source src='"+data[i]["voice"]+"' type='audio/mp3'></audio></td></tr>");
+                $("#vocabulary").append("<tr><th class='a'>"+accent[6]+"</th><td id='chinese_translation'>"+data[i]["chinese_translation"]+"</td></tr>");
+                
                 },  
                 error: function(xhr, ajaxOptions, thrownError){
                 alert("無法連線");
@@ -174,23 +241,21 @@
                 console.log(thrownError); 
                 }
             });
-           // $("#ha").table("refresh");       
+           // $("#ha").table("refresh");
+
     </script>
     <script type="text/javascript">
         var data=0;
         function btn(value){    
             // console.log(obj);
-            $('#kind').html(obj[value]['kind']);
-            $('#hakka_risigned').html(obj[value]['hakka_risigned']);
-            $('#hakka_phoneticon').html(obj[value]['hakka_phoneticon']);
-            $('#chinese_risigned').html(obj[value]['chinese_risigned']);
-            $('#english_risigned').html(obj[value]['english_risigned']);
-            $('#hakka_sentence').html(obj[value]['hakka_sentence']);
-            $('#chinese_translation').html(obj[value]['chinese_translation']);
-            $('#accent').html(obj[value]['accent']);
-            $('#voice').html("<audio class='gradient' controls='controls'><source src='"+obj[value]["voice"]+"' type='audio/mp3'></audio>");
-        
-            record=value;
+            // $('#kind').html(obj[value]['kind']);
+            // $('#hakka_risigned').html(obj[value]['hakka_risigned']);
+            // $('#hakka_phoneticon').html(obj[value]['hakka_phoneticon']);
+            // $('#chinese_risigned').html(obj[value]['chinese_risigned']);
+            // $('#hakka_sentence').html(obj[value]['hakka_sentence']);
+            // $('#voice').html("<audio class='gradient' controls='controls'><source src='"+obj[value]["voice"]+"' type='audio/mp3'></audio>");
+            // $('#chinese_translation').html(obj[value]['chinese_translation']);
+            // record=value;
 
         }
 
@@ -241,23 +306,18 @@
                     fileWriter.onerror = function(e) {
                        alert('Write failed: ' + e.toString());
                     };                   
-                    
-                    var check = fileWriter.length;
-                    if(check){
-                      fileWriter.seek(fileWriter.length-1);
-                      var st = ",{" + '"' + 'kind'+'"' + ':['+ '"' + obj[record]['kind']+ '"' +'],'+ '"' + 'hakka_risigned' + '"' + ':[' + '"' + obj[record]['hakka_risigned'] + '"' +
-                      '],'+ '"' +'hakka_phoneticon' + '"' + ':[' + '"'+ obj[record]['hakka_phoneticon'] + '"' + '],' + '"' + 'chinese_risigned' + '"' + ':['+ '"' + 
-                      obj[record]['chinese_risigned'] + '"' + '],' + '"' + 'english_risigned' + '"' + ':[' +'"'+
-                      obj[record]['english_risigned']+'"'+'],'+'"' + 'hakka_sentence' + '"' + ':[' +'"'+
-                      obj[record]['hakka_sentence']+'"'+'],'+'"' + 'chinese_translation' + '"' + ':[' +'"'+
-                      obj[record]['chinese_translation']+'"'+'],'+'"'+'voice'+'"'+':['+'"'+obj[record]['voice']+'"'+'],'+'"' + 'accent' + '"' + ':[' +'"'+
-                      obj[record]['accent']+'"'+']'+"}]";
-                      var data = new Blob([st], { type: 'text/plain' });
-                      fileWriter.write(data);
-                    }else{
-                     
-                      fileWriter.write(dataObj);  
-                    }
+                        var check = fileWriter.length;
+                        if(check){
+                          fileWriter.seek(fileWriter.length-1);
+                          var st = ",{" + '"' + 'kind'+'"' + ':['+ '"' + obj[0]['kind']+ '"' +'],'+ '"' + 'hakka_risigned' + '"' + ':[' + '"' + obj[0]['hakka_risigned'] + '"' +
+                          '],'+'"' + 'chinese_risigned' + '"' + ':['+ '"' + 
+                          obj[0]['chinese_risigned'] + '"' + ']'+"}]";
+                          var data = new Blob([st], { type: 'text/plain' });
+                          fileWriter.write(data);
+                        }else{
+                         
+                          fileWriter.write(dataObj);  
+                        }
                     
                     
                  }, errorCallback);
@@ -270,26 +330,79 @@
               alert("ERROR: " + error.code)
            }
         }
+        function readFile(fileEntry) {
 
-        function fav(){
-            alert("data stored");
+              //只用LocalFileSystem.PERSISTENT 會有問題
+            document.addEventListener("deviceready", function() { 
+                window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, successCallback, errorCallback);
+            }, false);
+            function successCallback(fs) {
+
+                fs.root.getFile('log.txt', {}, function(fileEntry) {
+
+                    fileEntry.file(function(file) {
+                    var reader = new FileReader();
+
+                        reader.onloadend = function(e) {
+                            //console.log(JSON.parse(this.result));
+                            var str = JSON.parse(this.result);
+                            let i = 0;
+                            var rec;
+                            while(i < str.length){
+                                rec = str[i]['chinese_risigned'][0];
+                                if(rec == check_data){  
+                                   record = 1;
+                                }   
+                                i++;                             
+                            }                           
+                        };
+
+                      reader.readAsText(file);  
+                    }, errorCallback);
+                }, errorCallback);
+        }           
+            //读取文件失败响应
+            function errorCallback(error){
+              //console.log("文件读取失败!");
+              check = 0;
+            }
+        }    
+        function fav(){          
             createAndWriteFile();
-                            
-            var string = [{'kind':obj[record]['kind'],
-            'hakka_risigned':obj[record]['hakka_risigned'],
-            'hakka_phoneticon':obj[record]['hakka_phoneticon'],
-            'chinese_risigned':obj[record]['chinese_risigned'],
-            'english_risigned':obj[record]['english_risigned'],
-            'hakka_sentence':obj[record]['hakka_sentence'],
-            'chinese_translation':obj[record]['chinese_translation'],
-            'voice':obj[record]['voice'],
-            'accent':obj[record]['accent']}
-            ];    
+            var string = [{'kind':obj[0]['kind'],
+            'hakka_risigned':obj[0]['hakka_risigned'],
+            'chinese_risigned':obj[0]['chinese_risigned']}
+            ];                
+            // var string = [{'kind':obj[record]['kind'],
+            // 'hakka_risigned':obj[record]['hakka_risigned'],
+            // 'hakka_phoneticon':obj[record]['hakka_phoneticon'],
+            // 'chinese_risigned':obj[record]['chinese_risigned'],
+            // 'english_risigned':obj[record]['english_risigned'],
+            // 'hakka_sentence':obj[record]['hakka_sentence'],
+            // 'chinese_translation':obj[record]['chinese_translation'],
+            // 'voice':obj[record]['voice'],
+            // 'accent':obj[record]['accent']}
+            // ];    
             var jsonse = JSON.stringify(string);
-            var dataObj = new Blob([jsonse], { type: 'text/plain' });           
-            writeFile('log.txt', dataObj, true);           
-            //console.log(check);        
+            //console.log(jsonse);
+            var dataObj = new Blob([jsonse], { type: 'text/plain' });
+            readFile('log.txt');
+            if(record){
+                alert("重複加入!");
+                record = 0;
+            }else{
+                writeFile('log.txt', dataObj, true);  
+                alert("已加入最愛");             
+            }
+            refreshlog();
+            
         }       
+        function refreshlog(){
+            readFile('log.txt');
+            readFile('log.txt');
+            readFile('log.txt');
+            readFile('log.txt');         
+        }
     </script>
                                 
 </div>
