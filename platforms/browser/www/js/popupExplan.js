@@ -74,14 +74,14 @@ $("#messageImg").on("vmouseup", function(){
 });
 
 /**
- * 設定彈跳窗(長按)                          
+ * 電子閱讀彈跳窗(長按)
  */
-$("#settingImg").on("taphold", function(){
-	$("#settingPopup").popup("open", {positionTo: "#settingImg", transition: "slideup"});
+$("#ereadImg").on("taphold", function(){
+	$("#ereadPopup").popup("open", {positionTo: "#ereadImg", transition: "slideup"});
 });
 /**
- * 設定彈跳窗(放開)     
+ * 電子閱讀彈跳窗(放開)
  */
-$("#settingImg").on("vmouseup", function(){
-	$("#settingPopup").popup("close");
+$("#ereadImg").on("vmouseup", function(){
+	$("#ereadPopup").popup("close");
 });

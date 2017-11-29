@@ -55,12 +55,9 @@
             <div id="home" data-role="page">  <!--  1 進入頁 -->
                 <script src="web_api/jquery/jquery-1.11.3.min.js"></script>
                 <script src="web_api/jquery/jquery.mobile-1.4.5.min.js"></script>
-<<<<<<< HEAD
                 <div id="mapcontext" class="cont" data-role="context">
                     <canvas id="mapCanvas" width="400" height="500">error</canvas>
                 </div>
-=======
->>>>>>> release/debugSearch
                 <div data-role="main" class="ui-content">
                     <!-- 搜尋彈出區塊
                         api: jquery-1.11.3.min.js
@@ -114,34 +111,21 @@
                             <p>使用此功能可以使用訊息功能。</p>
                         </div>
                     </div>
-                    <!-- 設定說明彈出區塊
+                    <!-- 電子閱讀說明彈出區塊
                         api: jquery-1.11.3.min.js
                         api: jquery.mobile-1.4.5.min.js
                     //-->
-                    <div data-role="popup" data-arrow="b" id="settingPopup">
+                    <div data-role="popup" data-arrow="b" id="ereadPopup">
                         <div data-role="header">
                             <h1>說明</h1>
                         </div>
                         <div data-role="main" class="ui-content">
-                            <h1 align="center" valign="center">設定</h1>
-                            <p>使用此功能可以設定功能。</p>
+                            <h1 align="center" valign="center">電子閱讀</h1>
+                            <p>使用此功能可以打開電子閱讀。</p>
                         </div>
                     </div>
 
-<<<<<<< HEAD
                     <!-- <div id="dsa"></div> -->
-=======
-<<<<<<< HEAD
-                    <div id="dsa"></div>
->>>>>>> feature/day
-=======
-                    <div id="asd" data-role="collapsible">
-                      <h4>設備資訊</h4>
-                      <ul id="bdata" data-role="listview"></ul>
-                    </div>
-                    <div id="dsa"></div>
->>>>>>> release/debugSearch
->>>>>>> master
 
                     <div data-role="popup" id="dataMsg" data-theme="a">
                         <div style="padding:10px 20px;">
@@ -163,7 +147,7 @@
                             <li><a onclick="changePage();" href="group.html" id="groupImg" data-ajax="false"><img style="width:90%;" src="image/group.png" is="image"></a></li>
                             <li><a onclick="changePage();" href="day.html"  id="dayImg" data-ajax="false"><img style="width:90%;" src="image/day.png" is="image"></a></li>
                             <li><a onclick="changePage();" href="message.html" id="messageImg" data-ajax="false"><img style="width:90%;" src="image/message.png" is="image"></a></li>
-                            <li><a onclick="changePage();" href="setting.html" id="settingImg" data-ajax="false"><img style="width:90%;" src="image/setting.png" is="image"></a></li>
+                            <li><a onclick="changePage();" href="eread.html" id="ereadImg" data-ajax="false"><img style="width:90%;" src="image/eread.png" is="image"></a></li>
                         </ul>
                     </div>
                 </div>

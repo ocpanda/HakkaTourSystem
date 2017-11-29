@@ -21,7 +21,6 @@ module.exports = [
         "id": "cordova-plugin-device.DeviceProxy",
         "pluginId": "cordova-plugin-device",
         "runs": true
-<<<<<<< HEAD
     },
     {
         "file": "plugins/cordova-plugin-file/www/DirectoryEntry.js",
@@ -201,13 +200,8 @@ module.exports = [
         "merges": [
             "window.FileSystem"
         ]
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-=======
     },
     {
->>>>>>> master
         "file": "plugins/cordova-plugin-google-analytics/www/analytics.js",
         "id": "cordova-plugin-google-analytics.UniversalAnalytics",
         "pluginId": "cordova-plugin-google-analytics",
@@ -235,48 +229,18 @@ module.exports = [
         "id": "cordova-plugin-splashscreen.SplashScreenProxy",
         "pluginId": "cordova-plugin-splashscreen",
         "runs": true
-<<<<<<< HEAD
->>>>>>> feature/claclocation
-=======
->>>>>>> feature/day
-=======
-=======
->>>>>>> release/debugSearch
->>>>>>> master
     }
 ];
 module.exports.metadata = 
 // TOP OF METADATA
 {
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> feature/day
-=======
     "cordova-plugin-bluetoothle": "4.2.1",
->>>>>>> master
     "cordova-plugin-compat": "1.1.0",
     "cordova-plugin-device": "1.1.2",
     "cordova-plugin-file": "4.3.3",
     "cordova-plugin-google-analytics": "1.8.3",
     "cordova-plugin-splashscreen": "4.0.3",
     "cordova-plugin-whitelist": "1.2.2"
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-    "cordova-plugin-device": "1.1.2",
-    "cordova-plugin-google-analytics": "1.8.3",
-    "cordova-plugin-splashscreen": "4.0.3"
->>>>>>> feature/claclocation
-=======
->>>>>>> feature/day
-=======
-    "cordova-plugin-whitelist": "1.2.2",
-    "cordova-plugin-bluetoothle": "4.2.1",
-    "cordova-plugin-device": "1.1.2"
->>>>>>> release/debugSearch
->>>>>>> master
 }
 // BOTTOM OF METADATA
 });
