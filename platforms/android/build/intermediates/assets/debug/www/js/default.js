@@ -18,7 +18,7 @@ $('#goMap').click(function() {
 
 function imgProcess() {
 	var imgHeadler = 'http://140.130.35.62/hakka/hakkamanager';
-    var img = imgHeadler + allView[0].url;
+    var img = imgHeadler + allView[0].url + '.jpg';
     var imgWidth = document.documentElement.clientWidth;
     var imgHeight = document.documentElement.clientHeight/3;
     $('#Eximg').attr('src', img).attr('width', imgWidth).attr('height', imgHeight);
@@ -29,4 +29,5 @@ function wordProcess() {
     $('#forPY').html(allView[0].PinYin);
     $('#forJY').html(allView[0].Phonetic);
     $('#forUse').html(allView[0].Content);
+    $('#forDonor').html(allView[0].Donor);
 }

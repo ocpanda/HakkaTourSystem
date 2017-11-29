@@ -4,33 +4,6 @@
 	width: 100%;
 }
 
-.searchImgRight {
-	background-color: lightgray;
-	border: 1px solid black;
-	height: 100px;
-	width: auto;
-	font-weight: bold;
-	float: right;
-}
-
-.searchImgMiddle {
-	position: absolute
-	background-color: lightgray;
-	border: 1px solid black;
-	height: 100px;
-	width: auto;
-	font-weight: bold;
-}
-
-.searchImgLeft {
-	background-color: lightgray;
-	border: 1px solid black;
-	height: 100px;
-	width: auto;
-	font-weight: bold;
-	float: left;
-}
-
 .pageTowCss {
 	text-align: center;
 }
@@ -47,4 +20,15 @@
 .searchTextRight {
 	margin-right: 2.25%;
 	float: right;
+}
+
+#tiger>img {
+	position: relative;
+	-webkit-animation:move 3s infinite;
+	animation: move 3s infinite;
+}
+@keyframes move{
+	0% {transform: rotate(-20deg) rotateY(-30deg);}
+	50%{transform: rotate(20deg) rotateY(30deg);}
+	100%{transform: rotate(-20deg) rotateY(-30deg);}
 }
