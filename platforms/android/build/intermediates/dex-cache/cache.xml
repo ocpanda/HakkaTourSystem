@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        is-multidex="false"
+        jar="/Users/ocpanda/Documents/Programe Project/HakkaTourSystem/platforms/android/build/intermediates/exploded-aar/com.android.support/support-v4/24.0.0/jars/libs/internal_impl-24.0.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="fcaf463e10e69c1923ccf1edeba3b4196d239e00">
+        <dex dex="/Users/ocpanda/Documents/Programe Project/HakkaTourSystem/platforms/android/build/intermediates/pre-dexed/debug/internal_impl-24.0.0_a8978a60e3f721c8b9b753644cb0ae4c0b4572e0.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/ocpanda/Documents/Programe Project/HakkaTourSystem/platforms/android/build/intermediates/exploded-aar/com.google.android.gms/play-services-analytics-impl/10.2.1/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="7d67042688d34474a82fe4ef4c6514ef471377ef">
+        <dex dex="/Users/ocpanda/Documents/Programe Project/HakkaTourSystem/platforms/android/build/intermediates/pre-dexed/debug/com.google.android.gms-play-services-analytics-impl-10.2.1_b72e19f28c15e8a0bc179c10b78301a2bf387e61.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/ocpanda/Documents/Programe Project/HakkaTourSystem/platforms/android/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/10.2.1/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="19696dc358ac668e341f28c41e3387d61ccdb81d">
+        <dex dex="/Users/ocpanda/Documents/Programe Project/HakkaTourSystem/platforms/android/build/intermediates/pre-dexed/debug/com.google.android.gms-play-services-base-10.2.1_6eee924baa73bee159698929cabc3fd40ba860fa.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/ocpanda/Documents/Programe Project/HakkaTourSystem/platforms/android/build/intermediates/exploded-aar/com.android.support/support-v4/24.0.0/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="2f7e6e2dad1bccaf68a8820820adc6c0d5b96d37">
+        <dex dex="/Users/ocpanda/Documents/Programe Project/HakkaTourSystem/platforms/android/build/intermediates/pre-dexed/debug/com.android.support-support-v4-24.0.0_508ae022d3e42f2a9ee6a85f5317f454f99db586.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/ocpanda/Documents/Programe Project/HakkaTourSystem/platforms/android/build/intermediates/exploded-aar/com.google.android.gms/play-services-tasks/10.2.1/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="6003d64df88a6ce5e961fa2bad7f1b9b97689ac1">
+        <dex dex="/Users/ocpanda/Documents/Programe Project/HakkaTourSystem/platforms/android/build/intermediates/pre-dexed/debug/com.google.android.gms-play-services-tasks-10.2.1_b5dd0e0e1c9b4fb0e6255b7105fd4a96ad4c11d9.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/ocpanda/Documents/Programe Project/HakkaTourSystem/platforms/android/build/intermediates/exploded-aar/com.google.android.gms/play-services-tagmanager-v4-impl/10.2.1/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="efae381df589f3d4977c346c8a980f030315bb8b">
+        <dex dex="/Users/ocpanda/Documents/Programe Project/HakkaTourSystem/platforms/android/build/intermediates/pre-dexed/debug/com.google.android.gms-play-services-tagmanager-v4-impl-10.2.1_1ca505ffb502598cbd1817d1c0813fee6792120b.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/ocpanda/Documents/Programe Project/HakkaTourSystem/platforms/android/build/intermediates/exploded-aar/android/CordovaLib/unspecified/debug/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="b1dc15f3a744d5dc30b1258f7778965539780b36">
+        <dex dex="/Users/ocpanda/Documents/Programe Project/HakkaTourSystem/platforms/android/build/intermediates/pre-dexed/debug/CordovaLib-unspecified-debug_85bb7d42fb25c5963a572d819108c24fbe3ccd83.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/ocpanda/Documents/Programe Project/HakkaTourSystem/platforms/android/build/intermediates/exploded-aar/com.google.android.gms/play-services-analytics/10.2.1/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="c3c7f923e1df76640acb3a24823600f034a5d226">
+        <dex dex="/Users/ocpanda/Documents/Programe Project/HakkaTourSystem/platforms/android/build/intermediates/pre-dexed/debug/com.google.android.gms-play-services-analytics-10.2.1_9a0f8371c363d7fb62b3d4c986e48b34bd4db1ce.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/ocpanda/Library/Android/sdk/extras/android/m2repository/com/android/support/support-annotations/24.0.0/support-annotations-24.0.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="2943c74db6d4346ab8c6531adac91fa05c137c40">
+        <dex dex="/Users/ocpanda/Documents/Programe Project/HakkaTourSystem/platforms/android/build/intermediates/pre-dexed/debug/support-annotations-24.0.0_cf7b43501e4e1abd34ca8de14f6bb75e78928385.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/ocpanda/Documents/Programe Project/HakkaTourSystem/platforms/android/build/intermediates/exploded-aar/com.google.android.gms/play-services-basement/10.2.1/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="bdcc2a9572f18b8c90a3a157cab6cdfc97c6c736">
+        <dex dex="/Users/ocpanda/Documents/Programe Project/HakkaTourSystem/platforms/android/build/intermediates/pre-dexed/debug/com.google.android.gms-play-services-basement-10.2.1_6548b035772fbdda444e5c9638a54427a170a78f.jar" />
+    </item>
+
+</items>
