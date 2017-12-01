@@ -1,40 +1,18 @@
-
+@charset "UTF-8";
 
 .col{
     display: inline-block;
 }
 
 #ha{
-
     width: 100%;
-    height: 100%;
-    border: 1px ;
     font-size: 2vw;
-
-}
-
-#aa table{
-    width: 50%;
-    height: 50%;
-}
-#aa th{
-    width: 10%;
-    height: 30%;
-} 
-
-#aa td{
-    width: 30%;
-    height: 30%;
-}
-
-.a {
-    text-align: center;
 }
 
 .panel{
-    background: #CCFF99;
+    /*background: #efe9d0;*/
+    background: white;
 }
-
 .gradient {
     border: 1px solid black;
     width: 200px;
@@ -54,22 +32,26 @@ background: -webkit-linear-gradient(top, #494949 0%, #434242 31%, #393838 55%, #
 #vocabulary{
     font-size: 25px;
     background: #FFFFFF;
+    width: 90%;
+    height: 70%;
 }
 
-#vocabulary td{
-    padding-left: 20px;
-}
+.a {
+    text-align: left;
+    left: 0px;
+    width: 15%;
+    padding-left: 10px;
 
+}
+#kind,#hakka_risigned,#hakka_phoneticon,#chinese_risigned,#hakka_sentence,#voice,#chinese_translation{
+    width: 60%;
+    padding-left: 0px;
+
+}
 
 @media screen and (min-width: 768px){
     
-    #aa th{
-        font-size: 40px;
-    }
-    #aa td{
-       color: red;
-       font-size: 40px;
-   }
+   
     #vocabulary{
         font-size: 25px;
     }
@@ -78,13 +60,7 @@ background: -webkit-linear-gradient(top, #494949 0%, #434242 31%, #393838 55%, #
 }
 
 @media screen and (min-width: 992px){
-    #aa th{
-        font-size: 45px;
-    }
-    #aa td{
-       color: red;
-       font-size: 45px;
-   }
+    
     #vocabulary{
         font-size: 30px;
     }
@@ -92,13 +68,7 @@ background: -webkit-linear-gradient(top, #494949 0%, #434242 31%, #393838 55%, #
 }
 
 @media screen and (min-width: 1200px){
-    #aa th{
-        font-size: 55px;
-    }
-    #aa td{
-       color: red;
-       font-size: 55px;
-   }
+   
     #vocabulary{
         font-size: 35px;
     }

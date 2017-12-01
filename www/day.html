@@ -39,36 +39,17 @@
                         <tbody id="vocabulary" > 
                             
                         </tbody>
-                        
-                            
-                        
+     
                     </table>
+                    <center>
+                        <div>
+                            <button  id="star" onclick="fav();">加入最愛</button>
+                            <button  id="recordBtn" onclick="location.href='record.html'">學習紀錄</button> 
+                        </div>
+                    </center>
                 </div>
             
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-xs-2 col-sm-2 "></div>
-                            <div class="col-xs-4 col-sm-5 ">
-                                <button id="buton" value="0" onclick="btn(this.value);">四縣</button>
-                            </div> 
-                            
-                            <div class="col-xs-4 col-sm-4 ">
-                                <button id="buton1" value="1" onclick="btn(this.value);">海陸</button>
-                            </div> 
-                            
-                             <div class="row">
-                                <div class="col-xs-4 col-sm-4 ">
-                                <button id="buton2"  value="2" onclick="btn(this.value);">大埔</button>
-                                </div>
-                                <div class="col-xs-4 col-sm-4 " >
-                                    <button id="buton3" value="3"  onclick="btn(this.value);">饒平</button>
-                                </div>
-                                <div class="col-xs-4 col-sm-2 ">
-                                    <button id="buton4"  value="4" onclick="btn(this.value);">詔安</button>
-                                </div>
-                            </div>                 
-                        </div>
-                    </div>                                        
+                                                  
         </div>  
     </div>
                    
@@ -134,10 +115,7 @@
             </div>
         </div>
         <!-- <button id="test">按我</button> -->
-        <div>
-            <button id="star" onclick="fav();">加入最愛</button>
-            <button id="recordBtn" onclick="location.href='record.html'">學習紀錄</button>  
-        </div>
+        
         
     
     <div data-role="footer" data-position="fixed" data-fullscreen="true">
@@ -198,7 +176,7 @@
             $('#hakka_phoneticon').html(obj[value]['hakka_phoneticon']);
             $('#chinese_risigned').html(obj[value]['chinese_risigned']);
             $('#hakka_sentence').html(obj[value]['hakka_sentence']);
-            $('#voice').html("<audio class='gradient' controls='controls'><source src='"+obj[value]["voice"]+"' type='audio/mp3'></audio>");
+            $('#voice').html("<audio class='gradient' controlsList='nodownload' controls='controls'><source src='"+obj[value]["voice"]+"' type='audio/mp3'></audio>");
             $('#chinese_translation').html(obj[value]['chinese_translation']);
         
             record=value;
@@ -217,7 +195,7 @@
             var accent = ["種類","客語","發音","中文",
                         "英文","客語例句","中文例句","腔調","例句語音"];
             $.ajax({
-                url: 'http://140.130.35.62/csie40343142/hakka/vocabularyPrint/Vocabulary.php',
+                url: 'http://140.130.35.62/hakka/hakkamanager/php/UpdateDay.php',
                 type: 'POST',                           
                 dataType:'json',
 
@@ -231,7 +209,7 @@
                 $("#vocabulary").append("<tr><th class='a'>"+accent[2]+"</th><td id='hakka_phoneticon'>"+data[i]["hakka_phoneticon"]+"</td></tr>");
                 $("#vocabulary").append("<tr><th class='a'>"+accent[3]+"</th><td id='chinese_risigned'>"+data[i]["chinese_risigned"]+"</td></tr>");          
                 $("#vocabulary").append("<tr><th class='a'>"+accent[5]+"</th><td id='hakka_sentence'>"+data[i]["hakka_sentence"]+"</td></tr>");
-                $("#vocabulary").append("<tr><th class='a'>"+accent[8]+"</th><td id='voice'><audio class='gradient' controls='controls'><source src='"+data[i]["voice"]+"' type='audio/mp3'></audio></td></tr>");
+                $("#vocabulary").append("<tr><th class='a'>"+accent[8]+"</th><td id='voice'><audio class='gradient'controlsList='nodownload' controls='controls'><source src='"+data[i]["voice"]+"' type='audio/mp3'></audio></td></tr>");
                 $("#vocabulary").append("<tr><th class='a'>"+accent[6]+"</th><td id='chinese_translation'>"+data[i]["chinese_translation"]+"</td></tr>");
                 
                 },  
@@ -364,7 +342,7 @@
             //读取文件失败响应
             function errorCallback(error){
               //console.log("文件读取失败!");
-              check = 0;
+              
             }
         }    
         function fav(){          
@@ -403,6 +381,8 @@
             readFile('log.txt');
             readFile('log.txt');         
         }
+
+        
     </script>
                                 
 </div>

@@ -124,34 +124,6 @@
     <script type="text/javascript" src="cordova.js" defer></script>
     <script type="text/javascript" src="js/popupExplan.js" defer></script>
     <script type="text/javascript">
-            var obj;      
-            var accent = ["種類","客語","發音","中文",
-                        "英文","客語例句","中文例句","腔調","例句語音"];
-            // $.ajax({
-            //     url: 'http://140.130.35.62/csie40343142/hakka/vocabularyPrint/Vocabulary.php',
-            //     type: 'POST',                           
-            //     dataType:'json',
-
-            //     success: function(data){ 
-            //     obj=data;
-            //     console.log(data);                 
-            //     $("#vocabulary").append("<tr><th class='a'>"+accent[0]+"</th><td id='kind' fontsize=15 >"+data[0]['kind']+"</td></tr>");
-            //     $("#vocabulary").append("<tr><th class='a'>"+accent[1]+"</th><td id='hakka_risigned'>"+data[0]["hakka_risigned"]+"</td></tr>");
-            //     $("#vocabulary").append("<tr><th class='a'>"+accent[2]+"</th><td id='hakka_phoneticon'>"+data[0]["hakka_phoneticon"]+"</td></tr>");
-            //     $("#vocabulary").append("<tr><th class='a'>"+accent[3]+"</th><td id='chinese_risigned'>"+data[0]["chinese_risigned"]+"</td></tr>");          
-            //     $("#vocabulary").append("<tr><th class='a'>"+accent[5]+"</th><td id='hakka_sentence'>"+data[0]["hakka_sentence"]+"</td></tr>");
-            //     $("#vocabulary").append("<tr><th class='a'>"+accent[8]+"</th><td id='voice'><audio class='gradient' controls='controls'><source src='"+data[0]["voice"]+"' type='audio/mp3'></audio></td></tr>");
-            //     $("#vocabulary").append("<tr><th class='a'>"+accent[6]+"</th><td id='chinese_translation'>"+data[0]["chinese_translation"]+"</td></tr>");
-                
-            //     },  
-            //     error: function(xhr, ajaxOptions, thrownError){
-            //     alert("無法連線");
-            //     console.log(xhr.status); 
-            //     console.log(thrownError); 
-            //     }
-            // });
-    </script>
-    <script type="text/javascript">
         var cur_id="inDayA";
         var record=0;
         function inDay(result){
@@ -201,8 +173,6 @@
         }
     </script>
     <script type="text/javascript">
-        
-        
         function getArgs() { 
            var args = new Object(); 
            //location = volcab.htm?vol=vol&accent=data" 
@@ -217,61 +187,35 @@
               args[argname] = decodeURIComponent(value); 
            } 
            return args; 
-        } 
-        var args = getArgs(); 
-        // alert(args.vol);
-        // alert(args.accent);
-
-        readFile('log.txt');
-        function readFile(fileEntry) {
-
-              //只用LocalFileSystem.PERSISTENT 會有問題
-            document.addEventListener("deviceready", function() { 
-                window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, successCallback, errorCallback);
-            }, false);
-            function successCallback(fs) {
-
-                fs.root.getFile('log.txt', {}, function(fileEntry) {
-
-                    fileEntry.file(function(file) {
-                    var reader = new FileReader();
-
-                        reader.onloadend = function(e) {
-                            $("#record-body").children().remove();
-                            console.log(JSON.parse(this.result));
-                            var str = JSON.parse(this.result);
-                            let i = 0;
-                            var rec;
-                            var accent;
-                            while(i < str.length){
-                                rec = str[i]['chinese_risigned'];
-                               
-                                if(rec == args.vol){
-                                    $("#vocabulary").children().remove();
-                                   $("#vocabulary").append("<tr><th class='a'>"+"種類"+"</th><td id='kind' fontsize=15 >"+str[i]['kind']+"</td></tr>");
-                                   $("#vocabulary").append("<tr><th class='a'>"+"客語"+"</th><td id='hakka_risigned' fontsize=15 >"+str[i]['hakka_risigned']+"</td></tr>");
-                                   $("#vocabulary").append("<tr><th class='a'>"+"發音"+"</th><td id='hakka_phoneticon' fontsize=15 >"+str[i]['hakka_phoneticon']+"</td></tr>");
-                                   $("#vocabulary").append("<tr><th class='a'>"+"中文"+"</th><td id='chinese_risigned' fontsize=15 >"+rec+"</td></tr>"); 
-                                   $("#vocabulary").append("<tr><th class='a'>"+"客語例句"+"</th><td id='hakka_sentence' fontsize=15 >"+str[i]['hakka_sentence']+"</td></tr>");
-                                   $("#vocabulary").append("<tr><th class='a'>"+"例句語音"+"</th><td id='voice'><audio class='gradient' controls='controls'><source src='"+str[i]['voice']+"' type='audio/mp3'></audio></td></tr>");
-                                   $("#vocabulary").append("<tr><th class='a'>"+"中文例句"+"</th><td id='chinese_translation' fontsize=15 >"+str[i]['chinese_translation']+"</td></tr>");
-                                   
-                                }
-                                    
-                                i++;                             
-                            }
-                           
-                        };
-                        reader.readAsText(file);
-                    }, errorCallback);
-                }, errorCallback);
-        }           
-            //读取文件失败响应
-        function errorCallback(error){
-          //console.log("文件读取失败!");
-          check = 0;
         }
-        }                         
+            var obj;      
+            var args = getArgs(); 
+            let data = {vol: args.vol,kind: args.kind};
+            console.log(data);
+            $.ajax({
+              url: "http://140.130.35.62/hakka/hakkamanager/php/sentvolcabdata.php",
+              type: "POST",
+              data: data,
+              dataType: 'json',
+              success: function(data){ 
+                  obj = data;
+                  console.log(data);     
+                    $("#vocabulary").children().remove();
+                    $("#vocabulary").append("<tr><th class='a'>"+"種類"+"</th><td id='kind' fontsize=15 >"+data[0]['kind']+"</td></tr>");
+                    $("#vocabulary").append("<tr><th class='a'>"+"客語"+"</th><td id='hakka_risigned' fontsize=15 >"+data[0]['hakka_risigned']+"</td></tr>");
+                    $("#vocabulary").append("<tr><th class='a'>"+"發音"+"</th><td id='hakka_phoneticon' fontsize=15 >"+data[0]['hakka_phoneticon']+"</td></tr>");
+                    $("#vocabulary").append("<tr><th class='a'>"+"中文"+"</th><td id='chinese_risigned' fontsize=15 >"+data[0]['chinese_risigned']+"</td></tr>"); 
+                    $("#vocabulary").append("<tr><th class='a'>"+"客語例句"+"</th><td id='hakka_sentence' fontsize=15 >"+data[0]['hakka_sentence']+"</td></tr>");
+                    $("#vocabulary").append("<tr><th class='a'>"+"例句語音"+"</th><td id='voice'><audio class='gradient' controls='controls'><source src='"+data[0]['voice']+"' type='audio/mp3'></audio></td></tr>");
+                    $("#vocabulary").append("<tr><th class='a'>"+"中文例句"+"</th><td id='chinese_translation' fontsize=15 >"+data[0]['chinese_translation']+"</td></tr>");   
+
+                  //alert("建立成功!");
+                },
+              error: function(xhr, ajaxOptions, thrownError){
+                  alert("無法連線");
+              }
+            });
+           
     </script>
                                 
 </div>

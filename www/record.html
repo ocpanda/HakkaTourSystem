@@ -138,15 +138,17 @@
                             $("#record-body").children().remove();
                             console.log(JSON.parse(this.result));
                             var str = JSON.parse(this.result);
-                            var i = 0;
+                            let i = 0;
                             var rec;
                             var f = 1;
                             while(i < str.length){
                                 rec = str[i]['chinese_risigned'];
-                                    accent = str[i]['accent'];
-                                    $("#record-body").append("<li id="+rec+" onclick='getPaging(this)'>"+rec+"</li>");
+                                var a  = str[i]['kind'];
+                                console.log(a);
+                                    $("#record-body").prepend("<hr>");
+                                    $("#record-body").prepend("<li id='"+rec+"' kind='"+str[i]['kind'][0]+"'value='"+i+"' onclick='getPaging(this)'>"+rec+"</li>");
                                     //$("#record-body").append("<br>");
-                                    $("#record-body").append("<hr>");
+                                    
                                 i++;                             
                             }
                            
@@ -156,10 +158,10 @@
                 }, errorCallback);
         }           
             //读取文件失败响应
-        function errorCallback(error){
-          //console.log("文件读取失败!");
-          check = 0;
-        }
+            function errorCallback(error){
+              //console.log("文件读取失败!");
+              check = 0;
+            }
         }
         
         function removeFile() {
@@ -185,9 +187,14 @@
            window.location.reload();
         }
         function getPaging(data){
-           var url = "volcab.html";  
-           var vol = data.id;        
-           window.open(encodeURI(url +"?vol="+ vol));   
+           let url = "volcab.html";  
+           let vol = $(data).attr("id");
+           let data_kind = $(data).attr("kind"); 
+           let data_value = $(data).attr("value");
+           console.log(vol);       
+           console.log(data_kind);       
+           console.log(data_value);       
+           window.open(encodeURI(url +"?vol="+ vol+"&kind="+data_kind));   
         }
         
     </script>
