@@ -27,11 +27,11 @@
                             <tr>
                             <div data-role="navbar" id="head_navbar">
                                 <ul class="footNavBar">
-                                    <li id="inDayA" value="0" onclick="inDay(this);"><a href="#" id="btnDayA" data-ajax="false"><img style="width:90%;" id="inDay_A" src="image/day/test.png" is="image"></a></li>
-                                    <li id="inDayB" value="1" onclick="inDay(this);"><a href="#" id="btnDayB" data-ajax="false"><img style="width:90%;" id="inDay_B"  src="image/search.png" is="image"></a></li>
-                                    <li id="inDayC" value="2" onclick="inDay(this);"><a href="#" id="btnDayC" data-ajax="false"><img style="width:90%;" id="inDay_C" src="image/group.png" is="image"></a></li>
-                                    <li id="inDayD" value="3" onclick="inDay(this);"><a href="#" id="btnDayD" data-ajax="false"><img style="width:90%;" id="inDay_D" src="image/message.png" is="image"></a></li>
-                                    <li id="inDayE" value="4" onclick="inDay(this);"><a href="#" id="btnDayE" data-ajax="false"><img style="width:90%;" id="inDay_E" src="image/setting.png" is="image"></a></li>
+                                    <li id="inDayA" value="0" onclick="inDay(this);"><a href="#" id="btnDayA" data-ajax="false"><img style="width:90%;" id="inDay_A" src="image/day/sw_btn.png" is="image"></a></li>
+                                    <li id="inDayB" value="1" onclick="inDay(this);"><a href="#" id="btnDayB" data-ajax="false"><img style="width:90%;" id="inDay_B"  src="image/day/btn1.png" is="image"></a></li>
+                                    <li id="inDayC" value="2" onclick="inDay(this);"><a href="#" id="btnDayC" data-ajax="false"><img style="width:90%;" id="inDay_C" src="image/day/btn2.png" is="image"></a></li>
+                                    <li id="inDayD" value="3" onclick="inDay(this);"><a href="#" id="btnDayD" data-ajax="false"><img style="width:90%;" id="inDay_D" src="image/day/btn3.png" is="image"></a></li>
+                                    <li id="inDayE" value="4" onclick="inDay(this);"><a href="#" id="btnDayE" data-ajax="false"><img style="width:90%;" id="inDay_E" src="image/day/btn4.png" is="image"></a></li>
                                 </ul>
                             </div>
                             </tr>
@@ -129,34 +129,34 @@
         function inDay(result){
            let id = result.id; 
            let value = result.value;       
-           $("#inDay_A").attr("src","image/day/test.png");
-           $("#inDay_B").attr("src","image/search.png");
-           $("#inDay_C").attr("src","image/group.png");
-           $("#inDay_D").attr("src","image/message.png");
-           $("#inDay_E").attr("src","image/setting.png");
+            $("#inDay_A").attr("src","image/day/btn.png");
+           $("#inDay_B").attr("src","image/day/btn1.png");
+           $("#inDay_C").attr("src","image/day/btn2.png");
+           $("#inDay_D").attr("src","image/day/btn3.png");
+           $("#inDay_E").attr("src","image/day/btn4.png");
            console.log(value);
            if(id != cur_id){
 
                switch(id){
                 case "inDayA":
                     console.log("A");
-                    $("#inDay_A").attr("src","image/day/btn.png");
+                   $("#inDay_A").attr("src","image/day/sw_btn.png");
                     break;
                 case "inDayB":
                     console.log("B");
-                    $("#inDay_B").attr("src","image/day/btn1.png");
+                    $("#inDay_B").attr("src","image/day/sw_btn1.png");
                     break;
                 case "inDayC":
                     console.log("C");
-                    $("#inDay_C").attr("src","image/day/btn2.png");
+                    $("#inDay_C").attr("src","image/day/sw_btn2.png");
                     break;
                 case "inDayD":
                     console.log("D");
-                    $("#inDay_D").attr("src","image/day/btn3.png");
+                    $("#inDay_D").attr("src","image/day/sw_btn3.png");
                     break;
                 default:
                     console.log("E");
-                    $("#inDay_E").attr("src","image/day/btn4.png");
+                    $("#inDay_E").attr("src","image/day/sw_btn4.png");
                     break;
                }
                cur_id = id;                    
@@ -201,13 +201,13 @@
                   obj = data;
                   console.log(data);     
                     $("#vocabulary").children().remove();
-                    $("#vocabulary").append("<tr><th class='a'>"+"種類"+"</th><td id='kind' fontsize=15 >"+data[0]['kind']+"</td></tr>");
-                    $("#vocabulary").append("<tr><th class='a'>"+"客語"+"</th><td id='hakka_risigned' fontsize=15 >"+data[0]['hakka_risigned']+"</td></tr>");
-                    $("#vocabulary").append("<tr><th class='a'>"+"發音"+"</th><td id='hakka_phoneticon' fontsize=15 >"+data[0]['hakka_phoneticon']+"</td></tr>");
-                    $("#vocabulary").append("<tr><th class='a'>"+"中文"+"</th><td id='chinese_risigned' fontsize=15 >"+data[0]['chinese_risigned']+"</td></tr>"); 
-                    $("#vocabulary").append("<tr><th class='a'>"+"客語例句"+"</th><td id='hakka_sentence' fontsize=15 >"+data[0]['hakka_sentence']+"</td></tr>");
-                    $("#vocabulary").append("<tr><th class='a'>"+"例句語音"+"</th><td id='voice'><audio class='gradient' controls='controls'><source src='"+data[0]['voice']+"' type='audio/mp3'></audio></td></tr>");
-                    $("#vocabulary").append("<tr><th class='a'>"+"中文例句"+"</th><td id='chinese_translation' fontsize=15 >"+data[0]['chinese_translation']+"</td></tr>");   
+                    $("#vocabulary").append("<tr><th class='a'><img style='width:90%;' id='inDay_kind' src='image/day/kind.png' is='image'></th><td id='kind' fontsize=15 >"+data[0]['kind']+"</td></tr>");
+                    $("#vocabulary").append("<tr><th class='a'><img style='width:90%;' id='inDay_hakka_risigned' src='image/day/hakka_risigned.png' is='image'></th><td id='hakka_risigned'>"+data[0]["hakka_risigned"]+"</td></tr>");
+                    $("#vocabulary").append("<tr><th class='a'><img style='width:90%;' id='inDay_hakka_phoneticon' src='image/day/hakka_phoneticon.png' is='image'></th><td id='hakka_phoneticon'>"+data[0]["hakka_phoneticon"]+"</td></tr>");
+                    $("#vocabulary").append("<tr><th class='a'><img style='width:90%;' id='inDay_chinese_risigned' src='image/day/chinese_risigned.png' is='image'></th><td id='chinese_risigned'>"+data[0]["chinese_risigned"]+"</td></tr>");          
+                    $("#vocabulary").append("<tr><th class='a'><img style='width:90%;' id='inDay_hakka_sentence' src='image/day/hakka_sentence.png' is='image'></th><td id='hakka_sentence'>"+data[0]["hakka_sentence"]+"</td></tr>");
+                    $("#vocabulary").append("<tr><th class='a'><img style='width:90%;' id='inDay_voice' src='image/day/voice.png' is='image'></th><td id='voice'><audio class='gradient'controlsList='nodownload' controls='controls'><source src='"+data[0]["voice"]+"' type='audio/mp3'></audio></td></tr>");
+                    $("#vocabulary").append("<tr><th class='a'><img style='width:90%;' id='inDay_chinese_translation' src='image/day/chinese_translation.png' is='image'></th><td id='chinese_translation'>"+data[0]["chinese_translation"]+"</td></tr>");   
 
                   //alert("建立成功!");
                 },

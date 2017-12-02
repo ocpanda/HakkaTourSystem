@@ -78,7 +78,7 @@ background: -webkit-linear-gradient(top, #494949 0%, #434242 31%, #393838 55%, #
 }
 #kind,#hakka_risigned,#hakka_phoneticon,#chinese_risigned,#hakka_sentence,#voice,#chinese_translation{
     width: 60%;
-    padding-left: 0px;
+    padding-left: 10px;
 
 }
 @media screen and (max-width: 768px){
