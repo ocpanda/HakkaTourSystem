@@ -42,14 +42,33 @@ background: -webkit-linear-gradient(top, #494949 0%, #434242 31%, #393838 55%, #
     left: 0px;
     width: 15%;
     padding-left: 10px;
-
+    height: 150px;
 }
 #kind,#hakka_risigned,#hakka_phoneticon,#chinese_risigned,#hakka_sentence,#voice,#chinese_translation{
     width: 60%;
-     padding-left: 10px;
+    padding-left: 10px;
+    font-size: 40px;
+    text-align:    left;
+    text-shadow:   1px 1px #cccccc;
+    margin-left: 100px;
 
 }
+#inDay_kind,#inDay_hakka_risigned,#inDay_hakka_phoneticon,#inDay_chinese_risigned,#inDay_hakka_sentence,#inDay_voice,#inDay_chinese_translation{
+    width: 150px;
+    height: 100px;
+}
+@media screen and (max-width: 768px){
+    
+    #vocabulary{
+        font-size: 25px;
+    }
 
+    
+    .panel-title{
+        font-size: 30px;
+    }
+
+}
 @media screen and (min-width: 768px){
     
    
@@ -57,7 +76,13 @@ background: -webkit-linear-gradient(top, #494949 0%, #434242 31%, #393838 55%, #
         font-size: 25px;
     }
 
-
+    .panel-title{
+        font-size: 40px;
+    }
+    #inDay_kind,#inDay_hakka_risigned,#inDay_hakka_phoneticon,#inDay_chinese_risigned,#inDay_hakka_sentence,#inDay_voice,#inDay_chinese_translation{
+        width: 350px;
+        height: 100px;
+    }
 }
 
 @media screen and (min-width: 992px){
@@ -65,7 +90,13 @@ background: -webkit-linear-gradient(top, #494949 0%, #434242 31%, #393838 55%, #
     #vocabulary{
         font-size: 30px;
     }
-
+    .panel-title{
+        font-size: 50px;
+    }
+    #inDay_kind,#inDay_hakka_risigned,#inDay_hakka_phoneticon,#inDay_chinese_risigned,#inDay_hakka_sentence,#inDay_voice,#inDay_chinese_translation{
+        width: 350px;
+        height: 100px;
+    }
 }
 
 @media screen and (min-width: 1200px){
@@ -73,6 +104,11 @@ background: -webkit-linear-gradient(top, #494949 0%, #434242 31%, #393838 55%, #
     #vocabulary{
         font-size: 35px;
     }
-
-    
+    .panel-title{
+        font-size: 60px;
+    }
+    #inDay_kind,#inDay_hakka_risigned,#inDay_hakka_phoneticon,#inDay_chinese_risigned,#inDay_hakka_sentence,#inDay_voice,#inDay_chinese_translation{
+        width: 350px;
+        height: 100px;
+    }
 }

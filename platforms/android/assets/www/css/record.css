@@ -13,6 +13,9 @@ hr{
     background: orange;
     color: white;
 }
+.panel-title{
+    font-size: 40px;
+}
 .col{
     display: inline-block;
 }
@@ -24,13 +27,15 @@ hr{
 #recordBtn{
     font-size: 40px;
 }
-
+#panel-body  {
+    height:150px;
+}
 #record-body li {
     display: block;
     
-    font-size: 30px;
+    font-size: 50px;
     
-    height:50px;
+    height:70px;
     padding-top:2px;
     color: black;
     text-decoration: none;
@@ -48,11 +53,11 @@ hr{
 
 
 .panel-title{
-    font-size: 25px;
+    font-size: 40px;
 }
 
 #remo{
-    font-size: 25px;
+    font-size: 40px;
     float: right;
 }
 @media screen and (min-width: 480px){
@@ -69,7 +74,13 @@ hr{
     #recordBtn{
         font-size: 25px;
     }
+    .panel-title{
+    font-size: 35px;
+    }
 
+    #remo{
+        font-size: 35px;
+    }
 }
 @media screen and (min-width: 720px){
     
@@ -84,6 +95,13 @@ hr{
 
     #recordBtn{
         font-size: 35px;
+    }
+    .panel-title{
+    font-size: 40px;
+    }
+
+    #remo{
+        font-size: 40px;
     }
 
 }
@@ -103,6 +121,13 @@ hr{
     #recordBtn{
         font-size: 45px;
     }
+    .panel-title{
+    font-size: 45px;
+    }
+
+    #remo{
+        font-size: 45px;
+    }
 }
 
 @media screen and (min-width: 1200px){
@@ -119,5 +144,12 @@ hr{
 
     #recordBtn{
         font-size: 55px;
+    }
+    .panel-title{
+    font-size: 50px;
+    }
+
+    #remo{
+        font-size: 50px;
     }
 }

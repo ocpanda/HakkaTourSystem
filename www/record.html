@@ -145,8 +145,8 @@
                             
                             while(i < str.length){
                                 rec = str[i]['chinese_risigned'];
-                                $("#record-body").prepend("<hr>");
-                                $("#record-body").prepend("<li id='"+rec+"' kind='"+str[i]['kind'][0]+"'value='"+i+"' onclick='getPaging(this)'>"+rec+"</li>");
+                                // $("#record-body").prepend("<hr>");
+                                $("#record-body").prepend("<li id='"+rec+"' kind='"+str[i]['kind'][0]+"'value='"+i+"' onclick='getPaging(this)'>"+rec+"</li><hr>");
                                 i++;                             
                             }
                            
@@ -218,8 +218,7 @@
             //     removeFile();
             //     window.location.reload();
             // }else{       
-            //     removeFile();
-            //     createFile();
+                
             //     for(let i = 0 ; i < recorddata.length;i++){
                     
             //         var string = [{'kind':recorddata[i]['kind'],
@@ -288,7 +287,7 @@
                         var check = fileWriter.length;
                         //alert(check);
                         alert("writefile :" + dataObj);
-                        if(check){
+                        if(n != 0){
                           fileWriter.seek(fileWriter.length-1);
                           var st = ",{" + '"' + 'kind'+'"' + ':['+ '"' + recorddata[n]['kind']+ '"' +'],'+ '"' + 'hakka_risigned' + '"' + ':[' + '"' + recorddata[n]['hakka_risigned'] + '"' +
                           '],'+'"' + 'chinese_risigned' + '"' + ':['+ '"' + 
@@ -296,7 +295,8 @@
                           var data = new Blob([st], { type: 'text/plain' });
                           fileWriter.write(data);
                         }else{
-                            
+                            fileWriter.seek(0);
+                            fileWriter.truncate(0);
                             fileWriter.write(dataObj);  
                         }
                         
