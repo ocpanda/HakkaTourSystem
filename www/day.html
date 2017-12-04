@@ -129,9 +129,6 @@
             </ul>
         </div>
     </div>
-    <script type="text/javascript" scr="js/day.js"></script>
-    <script type="text/javascript" src="js/file.js"></script>
-    <script type="text/javascript" src="cordova.js" defer></script>
     <script type="text/javascript" src="js/popupExplan.js" defer></script>
     <script type="text/javascript">
         var cur_id="inDayA";
@@ -192,8 +189,8 @@
             var i=0;
             var check = 0;
             var check_data;
-            var accent = ["種類","客語","發音","中文",
-                        "英文","客語例句","中文例句","腔調","例句語音"];
+            /*var accent = ["種類","客語","發音","中文",
+                        "英文","客語例句","中文例句","腔調","例句語音"];*/
             $.ajax({
                 url: 'http://140.130.35.62/hakka/hakkamanager/php/UpdateDay.php',
                 type: 'POST',                           
@@ -203,9 +200,9 @@
                
                 obj=data;
                 check_data = data[0]["chinese_risigned"];
-                     console.log(data);                 
-                     // <img style='width:90%;' id='inDay_A' src='image/day/sw_btn.png' is='image'>
-                $("#vocabulary").append("<tr><th class='a'><img style='width:90%;' id='inDay_kind' src='image/day/kind.png' is='image'></th><td id='kind' fontsize=15 >"+data[0]['kind']+"</td></tr>");
+                     //console.log(data);                 
+                    
+                $("#vocabulary").append("<tr><th class='a' style='align='right''><img style='width:90%;' id='inDay_kind' src='image/day/kind.png' is='image'></th><td id='kind' fontsize=15 >"+data[0]['kind']+"</td></tr>");
                 $("#vocabulary").append("<tr><th class='a'><img style='width:90%;' id='inDay_hakka_risigned' src='image/day/hakka_risigned.png' is='image'></th><td id='hakka_risigned'>"+data[0]["hakka_risigned"]+"</td></tr>");
                 $("#vocabulary").append("<tr><th class='a'><img style='width:90%;' id='inDay_hakka_phoneticon' src='image/day/hakka_phoneticon.png' is='image'></th><td id='hakka_phoneticon'>"+data[0]["hakka_phoneticon"]+"</td></tr>");
                 $("#vocabulary").append("<tr><th class='a'><img style='width:90%;' id='inDay_chinese_risigned' src='image/day/chinese_risigned.png' is='image'></th><td id='chinese_risigned'>"+data[0]["chinese_risigned"]+"</td></tr>");          
@@ -220,28 +217,16 @@
                 console.log(thrownError); 
                 }
             });
-           // $("#ha").table("refresh");
+           
 
     </script>
     <script type="text/javascript">
-        var data=0;
-        function btn(value){    
-            // console.log(obj);
-            // $('#kind').html(obj[value]['kind']);
-            // $('#hakka_risigned').html(obj[value]['hakka_risigned']);
-            // $('#hakka_phoneticon').html(obj[value]['hakka_phoneticon']);
-            // $('#chinese_risigned').html(obj[value]['chinese_risigned']);
-            // $('#hakka_sentence').html(obj[value]['hakka_sentence']);
-            // $('#voice').html("<audio class='gradient' controls='controls'><source src='"+obj[value]["voice"]+"' type='audio/mp3'></audio>");
-            // $('#chinese_translation').html(obj[value]['chinese_translation']);
-            // record=value;
-
-        }
-
+        
+       var size = 50*1024*1024; 
         function createAndWriteFile(){
               //持久化数据保存
                document.addEventListener("deviceready", function() { 
-                window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, successCallback, errorCallback);
+                window.requestFileSystem(LocalFileSystem.PERSISTENT, size, successCallback, errorCallback);
             }, false);
 
                function successCallback(fs) {
@@ -268,8 +253,9 @@
         }
 
         function writeFile(fileEntry, dataObj, isAppend) {
+            var size = 50*1024*1024;
             document.addEventListener("deviceready", function() { 
-                window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, successCallback, errorCallback);
+                window.requestFileSystem(LocalFileSystem.PERSISTENT, size, successCallback, errorCallback);
             }, false);
 
            function successCallback(fs) {
@@ -310,8 +296,6 @@
            }
         }
         function readFile(fileEntry) {
-
-              //只用LocalFileSystem.PERSISTENT 會有問題
             document.addEventListener("deviceready", function() { 
                 window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, successCallback, errorCallback);
             }, false);

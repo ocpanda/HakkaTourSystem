@@ -12,6 +12,7 @@
 .panel{
     /*background: #efe9d0;*/
     background: white;
+    height: 70%;
 }
 .gradient {
     border: 1px solid black;

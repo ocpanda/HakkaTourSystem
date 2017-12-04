@@ -1,6 +1,9 @@
-
+@charset "UTF-8";
 hr{
     width: 100%;
+     height:1px;
+     border:none;
+     border-top:1px solid #555555;
 }
 #remove{
     width: 100%;
@@ -15,11 +18,11 @@ hr{
 }
 
 #dayBtn{
-    font-size: 25px;
+    font-size: 40px;
 }
 
 #recordBtn{
-    font-size: 25px;
+    font-size: 40px;
 }
 
 #record-body li {
@@ -43,55 +46,77 @@ hr{
 }
 
 
-#record{
-    font-size: 25px;
-    background: #FFFFFF;
-}
-
 .panel-title{
     font-size: 25px;
 }
 
-
-
-@media screen and (min-width: 768px){
+#remo{
+    font-size: 25px;
+    float: right;
+}
+@media screen and (min-width: 480px){
     
-    
-    #record{
-        font-size: 25px;
-    }
     #remove{
         font-size: 50px;
         height: 120px;
         padding-bottom: 30px;
+    }
+    #dayBtn{
+    font-size: 25px;
+    }
+
+    #recordBtn{
+        font-size: 25px;
+    }
+
+}
+@media screen and (min-width: 720px){
+    
+    #remove{
+        font-size: 50px;
+        height: 120px;
+        padding-bottom: 30px;
+    }
+    #dayBtn{
+    font-size: 35px;
+    }
+
+    #recordBtn{
+        font-size: 35px;
     }
 
 }
 
 @media screen and (min-width: 992px){
    
-    #record{
-        font-size: 30px;
-    }
 
-   
     #remove{
         font-size: 60px;
         height: 170px;
         padding-bottom: 100px;
+    }
+    #dayBtn{
+    font-size: 45px;
+    }
+
+    #recordBtn{
+        font-size: 45px;
     }
 }
 
 @media screen and (min-width: 1200px){
     
-    #record{
-        font-size: 35px;
-    }
-
-    
+ 
     #remove{
         font-size: 60px;
         height: 170px;
         padding-bottom: 100px;
+    }
+    #dayBtn{
+    font-size: 55px;
+    }
+
+    #recordBtn{
+        font-size: 55px;
     }
 }

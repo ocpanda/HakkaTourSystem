@@ -104,7 +104,7 @@
 
         <div>
             <button id="remove" onclick="deletefile();">刪除紀錄</button>  
-            <!-- <button id="remove" onclick="remove();">刪除</button> -->  
+            <button id="remove" onclick="remove();">刪除</button>  
         </div>
     <div data-role="footer" data-position="fixed" data-fullscreen="true">
         <div data-role="navbar">
@@ -117,85 +117,12 @@
             </ul>
         </div>
     </div>
-    <script type="text/javascript" src="cordova.js" defer></script>
+    
     <script type="text/javascript" src="js/popupExplan.js" defer></script>
     <script type="text/javascript">
         readFile('log.txt');
         var recorddata;       
         //读取文件
-
-        function createFile(){
-              //持久化数据保存
-               document.addEventListener("deviceready", function() { 
-                window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, successCallback, errorCallback);
-            });
-
-               function successCallback(fs) {
-
-                  fs.root.getFile('log.txt', {create: true,exclusive:false}, function(fileEntry) {
-
-                     fileEntry.createWriter(function(fileWriter) {
-                        fileWriter.onwriteend = function(e) {
-                           alert('Write completed.');
-                        };
-
-                        fileWriter.onerror = function(e) {
-                           //alert('Write failed: ' + e.toString());
-                        };
-                     }, errorCallback);
-
-                  }, errorCallback);
-
-               }
-
-               function errorCallback(error) {
-                  //alert("ERROR: " + error.code)
-               }
-        }
-        
-        
-        function writeFile(fileEntry, dataObj , datalength) {
-            document.addEventListener("deviceready", function() { 
-                window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, successCallback, errorCallback);
-            }, false);
-            
-           function successCallback(fs) {
-
-              fs.root.getFile('log.txt', {create: true , exclusive:false}, function(fileEntry) {
-
-                 fileEntry.createWriter(function(fileWriter) {
-                    fileWriter.onwriteend = function(e) {
-                        //alert('Write completed.');
-                       
-                    };
-
-                    fileWriter.onerror = function(e) {
-                       alert('Write failed: ' + e.toString());
-                    };                   
-                        var check = fileWriter.length;
-
-                        if(check){
-                          fileWriter.seek(fileWriter.length-1);
-                          var st = ",{" + '"' + 'kind'+'"' + ':['+ '"' + recorddata[datalength]['kind']+ '"' +'],'+ '"' + 'hakka_risigned' + '"' + ':[' + '"' + recorddata[datalength]['hakka_risigned'] + '"' +
-                          '],'+'"' + 'chinese_risigned' + '"' + ':['+ '"' + 
-                          recorddata[datalength]['chinese_risigned'] + '"' + ']'+"}]";
-                          var data = new Blob([st], { type: 'text/plain' });
-                          fileWriter.write(data);
-                        }else{
-                          fileWriter.write(dataObj);  
-                        }
-                    
-                    
-                 }, errorCallback);
-
-              }, errorCallback);
-
-           }
-
-           function errorCallback(error) {
-              //alert("ERROR: " + error.code)
-           }
-        }
         function readFile(fileEntry) {
 
             document.addEventListener("deviceready", function() { 
@@ -245,21 +172,22 @@
             }
         });
         function removeFile() {
-            var type = window.TEMPORARY;
-            var size = 5*1024*1024;
+           
+            var size = 50*1024*1024;
             document.addEventListener("deviceready", function() { 
-                window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, successCallback, errorCallback);
+                window.requestFileSystem(LocalFileSystem.PERSISTENT, size, successCallback, errorCallback);
             }, false);
             function successCallback(fs) {
             fs.root.getFile('log.txt', {create: false}, function(fileEntry) {
 
                     fileEntry.remove(function() {
                     //alert('File removed.');
+                    createFile();
                     }, errorCallback);
                 }, errorCallback);
             }
            function errorCallback(error) {
-              //alert("ERROR: " + error.code)
+              alert("ERROR: " + error.code)
            }     
         }
        
@@ -275,6 +203,7 @@
         }
         function deletefile(){
             if(confirm("確實要刪除紀錄嗎?")){
+
                 removeFile();
                 alert("紀錄已經刪除！");
                 window.location.reload();
@@ -285,25 +214,103 @@
         }
         function remove(){
             recorddata.splice(0,1);
-            // if(recorddata.length == 0){
-            //     removeFile();
-            //     window.location.reload();
-            // }else{
-            //     createFile();
-            //     readFile('log.txt');
-            //     for(let i = 0 ;i<recorddata.length;i++){
-            //         let string = [{'kind':recorddata[i]['kind'],
-            //         'hakka_risigned':recorddata[i]['hakka_risigned'],
-            //         'chinese_risigned':recorddata[i]['chinese_risigned']}
-            //         ];
-            //         var jsonse = JSON.stringify(string);
-            //         var dataObj = new Blob([jsonse], { type: 'text/plain' });
-            //         writeFile('log.txt', dataObj,i);
+            if(recorddata.length == 0){
+                removeFile();
+                window.location.reload();
+            }else{       
+                removeFile();
+                createFile();
+                for(let i = 0 ; i < recorddata.length;i++){
                     
-            //     }
-            //     readFile('log.txt');
+                    var string = [{'kind':recorddata[i]['kind'],
+                    'hakka_risigned':recorddata[i]['hakka_risigned'],
+                    'chinese_risigned':recorddata[i]['chinese_risigned']}
+                    ];  
+                    var jsonse = JSON.stringify(string);
+                    var dataObj = new Blob([jsonse], { type: 'text/plain' });
+                    writeFile('log.txt', dataObj,i);               
                 
-            //}
+                }
+                readFile('log.txt');
+                //window.location.reload();
+            }
+        }
+        
+        function createFile(){
+              //持久化数据保存
+              var size = 50*1024*1024;
+               document.addEventListener("deviceready", function() { 
+                window.requestFileSystem(LocalFileSystem.PERSISTENT, size, successCallback, errorCallback);
+            });
+
+               function successCallback(fs) {
+                    
+                  fs.root.getFile('log.txt', {create: true,exclusive:true}, function(fileEntry) {
+
+                     fileEntry.createWriter(function(fileWriter) {
+                        fileWriter.onwriteend = function(e) {
+                           alert('File creation successfull!')
+                        };
+
+                        fileWriter.onerror = function(e) {
+                           //alert('Write failed: ' + e.toString());
+                        };
+                        
+                     }, errorCallback);
+
+                  }, errorCallback);
+
+               }
+
+               function errorCallback(error) {
+                  //alert("ERROR: " + error.code)
+               }
+        }
+        function writeFile(fileEntry, dataObj , n) {
+            var size = 50*1024*1024;
+            document.addEventListener("deviceready", function() { 
+                window.requestFileSystem(LocalFileSystem.PERSISTENT,size , successCallback, errorCallback);
+            }, false);
+            
+           function successCallback(fs) {
+
+              fs.root.getFile('log.txt', {create: true }, function(fileEntry) {
+
+                 fileEntry.createWriter(function(fileWriter) {
+                    fileWriter.onwriteend = function(e) {
+                        //alert('Write completed.');
+                       
+                    };
+
+                    fileWriter.onerror = function(e) {
+                       alert('Write failed: ' + e.toString());
+                    };                   
+                        var check = fileWriter.length;
+                        //alert(check);
+                        alert("writefile :" + dataObj);
+                        if(check){
+                          fileWriter.seek(fileWriter.length-1);
+                          var st = ",{" + '"' + 'kind'+'"' + ':['+ '"' + recorddata[n]['kind']+ '"' +'],'+ '"' + 'hakka_risigned' + '"' + ':[' + '"' + recorddata[n]['hakka_risigned'] + '"' +
+                          '],'+'"' + 'chinese_risigned' + '"' + ':['+ '"' + 
+                          recorddata[n]['chinese_risigned'] + '"' + ']'+"}]";
+                          var data = new Blob([st], { type: 'text/plain' });
+                          fileWriter.write(data);
+                        }else{
+                            
+                            fileWriter.write(dataObj);  
+                        }
+                        
+                        
+                    
+                 }, errorCallback);
+
+              }, errorCallback);
+
+           }
+
+           function errorCallback(error) {
+              //alert("ERROR: " + error.code)
+           }
         }
     </script>
 </div>
