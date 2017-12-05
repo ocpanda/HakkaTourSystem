@@ -4,7 +4,7 @@
 //-vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv-
 /*app 設定資料*/
 var ORIGIN_DIS = -58.3;
-var ENVIRONMENT_VAR = 7;
+var ENVIRONMENT_VAR = 5;
 var calcRec = [];       //
 var fundDevices = [];
 var beaconData = [];
