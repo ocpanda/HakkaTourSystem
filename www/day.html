@@ -141,7 +141,7 @@
            $("#inDay_C").attr("src","image/day/btn2.png");
            $("#inDay_D").attr("src","image/day/btn3.png");
            $("#inDay_E").attr("src","image/day/btn4.png");
-           console.log(value);
+           //console.log(value);
            if(id != cur_id){
 
                switch(id){
@@ -251,7 +251,6 @@
                   alert("ERROR: " + error.code)
                }
         }
-
         function writeFile(fileEntry, dataObj, isAppend) {
             var size = 50*1024*1024;
             document.addEventListener("deviceready", function() { 
@@ -296,8 +295,9 @@
            }
         }
         function readFile(fileEntry) {
+            var size = 50*1024*1024;
             document.addEventListener("deviceready", function() { 
-                window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, successCallback, errorCallback);
+                window.requestFileSystem(LocalFileSystem.PERSISTENT, size, successCallback, errorCallback);
             }, false);
             function successCallback(fs) {
 
@@ -326,7 +326,7 @@
         }           
             //读取文件失败响应
             function errorCallback(error){
-              //console.log("文件读取失败!");
+              //console.log("file read error!");
               
             }
         }    
@@ -343,7 +343,8 @@
                 ];                    
                 var jsonse = JSON.stringify(string);
                 var dataObj = new Blob([jsonse], { type: 'text/plain' });
-                writeFile('log.txt', dataObj, true);  
+                setTimeout(writeFile('log.txt', dataObj, true), 300);
+                //writeFile('log.txt', dataObj, true);  
                 alert("已加入最愛");             
             }
             refreshlog();
