@@ -4,11 +4,14 @@
     <link rel="stylesheet" type="text/css" href="web_api/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="web_api/bootstrap/css/bootstrap-theme.min.css">
     <link rel="stylesheet" type="text/css" href="css/record.css">
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="//cdnjs.cloudflare.com/ajax/libs/alertify.js/0.3.10/alertify.core.css" rel="stylesheet">  
+    <link href="//cdnjs.cloudflare.com/ajax/libs/alertify.js/0.3.10/alertify.default.css" rel="stylesheet">  
     <script src="web_api/jquery/jquery-1.11.3.min.js"></script>
     <script src="web_api/jquery/jquery.mobile-1.4.5.min.js"></script>
     <script src="web_api/bootstrap/js/bootstrap.min.js"></script>
     <script src="web_api/jquery/jquery-2.2.4.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/alertify.js/0.3.10/alertify.min.js"></script> 
     <script src="cordova.js"></script>
     <!--上方功能選單區塊-->
     <div data-role="header" data-position="fixed">
@@ -102,9 +105,6 @@
         </div>
     </div>
 
-        <div>
-            <button id="remove" onclick="remove();">刪除</button>  
-        </div>
     <div data-role="footer" data-position="fixed" data-fullscreen="true">
         <div data-role="navbar">
             <ul class="footNavBar">
@@ -143,8 +143,8 @@
                             var rec;
                             
                             while(i < str.length){
-                                rec = str[i]['chinese_risigned'];
-                                $("#record-body").prepend("<li class='li-pro-main' id='"+rec+"' kind='"+str[i]['kind'][0]+"'value='"+i+"' onclick='getPaging(this)'>"+rec+"</li><hr>");
+                                rec = str[i]['chinese_risigned'];                              
+                                $("#record-body").prepend("<li><a class='record' id='"+rec+"' kind='"+str[i]['kind'][0]+"'value='"+i+"' onclick='getPaging(this)'>"+rec+"</a><a href='#' id='"+i+"' class='fa fa-close del'  onclick='del(this)'></a></li><hr>");
                                 i++;                             
                             }
                            
@@ -161,26 +161,42 @@
         }
         $("#remo").on("click",function(){
             if(confirm("確實要刪除紀錄嗎?")){
-                //removeFile();
                 clearFile('log.txt');
-                //alert("紀錄已經刪除！");
-                //window.location.reload();
             }
             else{
                 alert("已經取消了刪除操作");
             }
+            //writeFile('log.txt', '',0);
             readFile('log.txt');
         }); 
-
-        $("li").on("taphold",function(result){
-          if(confirm("確實要刪除紀錄嗎?")){
-                let data_value = $(result).attr("value");
-                alert(data_value);
-            }
-            else{
-                alert("已經取消了刪除操作");
-            }
-        });
+        function refresh()
+         {
+              window.location.reload();
+         }
+         
+        function del(data){         
+           let vol = $(data).attr("id");      
+           //console.log(vol);     
+           recorddata.splice(vol,1);
+               if(confirm("確實要刪除這筆紀錄嗎?")){
+                    if(recorddata.length == 0){
+                        clearFile('log.txt');
+                        readFile('log.txt');
+                    }else{       
+                        clearFile('log.txt');
+                        var jsonse = JSON.stringify(recorddata);
+                        var dataObj = new Blob([jsonse], { type: 'text/plain' });
+                        writeFile('log.txt', dataObj,0);
+                        readFile('log.txt');                              
+                    }
+                }
+                else{
+                    alert("已經取消了刪除操作");
+                }
+            alert("重新整理頁面，請等待3秒");
+            setTimeout('refresh()',3000); //指定1秒刷新一次
+        }
+        
         function removeFile() {
            
             var size = 50*1024*1024;
@@ -204,26 +220,8 @@
            let url = "volcab.html";  
            let vol = $(data).attr("id");
            let data_kind = $(data).attr("kind"); 
-           let data_value = $(data).attr("value");
-           console.log(vol);       
-           console.log(data_kind);       
-           console.log(data_value);       
+           let data_value = $(data).attr("value");       
            window.open(encodeURI(url +"?vol="+ vol+"&kind="+data_kind));   
-        }
-        
-        function remove(){
-            recorddata.splice(0,1);
-            if(recorddata.length == 0){
-                clearFile('log.txt');
-            }else{       
-                  
-                clearFile('log.txt');
-                var jsonse = JSON.stringify(recorddata);
-                var dataObj = new Blob([jsonse], { type: 'text/plain' });
-                writeFile('log.txt', dataObj,0);                              
-            }
-            readFile('log.txt');
-            //window.location.reload();
         }
 
         function createFile(){
@@ -278,22 +276,8 @@
                     fileWriter.onerror = function(e) {
                        alert('Write failed: ' + e.toString());
                     };                   
-                        // var check = fileWriter.length;
-                        // if(n != 0){
-                        //   fileWriter.seek(fileWriter.length-1);
-                        //   var st = ",{" + '"' + 'kind'+'"' + ':['+ '"' + recorddata[n]['kind']+ '"' +'],'+ '"' + 'hakka_risigned' + '"' + ':[' + '"' + recorddata[n]['hakka_risigned'] + '"' +
-                        //   '],'+'"' + 'chinese_risigned' + '"' + ':['+ '"' + 
-                        //   recorddata[n]['chinese_risigned'] + '"' + ']'+"}]";
-                        //   var data = new Blob([st], { type: 'text/plain' });
-                        //   fileWriter.write(data);
-                        // }else{
-                        //     fileWriter.abort();
-                        //     fileWriter.truncate(0);
-                        //     fileWriter.abort();
-                        //     fileWriter.seek(0);
-                              
-                        // }
-                        fileWriter.write(dataObj);
+                        fileWriter.write(dataObj);    
+                        
                         
                     
                  }, errorCallback);
