@@ -37,7 +37,13 @@
                             </tr>
                         </thead>
                         <tbody id="vocabulary" > 
-                            
+                            <tr><th class='a'><img style='width:90%;' id='inDay_kind' src='image/day/kind.png' is='image'></th><td id='kind'></td></tr>
+                            <tr><th class='a'><img style='width:90%;' id='inDay_hakka_risigned' src='image/day/hakka_risigned.png' is='image'></th><td id='hakka_risigned'></td></tr>
+                            <tr><th class='a'><img style='width:90%;' id='inDay_hakka_phoneticon' src='image/day/hakka_phoneticon.png' is='image'></th><td id='hakka_phoneticon'></td></tr>
+                            <tr><th class='a'><img style='width:90%;' id='inDay_hakka_sentence' src='image/day/hakka_sentence.png' is='image'></th><td id='hakka_sentence'></td></tr>
+                            <tr><th class='a'><img style='width:90%;' id='inDay_voice' src='image/day/voice.png' is='image'></th><td id='voice'></td></tr>
+                            <tr><th class='a'><img style='width:90%;' id='inDay_chinese_risigned' src='image/day/chinese_risigned.png' is='image'></th><td id='chinese_risigned'></td></tr>
+                            <tr><th class='a'><img style='width:90%;' id='inDay_chinese_translation' src='image/day/chinese_translation.png' is='image'></th><td id='chinese_translation'></td></tr>
                         </tbody>
      
                     </table>
@@ -182,7 +188,7 @@
     </script>
     <script type="text/javascript">
 
-            $("#vocabulary").children().remove();
+            //$("#vocabulary").children().remove();
             $("#star").children().remove();
             var obj;
             
@@ -202,13 +208,13 @@
                 check_data = data[0]["chinese_risigned"];
                      //console.log(data);                 
                     
-                $("#vocabulary").append("<tr><th class='a' style='align='right''><img style='width:90%;' id='inDay_kind' src='image/day/kind.png' is='image'></th><td id='kind' fontsize=15 >"+data[0]['kind']+"</td></tr>");
-                $("#vocabulary").append("<tr><th class='a'><img style='width:90%;' id='inDay_hakka_risigned' src='image/day/hakka_risigned.png' is='image'></th><td id='hakka_risigned'>"+data[0]["hakka_risigned"]+"</td></tr>");
-                $("#vocabulary").append("<tr><th class='a'><img style='width:90%;' id='inDay_hakka_phoneticon' src='image/day/hakka_phoneticon.png' is='image'></th><td id='hakka_phoneticon'>"+data[0]["hakka_phoneticon"]+"</td></tr>");         
-                $("#vocabulary").append("<tr><th class='a'><img style='width:90%;' id='inDay_hakka_sentence' src='image/day/hakka_sentence.png' is='image'></th><td id='hakka_sentence'>"+data[0]["hakka_sentence"]+"</td></tr>");
-                $("#vocabulary").append("<tr><th class='a'><img style='width:90%;' id='inDay_voice' src='image/day/voice.png' is='image'></th><td id='voice'><audio class='gradient'controlsList='nodownload' controls='controls'><source src='"+data[0]["voice"]+"' type='audio/mp3'></audio></td></tr>");
-                $("#vocabulary").append("<tr><th class='a'><img style='width:90%;' id='inDay_chinese_risigned' src='image/day/chinese_risigned.png' is='image'></th><td id='chinese_risigned'>"+data[0]["chinese_risigned"]+"</td></tr>"); 
-                $("#vocabulary").append("<tr><th class='a'><img style='width:90%;' id='inDay_chinese_translation' src='image/day/chinese_translation.png' is='image'></th><td id='chinese_translation'>"+data[0]["chinese_translation"]+"</td></tr>");
+                $("#kind").append(data[0]['kind']);
+                $("#hakka_risigned").append(data[0]["hakka_risigned"]);
+                $("#hakka_phoneticon").append(data[0]["hakka_phoneticon"]);         
+                $("#hakka_sentence").append(data[0]["hakka_sentence"]);
+                $("#voice").append("<audio class='gradient'controlsList='nodownload' controls='controls'><source src='"+data[0]["voice"]+"' type='audio/mp3'></audio>");
+                $("#chinese_risigned").append(data[0]["chinese_risigned"]); 
+                $("#chinese_translation").append(data[0]["chinese_translation"]);
                 
                 },  
                 error: function(xhr, ajaxOptions, thrownError){
