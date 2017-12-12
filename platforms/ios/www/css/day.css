@@ -1,0 +1,156 @@
+@charset "UTF-8";
+
+
+#star{
+    width: 20%;
+    height: 50px;
+    background:    #f3e0a9;
+    background:    -webkit-linear-gradient(#f3e0a9, #d7a91c);
+    background:    linear-gradient(#f3e0a9, #d7a91c);
+    border-radius: 5px;
+    padding:       10px 20px;
+    color:         #222222;
+    display:       inline-block;
+    font:          normal 700 14px/1 "Noto Sans", sans-serif;
+    text-align:    center;
+    text-shadow:   1px 1px #cccccc;
+}
+#recordBtn{
+    width: 20%;
+    height: 50px;
+    background:    #f3e0a9;
+    background:    -webkit-linear-gradient(#f3e0a9, #d7a91c);
+    background:    linear-gradient(#f3e0a9, #d7a91c);
+    border-radius: 5px;
+    padding:       10px 20px;
+    color:         #222222;
+    display:       inline-block;
+    font:          normal 700 14px/1 "Noto Sans", sans-serif;
+    text-align:    center;
+    text-shadow:   1px 1px #cccccc;
+    margin-left: 100px;
+}
+.col{
+    display: inline-block;
+}
+
+#ha{
+    width: 100%;
+    font-size: 2vw;
+}
+
+
+
+.panel{
+    background: #efe9d0;
+    /*background: white;*/
+    height: 70%;
+}
+
+.gradient {
+    border: 1px solid black;
+    width: 200px;
+    -webkit-box-shadow: inset 0 1px 0px rgba(255,255,255,.2);
+    -moz-box-shadow: inset 0 1px 0px rgba(255,255,255,.2);
+    box-shadow: inset 0 1px 0px rgba(255,255,255,.2);
+    background: #494949; /* Old browsers */
+background: -webkit-linear-gradient(top, #494949 0%, #434242 31%, #393838 55%, #242323 83%, #1b1a1a 100%, #161515 100%, #0b0b0b 100%);
+ 
+    background: -moz-linear-gradient(top, #494949 0%, #434242 31%, #393838 55%, #242323 83%, #1b1a1a 100%, #161515 100%, #0b0b0b 100%);
+    background: -o-linear-gradient(top, #494949 0%, #434242 31%, #393838 55%, #242323 83%, #1b1a1a 100%, #161515 100%, #0b0b0b 100%);
+    background: -ms-linear-gradient(top, #494949 0%, #434242 31%, #393838 55%, #242323 83%, #1b1a1a 100%, #161515 100%, #0b0b0b 100%);
+    background: linear-gradient(top, #494949 0%, #434242 31%, #393838 55%, #242323 83%, #1b1a1a 100%, #161515 100%, #0b0b0b 100%); /* W3C */
+-image  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#494949', endColorstr='#0b0b0b',GradientType=0 ); /* IE6-9 */
+}
+
+#vocabulary{
+    font-size: 25px;
+    background: #FFFFFF;
+    width: 90%;
+    height: 70%;
+}
+
+.a {
+    text-align: left;
+    left: 0px;
+    width: 15%;
+    padding-left: 10px;
+    height: 40px;
+    
+}
+#kind,#hakka_risigned,#hakka_phoneticon,#chinese_risigned,#hakka_sentence,#voice,#chinese_translation{
+    width: 60%;
+    padding-left: 10px;
+
+}
+@media screen and (max-width: 768px){
+    
+    #vocabulary{
+        font-size: 25px;
+    }
+
+    #star{
+        width: 30%;
+        height: 50px;
+        
+    }
+    #recordBtn{
+        width: 30%;
+        height: 50px;
+        
+    }
+
+}
+@media screen and (min-width: 768px){
+    
+    #vocabulary{
+        font-size: 25px;
+    }
+
+    #star{
+        width: 30%;
+        height: 50px;
+        
+    }
+    #recordBtn{
+        width: 30%;
+        height: 50px;
+        
+    }
+
+}
+
+@media screen and (min-width: 992px){
+    
+    #vocabulary{
+        font-size: 30px;
+    }
+
+    #star{
+        width: 20%;
+        height: 60px;
+        
+    }
+    #recordBtn{
+        width: 20%;
+        height: 60px;
+       
+    }
+}
+
+@media screen and (min-width: 1200px){
+    
+    #vocabulary{
+        font-size: 35px;
+    }
+    #star{
+        width: 20%;
+        height: 70px;
+        
+    }
+    #recordBtn{
+        width: 20%;
+        height: 70px;
+        
+    }
+}

@@ -4,11 +4,14 @@
     <link rel="stylesheet" type="text/css" href="web_api/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="web_api/bootstrap/css/bootstrap-theme.min.css">
     <link rel="stylesheet" type="text/css" href="css/record.css">
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="//cdnjs.cloudflare.com/ajax/libs/alertify.js/0.3.10/alertify.core.css" rel="stylesheet">  
+    <link href="//cdnjs.cloudflare.com/ajax/libs/alertify.js/0.3.10/alertify.default.css" rel="stylesheet">  
     <script src="web_api/jquery/jquery-1.11.3.min.js"></script>
     <script src="web_api/jquery/jquery.mobile-1.4.5.min.js"></script>
     <script src="web_api/bootstrap/js/bootstrap.min.js"></script>
     <script src="web_api/jquery/jquery-2.2.4.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/alertify.js/0.3.10/alertify.min.js"></script> 
     <script src="cordova.js"></script>
     <!--上方功能選單區塊-->
     <div data-role="header" data-position="fixed">
@@ -23,10 +26,11 @@
     <div data-role="main" class="ui-content">
         <div class="panel panel-primary">
             <div class="panel-heading">
-                <h1 class="panel-title">學習紀錄</h1>
+                <h1 class="panel-title">學習紀錄<span id="remo">刪除紀錄</span></h1>
+                
             </div>
             <div class="panel-body">
-                <ul id="record-body" style="list-style-type:none;">
+                <ul  id="record-body" style="list-style-type:none;">
                     
                 </ul>
             </div>                                                    
@@ -101,9 +105,6 @@
         </div>
     </div>
 
-        <div>
-            <button id="remove" onclick="removeFile();">刪除紀錄</button>  
-        </div>
     <div data-role="footer" data-position="fixed" data-fullscreen="true">
         <div data-role="navbar">
             <ul class="footNavBar">
@@ -115,7 +116,7 @@
             </ul>
         </div>
     </div>
-    <script type="text/javascript" src="cordova.js" defer></script>
+    
     <script type="text/javascript" src="js/popupExplan.js" defer></script>
     <script type="text/javascript">
         readFile('log.txt');
@@ -204,16 +205,16 @@
            }
         }
         var accent;       
+        var recorddata; 
         //读取文件
         function readFile(fileEntry) {
-
-              //只用LocalFileSystem.PERSISTENT 會有問題
+            var size = 50*1024*1024;
             document.addEventListener("deviceready", function() { 
-                window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, successCallback, errorCallback);
+                window.requestFileSystem(LocalFileSystem.PERSISTENT, size, successCallback, errorCallback);
             }, false);
             function successCallback(fs) {
 
-                fs.root.getFile('log.txt', {}, function(fileEntry) {
+                fs.root.getFile('log.txt', {create:true,exclusive:false}, function(fileEntry) {
 
                     fileEntry.file(function(file) {
                     var reader = new FileReader();
@@ -222,28 +223,13 @@
                             $("#record-body").children().remove();
                             console.log(JSON.parse(this.result));
                             var str = JSON.parse(this.result);
-                            var i = 0;
+                            recorddata = str;
+                            let i = 0;
                             var rec;
-                            //var f = 1;
+                            
                             while(i < str.length){
-                                /*if(f){
-                                    rec = str[i]['chinese_risigned'];
-                                    accent = str[i]['accent'];
-                                    $("#record-body").append("<li id="+rec+" onclick='getPaging(this)'>"+str[i]['chinese_risigned']+"</li>");
-                                    $("#record-body").append("<hr>");
-                                    f=0;
-                                }else{
-                                    rec = str[i]['chinese_risigned'];
-                                    $("#record-body").append("<li id="+rec+" onclick='getPaging(this)'>"+str[i]['chinese_risigned']+"</li>");
-                                     //$("#record-body").append("<li onclick='location.href=\""+"volcab.html?"+rec+"\"'>"+str[i]['chinese_risigned']+"</li>");
-                                     
-                                    $("#record-body").append("<hr>");
-                                } */  
-                                rec = str[i]['chinese_risigned'];
-                                    accent = str[i]['accent'];
-                                    $("#record-body").append("<li id="+rec+" onclick='getPaging(this)'>"+rec+"<ul>"+accent+"</ul>"+"</li>");
-                                    $("#record-body").append("<br>");
-                                    $("#record-body").append("<hr>");
+                                rec = str[i]['chinese_risigned'];                              
+                                $("#record-body").prepend("<li><a class='record' id='"+rec+"' kind='"+str[i]['kind'][0]+"'value='"+i+"' onclick='getPaging(this)'>"+rec+"</a><a href='#' id='"+i+"' class='fa fa-close del'  onclick='del(this)'></a></li><hr>");
                                 i++;                             
                             }
                            
@@ -253,62 +239,170 @@
                 }, errorCallback);
         }           
             //读取文件失败响应
-        function errorCallback(error){
-          //console.log("文件读取失败!");
-          check = 0;
+            function errorCallback(error){
+              //console.log("文件读取失败!");
+              check = 0;
+            }
         }
+        $("#remo").on("click",function(){
+            if(confirm("確實要刪除紀錄嗎?")){
+                clearFile('log.txt');
+            }
+            else{
+                alert("已經取消了刪除操作");
+            }
+            //writeFile('log.txt', '',0);
+            readFile('log.txt');
+        }); 
+        function refresh()
+         {
+              window.location.reload();
+         }
+         
+        function del(data){         
+           let vol = $(data).attr("id");      
+           //console.log(vol);     
+           recorddata.splice(vol,1);
+               if(confirm("確實要刪除這筆紀錄嗎?")){
+                    if(recorddata.length == 0){
+                        clearFile('log.txt');
+                        readFile('log.txt');
+                    }else{       
+                        clearFile('log.txt');
+                        var jsonse = JSON.stringify(recorddata);
+                        var dataObj = new Blob([jsonse], { type: 'text/plain' });
+                        writeFile('log.txt', dataObj,0);
+                        readFile('log.txt');                              
+                    }
+                }
+                else{
+                    alert("已經取消了刪除操作");
+                }
+            alert("重新整理頁面，請等待3秒");
+            setTimeout('refresh()',3000); //指定1秒刷新一次
         }
-
+        
         function removeFile() {
-            var type = window.TEMPORARY;
-            var size = 5*1024*1024;
-
-            //window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, successCallback, errorCallback)
+           
+            var size = 50*1024*1024;
             document.addEventListener("deviceready", function() { 
-                window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, successCallback, errorCallback);
+                window.requestFileSystem(LocalFileSystem.PERSISTENT, size, successCallback, errorCallback);
             }, false);
             function successCallback(fs) {
             fs.root.getFile('log.txt', {create: false}, function(fileEntry) {
 
                     fileEntry.remove(function() {
-                    alert('File removed.');
+                    //alert('File removed.');
                     }, errorCallback);
                 }, errorCallback);
             }
            function errorCallback(error) {
+              alert("Remove ERROR: " + error.code)
+           }     
+        }
+       
+        function getPaging(data){
+           let url = "volcab.html";  
+           let vol = $(data).attr("id");
+           let data_kind = $(data).attr("kind"); 
+           let data_value = $(data).attr("value");       
+           window.open(encodeURI(url +"?vol="+ vol+"&kind="+data_kind));   
+        }
+
+        function createFile(){
+              //持久化数据保存
+              var size = 50*1024*1024;
+               document.addEventListener("deviceready", function() { 
+                window.requestFileSystem(LocalFileSystem.PERSISTENT, size, successCallback, errorCallback);
+            });
+
+               function successCallback(fs) {
+                    
+                  fs.root.getFile('log.txt', {create: true,exclusive:true}, function(fileEntry) {
+
+                     fileEntry.createWriter(function(fileWriter) {
+                        fileWriter.onwriteend = function(e) {
+                           alert('File creation successfull!')
+                        };
+
+                        fileWriter.onerror = function(e) {
+                           //alert('Write failed: ' + e.toString());
+                        };
+                        
+                     }, errorCallback);
+
+                  }, errorCallback1);
+
+               }
+
+               function errorCallback(error) {
+                  alert("errorCallback create ERROR: " + error.code)
+               }
+               function errorCallback1(error) {
+                  alert("errorCallback getFile  ERROR: " + error.code)
+               }
+        }
+        function writeFile(fileEntry, dataObj , n) {
+            var size = 50*1024*1024;
+            document.addEventListener("deviceready", function() { 
+                window.requestFileSystem(LocalFileSystem.PERSISTENT,size , successCallback, errorCallback);
+            }, false);
+            
+           function successCallback(fs) {
+
+              fs.root.getFile('log.txt', {create: true }, function(fileEntry) {
+
+                 fileEntry.createWriter(function(fileWriter) {
+                    fileWriter.onwriteend = function(e) {
+                        //alert('Write completed.');
+                       
+                    };
+
+                    fileWriter.onerror = function(e) {
+                       alert('Write failed: ' + e.toString());
+                    };                   
+                        fileWriter.write(dataObj);    
+                        
+                        
+                    
+                 }, errorCallback);
+
+              }, errorCallback);
+
+           }
+
+           function errorCallback(error) {
               //alert("ERROR: " + error.code)
            }
-           //history.go(0);
-           window.location.reload();
         }
-        function getPaging(data){
-           var url = "volcab.html";  
-           var vol = data.id;        
-           window.open(encodeURI(url +"?vol="+ vol+"&accent="+accent));   
+
+        function clearFile(fileName){
+            window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function(fileSystem){
+                                 fileSystem.root.getFile(fileName, { create: false }, clearfileExists, fileDoesNotExist);
+                                 }, getFSFail); 
+            function clearfileExists(fileEntry){
+                console.log("File " + fileEntry.fullPath + " exists!");
+                fileEntry.createWriter(truncateFile, fileDoesNotExist);
+            }
+            function truncateFile(writer){
+                console.log("truncate");
+                writer.onwriteend= function(evt) {
+                    writer.seek(0);
+                    writer.onwriteend = function(evt){
+                        console.log("contents of file now ''");
+                        alert("紀錄已經刪除！");
+                    }
+                   
+                }
+                writer.truncate(0);
+            }
+            function fileDoesNotExist(){
+                console.log("file does not exist");
+            }
+            function getFSFail(evt) {
+                console.log(evt.target.error.code);
+            }
         }
-        
-        function relo(){
-            window.location.reload();
-        }
-        
-        function crea1(data,count){
-          
-            console.log(count);        
-            record = data[count];
-            //createAndWriteFile();     
-            var string = [{'kind':data[count]['kind'],
-            'hakka_risigned':data[count]['hakka_risigned'],
-            'hakka_phoneticon':data[count]['hakka_phoneticon'],
-            'chinese_risigned':data[count]['chinese_risigned'],
-            'english_risigned':data[count]['english_risigned'],
-            'hakka_sentence':data[count]['hakka_sentence'],
-            'chinese_translation':data[count]['chinese_translation'],
-            'accent':data[count]['accent'],
-            'voice':data[count]['voice']}];
-            var jsonse = JSON.stringify(string);
-            var dataObj = new Blob([jsonse], { type: 'text/plain' });                             
-            writeFile('log.txt', dataObj, true);
-        }
-        
+       
     </script>
 </div>

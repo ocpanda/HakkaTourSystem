@@ -23,7 +23,8 @@
     <div data-role="main" class="ui-content">
         <div class="panel panel-primary">
             <div class="panel-heading">
-                <h1 class="panel-title">學習紀錄</h1>
+                <h1 class="panel-title">學習紀錄<span id="remo">刪除紀錄</span></h1>
+                
             </div>
             <div class="panel-body">
                 <ul id="record-body" style="list-style-type:none;">
@@ -101,9 +102,10 @@
         </div>
     </div>
 
-        <div>
-            <button id="remove" onclick="removeFile();">刪除紀錄</button>  
-        </div>
+        <!-- <div>
+            <button id="remove" onclick="deletefile();">刪除紀錄</button>  
+            <button id="remove" onclick="remove();">刪除</button>  
+        </div> -->
     <div data-role="footer" data-position="fixed" data-fullscreen="true">
         <div data-role="navbar">
             <ul class="footNavBar">
@@ -115,10 +117,11 @@
             </ul>
         </div>
     </div>
-    <script type="text/javascript" src="cordova.js" defer></script>
+    
     <script type="text/javascript" src="js/popupExplan.js" defer></script>
     <script type="text/javascript">
         readFile('log.txt');
+<<<<<<< HEAD
         var accent;
         var count = -1;
         var temp;
@@ -204,16 +207,18 @@
            }
         }
         var accent;       
+=======
+        var recorddata;       
+>>>>>>> feature/day_new
         //读取文件
         function readFile(fileEntry) {
 
-              //只用LocalFileSystem.PERSISTENT 會有問題
             document.addEventListener("deviceready", function() { 
                 window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, successCallback, errorCallback);
             }, false);
             function successCallback(fs) {
 
-                fs.root.getFile('log.txt', {}, function(fileEntry) {
+                fs.root.getFile('log.txt', {create:true,exclusive:false}, function(fileEntry) {
 
                     fileEntry.file(function(file) {
                     var reader = new FileReader();
@@ -222,28 +227,14 @@
                             $("#record-body").children().remove();
                             console.log(JSON.parse(this.result));
                             var str = JSON.parse(this.result);
-                            var i = 0;
+                            recorddata = str;
+                            let i = 0;
                             var rec;
-                            //var f = 1;
+                            
                             while(i < str.length){
-                                /*if(f){
-                                    rec = str[i]['chinese_risigned'];
-                                    accent = str[i]['accent'];
-                                    $("#record-body").append("<li id="+rec+" onclick='getPaging(this)'>"+str[i]['chinese_risigned']+"</li>");
-                                    $("#record-body").append("<hr>");
-                                    f=0;
-                                }else{
-                                    rec = str[i]['chinese_risigned'];
-                                    $("#record-body").append("<li id="+rec+" onclick='getPaging(this)'>"+str[i]['chinese_risigned']+"</li>");
-                                     //$("#record-body").append("<li onclick='location.href=\""+"volcab.html?"+rec+"\"'>"+str[i]['chinese_risigned']+"</li>");
-                                     
-                                    $("#record-body").append("<hr>");
-                                } */  
                                 rec = str[i]['chinese_risigned'];
-                                    accent = str[i]['accent'];
-                                    $("#record-body").append("<li id="+rec+" onclick='getPaging(this)'>"+rec+"<ul>"+accent+"</ul>"+"</li>");
-                                    $("#record-body").append("<br>");
-                                    $("#record-body").append("<hr>");
+                                // $("#record-body").prepend("<hr>");
+                                $("#record-body").prepend("<li id='"+rec+"' kind='"+str[i]['kind'][0]+"'value='"+i+"' onclick='getPaging(this)'>"+rec+"</li><hr>");
                                 i++;                             
                             }
                            
@@ -253,40 +244,86 @@
                 }, errorCallback);
         }           
             //读取文件失败响应
-        function errorCallback(error){
-          //console.log("文件读取失败!");
-          check = 0;
+            function errorCallback(error){
+              //console.log("文件读取失败!");
+              check = 0;
+            }
         }
-        }
-
+        $("#remo").on("click",function(){
+            if(confirm("確實要刪除紀錄嗎?")){
+                removeFile();
+                alert("紀錄已經刪除！");
+                window.location.reload();
+            }
+            else{
+                alert("已經取消了刪除操作");
+            }
+        });
         function removeFile() {
-            var type = window.TEMPORARY;
-            var size = 5*1024*1024;
-
-            //window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, successCallback, errorCallback)
+           
+            var size = 50*1024*1024;
             document.addEventListener("deviceready", function() { 
-                window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, successCallback, errorCallback);
+                window.requestFileSystem(LocalFileSystem.PERSISTENT, size, successCallback, errorCallback);
             }, false);
             function successCallback(fs) {
             fs.root.getFile('log.txt', {create: false}, function(fileEntry) {
 
                     fileEntry.remove(function() {
-                    alert('File removed.');
+                    //alert('File removed.');
+                    createFile();
                     }, errorCallback);
                 }, errorCallback);
             }
            function errorCallback(error) {
-              //alert("ERROR: " + error.code)
-           }
-           //history.go(0);
-           window.location.reload();
+              alert("ERROR: " + error.code)
+           }     
         }
+       
         function getPaging(data){
-           var url = "volcab.html";  
-           var vol = data.id;        
-           window.open(encodeURI(url +"?vol="+ vol+"&accent="+accent));   
+           let url = "volcab.html";  
+           let vol = $(data).attr("id");
+           let data_kind = $(data).attr("kind"); 
+           let data_value = $(data).attr("value");
+           console.log(vol);       
+           console.log(data_kind);       
+           console.log(data_value);       
+           window.open(encodeURI(url +"?vol="+ vol+"&kind="+data_kind));   
+        }
+        function deletefile(){
+            if(confirm("確實要刪除紀錄嗎?")){
+
+                removeFile();
+                alert("紀錄已經刪除！");
+                window.location.reload();
+            }
+            else{
+                alert("已經取消了刪除操作");
+            }
+        }
+        function remove(){
+            // recorddata.splice(0,1);
+            // if(recorddata.length == 0){
+            //     removeFile();
+            //     window.location.reload();
+            // }else{       
+                
+            //     for(let i = 0 ; i < recorddata.length;i++){
+                    
+            //         var string = [{'kind':recorddata[i]['kind'],
+            //         'hakka_risigned':recorddata[i]['hakka_risigned'],
+            //         'chinese_risigned':recorddata[i]['chinese_risigned']}
+            //         ];  
+            //         var jsonse = JSON.stringify(string);
+            //         var dataObj = new Blob([jsonse], { type: 'text/plain' });
+            //         writeFile('log.txt', dataObj,i);               
+                
+            //     }
+            //     readFile('log.txt');
+            //     //window.location.reload();
+            // }
         }
         
+<<<<<<< HEAD
         function relo(){
             window.location.reload();
         }
@@ -310,5 +347,84 @@
             writeFile('log.txt', dataObj, true);
         }
         
+=======
+        function createFile(){
+              //持久化数据保存
+              var size = 50*1024*1024;
+               document.addEventListener("deviceready", function() { 
+                window.requestFileSystem(LocalFileSystem.PERSISTENT, size, successCallback, errorCallback);
+            });
+
+               function successCallback(fs) {
+                    
+                  fs.root.getFile('log.txt', {create: true,exclusive:true}, function(fileEntry) {
+
+                     fileEntry.createWriter(function(fileWriter) {
+                        fileWriter.onwriteend = function(e) {
+                           alert('File creation successfull!')
+                        };
+
+                        fileWriter.onerror = function(e) {
+                           //alert('Write failed: ' + e.toString());
+                        };
+                        
+                     }, errorCallback);
+
+                  }, errorCallback);
+
+               }
+
+               function errorCallback(error) {
+                  //alert("ERROR: " + error.code)
+               }
+        }
+        function writeFile(fileEntry, dataObj , n) {
+            var size = 50*1024*1024;
+            document.addEventListener("deviceready", function() { 
+                window.requestFileSystem(LocalFileSystem.PERSISTENT,size , successCallback, errorCallback);
+            }, false);
+            
+           function successCallback(fs) {
+
+              fs.root.getFile('log.txt', {create: true }, function(fileEntry) {
+
+                 fileEntry.createWriter(function(fileWriter) {
+                    fileWriter.onwriteend = function(e) {
+                        //alert('Write completed.');
+                       
+                    };
+
+                    fileWriter.onerror = function(e) {
+                       alert('Write failed: ' + e.toString());
+                    };                   
+                        var check = fileWriter.length;
+                        //alert(check);
+                        alert("writefile :" + dataObj);
+                        if(n != 0){
+                          fileWriter.seek(fileWriter.length-1);
+                          var st = ",{" + '"' + 'kind'+'"' + ':['+ '"' + recorddata[n]['kind']+ '"' +'],'+ '"' + 'hakka_risigned' + '"' + ':[' + '"' + recorddata[n]['hakka_risigned'] + '"' +
+                          '],'+'"' + 'chinese_risigned' + '"' + ':['+ '"' + 
+                          recorddata[n]['chinese_risigned'] + '"' + ']'+"}]";
+                          var data = new Blob([st], { type: 'text/plain' });
+                          fileWriter.write(data);
+                        }else{
+                            fileWriter.seek(0);
+                            fileWriter.truncate(0);
+                            fileWriter.write(dataObj);  
+                        }
+                        
+                        
+                    
+                 }, errorCallback);
+
+              }, errorCallback);
+
+           }
+
+           function errorCallback(error) {
+              //alert("ERROR: " + error.code)
+           }
+        }
+>>>>>>> feature/day_new
     </script>
 </div>

@@ -19,10 +19,24 @@
         //-->
         <div class="panel panel-primary">
                 <div class="panel-heading">
-                    <a class="panel-title" onclick="location.href='record.html'"><font color="white">上一頁</font></a>
+                    <a class="panel-title" onclick="location.href='record.html'"><font color="white" size="35px">上一頁</font></a>
                 </div>
                 <div class="panel-body">
-                    <table id="ha" border="1">
+                    <table id="ha" style="border:3px #FFAC55 double;padding:5px;" rules="all" cellpadding='5';>
+                        <thead>
+                            <tr>
+                            <div data-role="navbar" id="head_navbar">
+                                <ul class="footNavBar">
+
+                                    <li id="inDayA" value="0" onclick="inDay(this);"><a href="#" id="btnDayA" data-ajax="false"><img style="width:90%;" id="inDay_A" src="image/day/sw_btn.png" is="image"></a></li>
+                                    <li id="inDayB" value="1" onclick="inDay(this);"><a href="#" id="btnDayB" data-ajax="false"><img style="width:90%;" id="inDay_B"  src="image/day/btn1.png" is="image"></a></li>
+                                    <li id="inDayC" value="2" onclick="inDay(this);"><a href="#" id="btnDayC" data-ajax="false"><img style="width:90%;" id="inDay_C" src="image/day/btn2.png" is="image"></a></li>
+                                    <li id="inDayD" value="3" onclick="inDay(this);"><a href="#" id="btnDayD" data-ajax="false"><img style="width:90%;" id="inDay_D" src="image/day/btn3.png" is="image"></a></li>
+                                    <li id="inDayE" value="4" onclick="inDay(this);"><a href="#" id="btnDayE" data-ajax="false"><img style="width:90%;" id="inDay_E" src="image/day/btn4.png" is="image"></a></li>
+                                </ul>
+                            </div>
+                            </tr>
+                        </thead>
                         <tbody id="vocabulary" class="panel-body"> 
                             
                         </tbody>
@@ -106,13 +120,57 @@
             </ul>
         </div>
     </div>
-    <script type="text/javascript" scr="js/day.js"></script>
-    <script type="text/javascript" src="js/file.js"></script>
-    <script type="text/javascript" src="cordova.js" defer></script>
     <script type="text/javascript" src="js/popupExplan.js" defer></script>
     <script type="text/javascript">
+        var cur_id="inDayA";
+        var record=0;
+        function inDay(result){
+           let id = result.id; 
+           let value = result.value;       
+            $("#inDay_A").attr("src","image/day/btn.png");
+           $("#inDay_B").attr("src","image/day/btn1.png");
+           $("#inDay_C").attr("src","image/day/btn2.png");
+           $("#inDay_D").attr("src","image/day/btn3.png");
+           $("#inDay_E").attr("src","image/day/btn4.png");
+           console.log(value);
+           if(id != cur_id){
+
+               switch(id){
+                case "inDayA":
+                    console.log("A");
+                   $("#inDay_A").attr("src","image/day/sw_btn.png");
+                    break;
+                case "inDayB":
+                    console.log("B");
+                    $("#inDay_B").attr("src","image/day/sw_btn1.png");
+                    break;
+                case "inDayC":
+                    console.log("C");
+                    $("#inDay_C").attr("src","image/day/sw_btn2.png");
+                    break;
+                case "inDayD":
+                    console.log("D");
+                    $("#inDay_D").attr("src","image/day/sw_btn3.png");
+                    break;
+                default:
+                    console.log("E");
+                    $("#inDay_E").attr("src","image/day/sw_btn4.png");
+                    break;
+               }
+               cur_id = id;                    
+            }
+            $('#kind').html(obj[value]['kind']);
+            $('#hakka_risigned').html(obj[value]['hakka_risigned']);
+            $('#hakka_phoneticon').html(obj[value]['hakka_phoneticon']);
+            $('#chinese_risigned').html(obj[value]['chinese_risigned']);
+            $('#hakka_sentence').html(obj[value]['hakka_sentence']);
+            $('#voice').html("<audio class='gradient' controls='controls'><source src='"+obj[value]["voice"]+"' type='audio/mp3'></audio>");
+            $('#chinese_translation').html(obj[value]['chinese_translation']);
         
-        
+            record=value;
+        }
+    </script>
+    <script type="text/javascript">
         function getArgs() { 
            var args = new Object(); 
            //location = volcab.htm?vol=vol&accent=data" 
@@ -127,62 +185,35 @@
               args[argname] = decodeURIComponent(value); 
            } 
            return args; 
-        } 
-        var args = getArgs(); 
-        // alert(args.vol);
-        // alert(args.accent);
-
-        readFile('log.txt');
-        function readFile(fileEntry) {
-
-              //只用LocalFileSystem.PERSISTENT 會有問題
-            document.addEventListener("deviceready", function() { 
-                window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, successCallback, errorCallback);
-            }, false);
-            function successCallback(fs) {
-
-                fs.root.getFile('log.txt', {}, function(fileEntry) {
-
-                    fileEntry.file(function(file) {
-                    var reader = new FileReader();
-
-                        reader.onloadend = function(e) {
-                            $("#record-body").children().remove();
-                            console.log(JSON.parse(this.result));
-                            var str = JSON.parse(this.result);
-                            var i = 0;
-                            var rec;
-                            var accent;
-                            while(i < str.length){
-                                rec = str[i]['chinese_risigned'];
-                                accent = str[i]['accent'];
-                                if((rec == args.vol) && (accent == args.accent)){
-                                    $("#vocabulary").children().remove();
-                                   $("#vocabulary").append("<tr><th class='a'>"+"種類"+"</th><td id='kind' fontsize=15 >"+str[i]['kind']+"</td></tr>");
-                                   $("#vocabulary").append("<tr><th class='a'>"+"客語"+"</th><td id='kind' fontsize=15 >"+str[i]['hakka_risigned']+"</td></tr>");
-                                   $("#vocabulary").append("<tr><th class='a'>"+"發音"+"</th><td id='kind' fontsize=15 >"+str[i]['hakka_phoneticon']+"</td></tr>");
-                                   $("#vocabulary").append("<tr><th class='a'>"+"中文"+"</th><td id='kind' fontsize=15 >"+rec+"</td></tr>"); 
-                                   $("#vocabulary").append("<tr><th class='a'>"+"英文"+"</th><td id='kind' fontsize=15 >"+str[i]['english_risigned']+"</td></tr>");
-                                   $("#vocabulary").append("<tr><th class='a'>"+"客語例句"+"</th><td id='kind' fontsize=15 >"+str[i]['hakka_sentence']+"</td></tr>");
-                                   $("#vocabulary").append("<tr><th class='a'>"+"中文例句"+"</th><td id='kind' fontsize=15 >"+str[i]['chinese_risigned']+"</td></tr>");
-                                   $("#vocabulary").append("<tr><th class='a'>"+"腔調"+"</th><td id='kind' fontsize=15 >"+accent+"</td></tr>");
-                                   $("#vocabulary").append("<tr><th class='a'>"+"例句語音"+"</th><td id='voice'><audio class='gradient' controls='controls'><source src='"+str[i]['voice']+"' type='audio/mp3'></audio></td></tr>");
-                                }
-                                    
-                                i++;                             
-                            }
-                           
-                        };
-                        reader.readAsText(file);
-                    }, errorCallback);
-                }, errorCallback);
-        }           
-            //读取文件失败响应
-        function errorCallback(error){
-          //console.log("文件读取失败!");
-          check = 0;
         }
-        }                         
+            var obj;      
+            var args = getArgs(); 
+            let data = {vol: args.vol,kind: args.kind};
+            console.log(data);
+            $.ajax({
+              url: "http://140.130.35.62/hakka/hakkamanager/php/sentvolcabdata.php",
+              type: "POST",
+              data: data,
+              dataType: 'json',
+              success: function(data){ 
+                  obj = data;
+                  console.log(data);     
+                    $("#vocabulary").children().remove();
+                    $("#vocabulary").append("<tr><th class='a'><img style='width:90%;' id='inDay_kind' src='image/day/kind.png' is='image'></th><td id='kind' fontsize=15 >"+data[0]['kind']+"</td></tr>");
+                    $("#vocabulary").append("<tr><th class='a'><img style='width:90%;' id='inDay_hakka_risigned' src='image/day/hakka_risigned.png' is='image'></th><td id='hakka_risigned'>"+data[0]["hakka_risigned"]+"</td></tr>");
+                    $("#vocabulary").append("<tr><th class='a'><img style='width:90%;' id='inDay_hakka_phoneticon' src='image/day/hakka_phoneticon.png' is='image'></th><td id='hakka_phoneticon'>"+data[0]["hakka_phoneticon"]+"</td></tr>");               
+                    $("#vocabulary").append("<tr><th class='a'><img style='width:90%;' id='inDay_hakka_sentence' src='image/day/hakka_sentence.png' is='image'></th><td id='hakka_sentence'>"+data[0]["hakka_sentence"]+"</td></tr>");
+                    $("#vocabulary").append("<tr><th class='a'><img style='width:90%;' id='inDay_voice' src='image/day/voice.png' is='image'></th><td id='voice'><audio class='gradient'controlsList='nodownload' controls='controls'><source src='"+data[0]["voice"]+"' type='audio/mp3'></audio></td></tr>");
+                    $("#vocabulary").append("<tr><th class='a'><img style='width:90%;' id='inDay_chinese_risigned' src='image/day/chinese_risigned.png' is='image'></th><td id='chinese_risigned'>"+data[0]["chinese_risigned"]+"</td></tr>");
+                    $("#vocabulary").append("<tr><th class='a'><img style='width:90%;' id='inDay_chinese_translation' src='image/day/chinese_translation.png' is='image'></th><td id='chinese_translation'>"+data[0]["chinese_translation"]+"</td></tr>");   
+
+                  //alert("建立成功!");
+                },
+              error: function(xhr, ajaxOptions, thrownError){
+                  alert("無法連線");
+              }
+            });
+           
     </script>
                                 
 </div>

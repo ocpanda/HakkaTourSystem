@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!--日常頁//-->
 <div id="day" data-role="page">
 
@@ -292,4 +293,370 @@
             //console.log(check);        
         }       
     </script>
+=======
+<!--日常頁//-->
+<div id="day" data-role="page">
+
+    <link rel="stylesheet" href="web_api/jquery/jquery.mobile-1.4.5.min.css">
+    <link rel="stylesheet" type="text/css" href="web_api/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="web_api/bootstrap/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" type="text/css" href="css/day.css">
+
+    <script src="web_api/jquery/jquery-1.11.3.min.js"></script>
+    <script src="web_api/jquery/jquery.mobile-1.4.5.min.js"></script>
+    <script src="web_api/bootstrap/js/bootstrap.min.js"></script>
+    <script src="web_api/jquery/jquery-2.2.4.js"></script>
+    <script src="cordova.js"></script>
+    <!--下方功能選單區塊-->
+    <div data-role="main" class="ui-content">
+        <!-- 首頁說明彈出區塊
+            api: jquery-1.11.3.min.js
+            api: jquery.mobile-1.4.5.min.js
+        //-->
+        <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h1 class="panel-title">每日一詞</h1>
+                </div>
+                <div class="panel-body">
+                    <table id="ha" style="border:3px gray double;padding:5px;" rules="all" cellpadding='5';>
+                        <thead>
+                            <tr>
+                            <div data-role="navbar" id="head_navbar">
+                                <ul class="footNavBar">
+                                    <li id="inDayA" value="0" onclick="inDay(this);"><a href="#" id="btnDayA" data-ajax="false"><img style="width:90%;" id="inDay_A" src="image/day/sw_btn.png" is="image"></a></li>
+                                    <li id="inDayB" value="1" onclick="inDay(this);"><a href="#" id="btnDayB" data-ajax="false"><img style="width:90%;" id="inDay_B"  src="image/day/btn1.png" is="image"></a></li>
+                                    <li id="inDayC" value="2" onclick="inDay(this);"><a href="#" id="btnDayC" data-ajax="false"><img style="width:90%;" id="inDay_C" src="image/day/btn2.png" is="image"></a></li>
+                                    <li id="inDayD" value="3" onclick="inDay(this);"><a href="#" id="btnDayD" data-ajax="false"><img style="width:90%;" id="inDay_D" src="image/day/btn3.png" is="image"></a></li>
+                                    <li id="inDayE" value="4" onclick="inDay(this);"><a href="#" id="btnDayE" data-ajax="false"><img style="width:90%;" id="inDay_E" src="image/day/btn4.png" is="image"></a></li>
+                                </ul>
+                            </div>
+                            </tr>
+                        </thead>
+                        <tbody id="vocabulary" > 
+                            
+                        </tbody>
+     
+                    </table>
+                    <center>
+                        <div>
+                            <button  id="star" onclick="fav();">加入最愛</button>
+                            <button  id="recordBtn" onclick="location.href='record.html'">學習紀錄</button> 
+                        </div>
+                    </center>
+                </div>
+            
+                                                  
+        </div>  
+    </div>
+                   
+        <div data-role="popup" data-arrow="b" id="homePopup">
+            <div data-role="header">
+                <h1>說明</h1>
+            </div>
+            <div data-role="main" class="ui-content">
+                <h1 align="center" valign="center">首頁</h1>
+                <p>主要功能頁面。</p>
+            </div>
+        </div>
+        <!-- 搜尋彈出區塊 
+            api: jquery-1.11.3.min.js
+            api: jquery.mobile-1.4.5.min.js
+        //-->
+        <div data-role="popup" data-arrow="b" id="searchPopup">
+            <div data-role="header">
+                <h1>說明</h1>
+            </div>
+            <div data-role="main" class="ui-content">
+                <h1 align="center" valign="center">搜尋</h1>
+                <p>使用此功能可以搜尋本展館之展物並進行導航。</p>
+            </div>
+        </div>
+        <!-- 群組說明彈出區塊
+            api: jquery-1.11.3.min.js
+            api: jquery.mobile-1.4.5.min.js
+        //-->
+        <div data-role="popup" data-arrow="b" id="groupPopup">
+            <div data-role="header">
+                <h1>說明</h1>
+            </div>
+            <div data-role="main" class="ui-content">
+                <h1 align="center" valign="center">群組</h1>
+                <p>使用此功能可以加入或創建群組。</p>
+            </div>
+        </div>
+        <!-- 訊息說明彈出區塊
+            api: jquery-1.11.3.min.js
+            api: jquery.mobile-1.4.5.min.js
+        //-->
+        <div data-role="popup" data-arrow="b" id="messagePopup">
+            <div data-role="header">
+                <h1>說明</h1>
+            </div>
+            <div data-role="main" class="ui-content">
+                <h1 align="center" valign="center">訊息</h1>
+                <p>使用此功能可以使用訊息功能。</p>
+            </div>
+        </div>
+        <!-- 設定說明彈出區塊
+            api: jquery-1.11.3.min.js
+            api: jquery.mobile-1.4.5.min.js
+        //-->
+        <div data-role="popup" data-arrow="b" id="settingPopup">
+            <div data-role="header">
+                <h1>說明</h1>
+            </div>
+            <div data-role="main" class="ui-content">
+                <h1 align="center" valign="center">設定</h1>
+                <p>使用此功能可以設定功能。</p>
+            </div>
+        </div>
+        <!-- <button id="test">按我</button> -->
+        
+        
+    
+    <div data-role="footer" data-position="fixed" data-fullscreen="true">
+        <div data-role="navbar">
+            <ul class="footNavBar">
+                <li><a href="index.html" id="homeImg" data-ajax="false"><img style="width:90%;" src="image/home.png" is="image"></a></li>
+                <li><a href="search.html" id="searchImg" data-ajax="false"><img style="width:90%;" src="image/search.png" is="image"></a></li>
+                <li><a href="group.html" id="groupImg" data-ajax="false"><img style="width:90%;" src="image/group.png" is="image"></a></li>
+                <li><a href="message.html" id="messageImg" data-ajax="false"><img style="width:90%;" src="image/message.png" is="image"></a></li>
+                <li><a href="setting.html" id="settingImg" data-ajax="false"><img style="width:90%;" src="image/setting.png" is="image"></a></li>
+            </ul>
+        </div>
+    </div>
+    <script type="text/javascript" src="js/popupExplan.js" defer></script>
+    <script type="text/javascript">
+        var cur_id="inDayA";
+        var record=0;
+        function inDay(result){
+           let id = result.id; 
+           let value = result.value;       
+           $("#inDay_A").attr("src","image/day/btn.png");
+           $("#inDay_B").attr("src","image/day/btn1.png");
+           $("#inDay_C").attr("src","image/day/btn2.png");
+           $("#inDay_D").attr("src","image/day/btn3.png");
+           $("#inDay_E").attr("src","image/day/btn4.png");
+           //console.log(value);
+           if(id != cur_id){
+
+               switch(id){
+                case "inDayA":
+                    console.log("A");
+                    $("#inDay_A").attr("src","image/day/sw_btn.png");
+                    break;
+                case "inDayB":
+                    console.log("B");
+                    $("#inDay_B").attr("src","image/day/sw_btn1.png");
+                    break;
+                case "inDayC":
+                    console.log("C");
+                    $("#inDay_C").attr("src","image/day/sw_btn2.png");
+                    break;
+                case "inDayD":
+                    console.log("D");
+                    $("#inDay_D").attr("src","image/day/sw_btn3.png");
+                    break;
+                default:
+                    console.log("E");
+                    $("#inDay_E").attr("src","image/day/sw_btn4.png");
+                    break;
+               }
+               cur_id = id;                    
+            }
+            $('#kind').html(obj[value]['kind']);
+            $('#hakka_risigned').html(obj[value]['hakka_risigned']);
+            $('#hakka_phoneticon').html(obj[value]['hakka_phoneticon']);
+            $('#chinese_risigned').html(obj[value]['chinese_risigned']);
+            $('#hakka_sentence').html(obj[value]['hakka_sentence']);
+            $('#voice').html("<audio class='gradient' controlsList='nodownload' controls='controls'><source src='"+obj[value]["voice"]+"' type='audio/mp3'></audio>");
+            $('#chinese_translation').html(obj[value]['chinese_translation']);
+        
+            record=value;
+        }
+         
+    </script>
+    <script type="text/javascript">
+
+            $("#vocabulary").children().remove();
+            $("#star").children().remove();
+            var obj;
+            
+            var i=0;
+            var check = 0;
+            var check_data;
+            /*var accent = ["種類","客語","發音","中文",
+                        "英文","客語例句","中文例句","腔調","例句語音"];*/
+            $.ajax({
+                url: 'http://140.130.35.62/hakka/hakkamanager/php/UpdateDay.php',
+                type: 'POST',                           
+                dataType:'json',
+
+                success: function(data){ 
+               
+                obj=data;
+                check_data = data[0]["chinese_risigned"];
+                     //console.log(data);                 
+                    
+                $("#vocabulary").append("<tr><th class='a' style='align='right''><img style='width:90%;' id='inDay_kind' src='image/day/kind.png' is='image'></th><td id='kind' fontsize=15 >"+data[0]['kind']+"</td></tr>");
+                $("#vocabulary").append("<tr><th class='a'><img style='width:90%;' id='inDay_hakka_risigned' src='image/day/hakka_risigned.png' is='image'></th><td id='hakka_risigned'>"+data[0]["hakka_risigned"]+"</td></tr>");
+                $("#vocabulary").append("<tr><th class='a'><img style='width:90%;' id='inDay_hakka_phoneticon' src='image/day/hakka_phoneticon.png' is='image'></th><td id='hakka_phoneticon'>"+data[0]["hakka_phoneticon"]+"</td></tr>");         
+                $("#vocabulary").append("<tr><th class='a'><img style='width:90%;' id='inDay_hakka_sentence' src='image/day/hakka_sentence.png' is='image'></th><td id='hakka_sentence'>"+data[0]["hakka_sentence"]+"</td></tr>");
+                $("#vocabulary").append("<tr><th class='a'><img style='width:90%;' id='inDay_voice' src='image/day/voice.png' is='image'></th><td id='voice'><audio class='gradient'controlsList='nodownload' controls='controls'><source src='"+data[0]["voice"]+"' type='audio/mp3'></audio></td></tr>");
+                $("#vocabulary").append("<tr><th class='a'><img style='width:90%;' id='inDay_chinese_risigned' src='image/day/chinese_risigned.png' is='image'></th><td id='chinese_risigned'>"+data[0]["chinese_risigned"]+"</td></tr>"); 
+                $("#vocabulary").append("<tr><th class='a'><img style='width:90%;' id='inDay_chinese_translation' src='image/day/chinese_translation.png' is='image'></th><td id='chinese_translation'>"+data[0]["chinese_translation"]+"</td></tr>");
+                
+                },  
+                error: function(xhr, ajaxOptions, thrownError){
+                alert("無法連線");
+                console.log(xhr.status); 
+                console.log(thrownError); 
+                }
+            });
+           
+
+    </script>
+    <script type="text/javascript">
+        
+       var size = 50*1024*1024; 
+        function createAndWriteFile(){
+              //持久化数据保存
+               document.addEventListener("deviceready", function() { 
+                window.requestFileSystem(LocalFileSystem.PERSISTENT, size, successCallback, errorCallback);
+            }, false);
+
+               function successCallback(fs) {
+
+                  fs.root.getFile('log.txt', {create: true,exclusive:false}, function(fileEntry) {
+
+                     fileEntry.createWriter(function(fileWriter) {
+                        fileWriter.onwriteend = function(e) {
+                           //alert('Write completed.');
+                        };
+
+                        fileWriter.onerror = function(e) {
+                           //alert('Write failed: ' + e.toString());
+                        };
+                     }, errorCallback);
+
+                  }, errorCallback);
+
+               }
+
+               function errorCallback(error) {
+                  alert("ERROR: " + error.code)
+               }
+        }
+        function writeFile(fileEntry, dataObj, isAppend) {
+            var size = 50*1024*1024;
+            document.addEventListener("deviceready", function() { 
+                window.requestFileSystem(LocalFileSystem.PERSISTENT, size, successCallback, errorCallback);
+            }, false);
+
+           function successCallback(fs) {
+
+              fs.root.getFile('log.txt', {create: true}, function(fileEntry) {
+
+                 fileEntry.createWriter(function(fileWriter) {
+                    fileWriter.onwriteend = function(e) {
+                        //alert('Write completed.');
+                       
+                    };
+
+                    fileWriter.onerror = function(e) {
+                       alert('Write failed: ' + e.toString());
+                    };                   
+                        var check = fileWriter.length;
+                        if(check){
+                          fileWriter.seek(fileWriter.length-1);
+                          var st = ",{" + '"' + 'kind'+'"' + ':['+ '"' + obj[0]['kind']+ '"' +'],'+ '"' + 'hakka_risigned' + '"' + ':[' + '"' + obj[0]['hakka_risigned'] + '"' +
+                          '],'+'"' + 'chinese_risigned' + '"' + ':['+ '"' + 
+                          obj[0]['chinese_risigned'] + '"' + ']'+"}]";
+                          var data = new Blob([st], { type: 'text/plain' });
+                          fileWriter.write(data);
+                        }else{
+                         
+                          fileWriter.write(dataObj);  
+                        }
+                    
+                    
+                 }, errorCallback);
+
+              }, errorCallback);
+
+           }
+
+           function errorCallback(error) {
+              alert("ERROR: " + error.code)
+           }
+        }
+        function readFile(fileEntry) {
+            var size = 50*1024*1024;
+            document.addEventListener("deviceready", function() { 
+                window.requestFileSystem(LocalFileSystem.PERSISTENT, size, successCallback, errorCallback);
+            }, false);
+            function successCallback(fs) {
+
+                fs.root.getFile('log.txt', {}, function(fileEntry) {
+
+                    fileEntry.file(function(file) {
+                    var reader = new FileReader();
+
+                        reader.onloadend = function(e) {
+                            //console.log(JSON.parse(this.result));
+                            var str = JSON.parse(this.result);
+                            let i = 0;
+                            var rec;
+                            while(i < str.length){
+                                rec = str[i]['chinese_risigned'][0];
+                                if(rec == check_data){  
+                                   record = 1;
+                                }   
+                                i++;                             
+                            }                           
+                        };
+
+                      reader.readAsText(file);  
+                    }, errorCallback);
+                }, errorCallback);
+        }           
+            //读取文件失败响应
+            function errorCallback(error){
+              //console.log("file read error!");
+              
+            }
+        }    
+        function fav(){          
+            createAndWriteFile();        
+            readFile('log.txt');
+            if(record){
+                alert("重複加入!");
+                record = 0;
+            }else{
+                var string = [{'kind':obj[0]['kind'],
+                'hakka_risigned':obj[0]['hakka_risigned'],
+                'chinese_risigned':obj[0]['chinese_risigned']}
+                ];                    
+                var jsonse = JSON.stringify(string);
+                var dataObj = new Blob([jsonse], { type: 'text/plain' });
+                setTimeout(writeFile('log.txt', dataObj, true), 300);
+                //writeFile('log.txt', dataObj, true);  
+                alert("已加入最愛");             
+            }
+            refreshlog();
+            
+        }       
+        function refreshlog(){
+            readFile('log.txt');
+            readFile('log.txt');
+            readFile('log.txt');
+            readFile('log.txt'); 
+            readFile('log.txt');   
+            readFile('log.txt');           
+        }
+
+        
+    </script>
+                                
+>>>>>>> feature/day_new
 </div>
