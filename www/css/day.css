@@ -74,10 +74,9 @@ background: -webkit-linear-gradient(top, #494949 0%, #434242 31%, #393838 55%, #
 .a {
     text-align: left;
     left: 0px;
-    width: 15%;
+    width: 35%;
     padding-left: 10px;
-    height: 150px;
-    
+    height: 150px;   
 }
 #kind,#hakka_risigned,#hakka_phoneticon,#chinese_risigned,#hakka_sentence,#voice,#chinese_translation{
     width: 60%;
@@ -95,26 +94,37 @@ background: -webkit-linear-gradient(top, #494949 0%, #434242 31%, #393838 55%, #
     
     #vocabulary{
         font-size: 25px;
+         
     }
 
     #star{
         width: 30%;
         height: 50px;
-        
+        font:          normal 700 15px/1 "Noto Sans", sans-serif;
     }
     #recordBtn{
         width: 30%;
         height: 50px;
-        
+        font:          normal 700 15px/1 "Noto Sans", sans-serif;
     }
     .panel-title{
         font-size: 30px;
     }
+     
+    .a{
+        width: 30%;
+    } 
+    .footNavBar img{
+        height: 100px;
+        width: 70px;
+    }
+    
 }
-@media screen and (min-width: 768px){
+@media screen and (min-width: 769px){
     
     #vocabulary{
         font-size: 25px;
+       
     }
 
     #star{
@@ -130,9 +140,9 @@ background: -webkit-linear-gradient(top, #494949 0%, #434242 31%, #393838 55%, #
     .panel-title{
         font-size: 40px;
     }
-    #inDay_kind,#inDay_hakka_risigned,#inDay_hakka_phoneticon,#inDay_chinese_risigned,#inDay_hakka_sentence,#inDay_voice,#inDay_chinese_translation{
-        width: 350px;
-        height: 100px;
+   
+    .a{
+        width: 35%;
     }   
 }
 
@@ -140,6 +150,7 @@ background: -webkit-linear-gradient(top, #494949 0%, #434242 31%, #393838 55%, #
     
     #vocabulary{
         font-size: 30px;
+       
     }
 
     #star{
@@ -155,9 +166,8 @@ background: -webkit-linear-gradient(top, #494949 0%, #434242 31%, #393838 55%, #
     .panel-title{
         font-size: 50px;
     }
-    #inDay_kind,#inDay_hakka_risigned,#inDay_hakka_phoneticon,#inDay_chinese_risigned,#inDay_hakka_sentence,#inDay_voice,#inDay_chinese_translation{
-        width: 350px;
-        height: 100px;
+    .a{
+        width: 35%;
     }
 }
 
@@ -165,6 +175,7 @@ background: -webkit-linear-gradient(top, #494949 0%, #434242 31%, #393838 55%, #
     
     #vocabulary{
         font-size: 35px;
+    
     }
     #star{
         width: 40%;
@@ -179,8 +190,7 @@ background: -webkit-linear-gradient(top, #494949 0%, #434242 31%, #393838 55%, #
     .panel-title{
         font-size: 60px;
     }
-    #inDay_kind,#inDay_hakka_risigned,#inDay_hakka_phoneticon,#inDay_chinese_risigned,#inDay_hakka_sentence,#inDay_voice,#inDay_chinese_translation{
-        width: 350px;
-        height: 100px;
+    .a{
+        width: 35%;
     }
 }
