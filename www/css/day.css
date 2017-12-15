@@ -1,6 +1,9 @@
 @charset "UTF-8";
 
-
+table{
+    width: 100%;
+    table-layout: fixed;
+}
 #star{
     width: 30%;
     height: 60px;
@@ -30,14 +33,6 @@
     text-shadow:   1px 1px #cccccc;
     margin-left: 100px;
 }
-.col{
-    display: inline-block;
-}
-
-#ha{
-    width: 100%;
-    font-size: 2vw;
-}
 
 
 .panel-title{
@@ -50,31 +45,20 @@
 
 .gradient {
     border: 1px solid black;
-    width: 50%;
-    -webkit-box-shadow: inset 0 1px 0px rgba(255,255,255,.2);
-    -moz-box-shadow: inset 0 1px 0px rgba(255,255,255,.2);
-    box-shadow: inset 0 1px 0px rgba(255,255,255,.2);
-    background: #494949; /* Old browsers */
-background: -webkit-linear-gradient(top, #494949 0%, #434242 31%, #393838 55%, #242323 83%, #1b1a1a 100%, #161515 100%, #0b0b0b 100%);
- 
-    background: -moz-linear-gradient(top, #494949 0%, #434242 31%, #393838 55%, #242323 83%, #1b1a1a 100%, #161515 100%, #0b0b0b 100%);
-    background: -o-linear-gradient(top, #494949 0%, #434242 31%, #393838 55%, #242323 83%, #1b1a1a 100%, #161515 100%, #0b0b0b 100%);
-    background: -ms-linear-gradient(top, #494949 0%, #434242 31%, #393838 55%, #242323 83%, #1b1a1a 100%, #161515 100%, #0b0b0b 100%);
-    background: linear-gradient(top, #494949 0%, #434242 31%, #393838 55%, #242323 83%, #1b1a1a 100%, #161515 100%, #0b0b0b 100%); /* W3C */
--image  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#494949', endColorstr='#0b0b0b',GradientType=0 ); /* IE6-9 */
+    width: 80%;
+    
 }
 
 #vocabulary{
     font-size: 25px;
     background: #FFFFFF;
-    width: 90%;
+    width: 100%;
     height: 100%;
 }
 
-.a {
+#vocabulary th{
     text-align: left;
     left: 0px;
-    width: 35%;
     padding-left: 10px;
     height: 150px;   
 }
@@ -85,18 +69,22 @@ background: -webkit-linear-gradient(top, #494949 0%, #434242 31%, #393838 55%, #
     text-align:    left;
     text-shadow:   1px 1px #cccccc;
     margin-left: 100px;
+    overflow: hidden;
+    word-break: break-all;
 }
 #inDay_kind,#inDay_hakka_risigned,#inDay_hakka_phoneticon,#inDay_chinese_risigned,#inDay_hakka_sentence,#inDay_voice,#inDay_chinese_translation{
-    width: 150px;
+    width: 100%;
     height: 100px;
 }
 @media screen and (max-width: 768px){
     
     #vocabulary{
-        font-size: 25px;
-         
+       font-size: 25px;  
     }
 
+    .a{
+        width: 30%;
+    }
     #star{
         width: 30%;
         height: 50px;
@@ -110,21 +98,12 @@ background: -webkit-linear-gradient(top, #494949 0%, #434242 31%, #393838 55%, #
     .panel-title{
         font-size: 30px;
     }
-     
-    .a{
-        width: 30%;
-    } 
-    .footNavBar img{
-        height: 100px;
-        width: 70px;
-    }
-    
+      
 }
 @media screen and (min-width: 769px){
     
     #vocabulary{
         font-size: 25px;
-       
     }
 
     #star{
@@ -140,17 +119,16 @@ background: -webkit-linear-gradient(top, #494949 0%, #434242 31%, #393838 55%, #
     .panel-title{
         font-size: 40px;
     }
-   
     .a{
-        width: 35%;
-    }   
+        width: 30%;
+    }
+     
 }
 
 @media screen and (min-width: 992px){
     
     #vocabulary{
         font-size: 30px;
-       
     }
 
     #star{
@@ -175,7 +153,6 @@ background: -webkit-linear-gradient(top, #494949 0%, #434242 31%, #393838 55%, #
     
     #vocabulary{
         font-size: 35px;
-    
     }
     #star{
         width: 40%;
@@ -191,6 +168,6 @@ background: -webkit-linear-gradient(top, #494949 0%, #434242 31%, #393838 55%, #
         font-size: 60px;
     }
     .a{
-        width: 35%;
+        width: 40%;
     }
 }
