@@ -78,10 +78,9 @@ table{
 }
 @media screen and (max-width: 768px){
     
-    #vocabulary{
-       font-size: 25px;  
+    #kind,#hakka_risigned,#hakka_phoneticon,#chinese_risigned,#hakka_sentence,#voice,#chinese_translation{
+        font-size: 30px;
     }
-
     .a{
         width: 30%;
     }
@@ -102,10 +101,10 @@ table{
 }
 @media screen and (min-width: 769px){
     
-    #vocabulary{
-        font-size: 25px;
+    
+    #kind,#hakka_risigned,#hakka_phoneticon,#chinese_risigned,#hakka_sentence,#voice,#chinese_translation{
+        font-size: 35px;
     }
-
     #star{
         width: 30%;
         height: 60px;
@@ -127,10 +126,9 @@ table{
 
 @media screen and (min-width: 992px){
     
-    #vocabulary{
-        font-size: 30px;
+    #kind,#hakka_risigned,#hakka_phoneticon,#chinese_risigned,#hakka_sentence,#voice,#chinese_translation{
+        font-size: 40px;
     }
-
     #star{
         width: 35%;
         height: 60px;
@@ -151,8 +149,8 @@ table{
 
 @media screen and (min-width: 1200px){
     
-    #vocabulary{
-        font-size: 35px;
+    #kind,#hakka_risigned,#hakka_phoneticon,#chinese_risigned,#hakka_sentence,#voice,#chinese_translation{
+        font-size: 45px;
     }
     #star{
         width: 40%;

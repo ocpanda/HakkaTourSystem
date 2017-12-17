@@ -57,8 +57,8 @@ background: -webkit-linear-gradient(top, #494949 0%, #434242 31%, #393838 55%, #
 }
 @media screen and (max-width: 768px){
     
-    #vocabulary{
-        font-size: 25px;
+    #kind,#hakka_risigned,#hakka_phoneticon,#chinese_risigned,#hakka_sentence,#voice,#chinese_translation{
+        font-size: 30px;
     }
 
     
@@ -78,8 +78,8 @@ background: -webkit-linear-gradient(top, #494949 0%, #434242 31%, #393838 55%, #
 @media screen and (min-width: 768px){
     
    
-    #vocabulary{
-        font-size: 25px;
+    #kind,#hakka_risigned,#hakka_phoneticon,#chinese_risigned,#hakka_sentence,#voice,#chinese_translation{
+        font-size: 35px;
     }
 
     .panel-title{
@@ -96,8 +96,8 @@ background: -webkit-linear-gradient(top, #494949 0%, #434242 31%, #393838 55%, #
 
 @media screen and (min-width: 992px){
     
-    #vocabulary{
-        font-size: 30px;
+    #kind,#hakka_risigned,#hakka_phoneticon,#chinese_risigned,#hakka_sentence,#voice,#chinese_translation{
+        font-size: 40px;
     }
     .panel-title{
         font-size: 50px;
@@ -113,8 +113,8 @@ background: -webkit-linear-gradient(top, #494949 0%, #434242 31%, #393838 55%, #
 
 @media screen and (min-width: 1200px){
    
-    #vocabulary{
-        font-size: 35px;
+    #kind,#hakka_risigned,#hakka_phoneticon,#chinese_risigned,#hakka_sentence,#voice,#chinese_translation{
+        font-size: 45px;
     }
     .panel-title{
         font-size: 60px;
