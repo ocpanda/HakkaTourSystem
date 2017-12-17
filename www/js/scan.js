@@ -3,17 +3,11 @@
 **	    Beacon  	  **
 **					  **
 ************************/
-
-var dataNum = 0;
-var beaconDataStorage = new BeaconDataStorage();
-var foundDevices = [];
-var scanBeacon;
-
-
 // Beacon data storage class
 // use for local storage
 // call this class to put your data into local storage
 
+var beaconDataStorage = new BeaconDataStorage();
 
 function BeaconDataStorage(){
 	this.dataStorage = window.localStorage;
@@ -64,7 +58,6 @@ function pageRender(){ //被點選時呈現藍底
 		case 0:
 			$("#goPageOne").css("background", "#6666FF");
 			break;
-
 		case 1:
 			$("#goPageTwo").css("background", "#6666FF");
 			break;
@@ -84,7 +77,6 @@ $("#goPageOne").click(function() {
 	$('#tiger').show();
 	scanHtml = '';
 	$('#scanData').html('');
-	scanArray = [0,0,0,0,0,0,0,0,0,0,0,0];
 });
 
 $("#goPageTwo").click(function() {
@@ -97,7 +89,37 @@ $("#goPageTwo").click(function() {
 	$('#tiger').show();
 	scanHtml = '';
 	$('#scanData').html('');
-	scanArray = [0,0,0,0,0,0,0,0,0,0,0,0];
+});
+
+$(document).on("swipeleft",function(e){
+	if(nowPage == 1){
+		var winOpen = window.open('group.html');
+		window.close();
+	}
+  	nowPage = 1;
+	pageTopBKColorInit();
+	pageRender();
+	htmlShow();
+	scan();
+	scanText(0);
+	$('#tiger').show();
+	scanHtml = '';
+	$('#scanData').html('');
+});
+
+$(document).on("swiperight",function(e){
+	if(nowPage == 0){
+		var winOpen = window.open('index.html');
+		window.close();
+	}
+	nowPage = 0;
+	pageTopBKColorInit();
+	pageRender();
+	htmlShow();
+	$('#chart').hide();
+	$('#tiger').show();
+	scanHtml = '';
+	$('#scanData').html('');
 });
 
 
@@ -113,8 +135,7 @@ function getData() {
 		allView = result;
 		imgProcess();
 	});
-};
-
+}
 
 function imgProcess() {
 	var imgHeadler = '<img src="http://140.130.35.62/hakka/hakkamanager';
@@ -186,7 +207,6 @@ function sendValueForNewPage(val) {
 	var winOpen = window.open('default.html?' + val);
 	$('#tiger').show();
 	scanHtml = '';
-	scanArray = [0,0,0,0,0,0,0,0,0,0,0,0];
 }
 
 //圖表型式
@@ -194,39 +214,7 @@ function showData() {
 	var html = '';
 	for(var i = 0; i < allView.length; i+=3)
 	{
-		    html +=         "<div class='ui-grid-b' style='height:150px;width:100%'>"+
-							    "<div id='" + allView[i].id + "' class='ui-block-a' style='height:100%;'>" + 
-							    	"<div is='icon' style='width:100%; height:100%; position:relative'>" + 
-								    	"<span class='ui-li-count' style='position:absolute; display:none; z-index:1; right:0; top:6px;'></span>" + 
-								    	"<a href='#' class='ui-btn ui-mini ui-corner-all ui-shadow'" + 
-								    	" style='display:block;margin:5px;height:50%;background-image: url(http://140.130.35.62/hakka/hakkamanager" + allView[i].url + ".jpg); background-size: 95% 80%; background-position: 50% 50%; background-repeat: no-repeat no-repeat;'>" +
-								    	"</a>" +
-								    	"<div style='text-align:center;'>" + allView[i].Name +"</div>" + 
-							    	"</div>" +
-								"</div>";
-								if(i+1 >= allView.length)
-									break;
-        	html += 		    "<div id='" + allView[i+1].id + "'  class='ui-block-b' style='height:100%;'>" + 
-							    	"<div is='icon' style='width:100%; height:100%; position:relative'>" +
-								    	"<span class='ui-li-count' style='position:absolute; display:none; z-index:1; right:0; top:6px;'></span>" + 
-								    	"<a href='#' class='ui-btn ui-mini ui-corner-all ui-shadow'" + 
-								    	" style='display:block;margin:5px;height:50%;background-image: url(http://140.130.35.62/hakka/hakkamanager" + allView[i+1].url + ".jpg); background-size: 95% 80%; background-position: 50% 50%; background-repeat: no-repeat no-repeat;'>" +
-								    	"</a>" +
-								    	"<div style='text-align:center;'>" + allView[i+1].Name + "</div>" + 
-							    	"</div>" +
-								"</div>";
-								if(i+2 >= allView.length)
-									break;
-			html += 			"<div id='" + allView[i+2].id + "' class='ui-block-c' style='height:100%;'>" +
-							    	"<div is='icon' style='width:100%; height:100%; position:relative'>" +
-								    	"<span class='ui-li-count' style='position:absolute; display:none; z-index:1; right:0; top:6px;'></span>" +
-								    	"<a href='#' class='ui-btn ui-mini ui-corner-all ui-shadow'" + 
-								    	" style='display:block;margin:5px;height:50%;background-image: url(http://140.130.35.62/hakka/hakkamanager" + allView[i+2].url + ".jpg); background-size: 95% 80%; background-position: 50% 50%; background-repeat: no-repeat no-repeat;'>" +
-								    	"</a>" +
-								    	"<div style='text-align:center;'>" + allView[i+2].Name + "</div>" +
-							    	"</div>" +
-							    "</div>" +
-						   "</div>";
+
 	}
 	$('#chart').html(html);
 	$('#chart').hide();
@@ -320,84 +308,139 @@ function search_loop(str) {
 	return temp;
 }
 
+
 /***********************
 **					  **
 **	  BeaconScan 	  **
 **					  **
 ************************/
 
+var beaconTurn = new Boolean(true);
+var beaconDevice = new Array();
+var beaconDevice2 = new Array();
 
 function scan() {
-	var scanSeconds = 5;
-	foundDevices = [];
-	console.log("scanning!");
 	bluetoothle.startScan(
 		function(result){
-			console.log("scan status "+result.status);
-			if (result.status === "scanStarted") {
-		        console.log("Scanning for devices");
-		    }
-		    else if (result.status === "scanResult") 
+		if (result.status === "scanResult") 
 		    {
-		        if (!foundDevices.some(function (device) {
-					console.log('1');
-		            return device.address === result.address;
-		        })) 
-		        {
-					$('#tiger').hide();
-		            console.log("FOUND DEVICE:");
-		            var name = new Array();
-		            var name = result.name.toString().split(" ");
-		            console.log('name:' + name[0]);
-					console.log($("#my"+name[0]).length);
-					switch(name[0]){
-						case '001AC07B063C':
-							scanShow(0);
-							break;
-						case '001AC07B0638':
-							scanShow(5);
-							break;
-						case '001AC07B0656':
-							scanShow(10);
-							break;
-					}
-		            /*if($("#my"+name[0]).length === 0){
-			            $("#scanData").append("<tr id=my"+name[0]+">"+
-							"<th class='beaconName'>"+result.name+"</th>"+  
-							"<th class='beaconUUID'>"+result.address+"</th>"+
-							"<th class='beaconRSSI'>"+result.rssi+"</th>"+"</tr>");
-			            console.log("dataNum: "+dataNum);
-			            console.log($("#my"+name[0]).length);
-			        }
-			        else{
-			        	console.log("change rssi");
-			        	$("#my"+name[0]+" .beaconRSSI").html(result.rssi);
-			        }*/
-			        scanBeacon = {beacon_Name: name[0], beacon_rssi: result.rssi}; 
-			        console.log("scanBeacon name: "+scanBeacon['beacon_Name']+" scanBeacon rssi: "+scanBeacon['beacon_rssi']);
-		        }
-			    dataNum+=1;
+		    	var name = new Array();
+	            name = result.name.toString().split(" ");
+	            if(result.rssi*-1.2 < 70)
+	            {
+	            	$('#tiger').hide();
+	            	if(beaconTurn)
+		            	beaconDevice.push(name[0]);
+		           	else
+		           		beaconDevice2.push(name[0]);
+	           }
 			}
 		},
 		function(error){},{services: []});
-	setTimeout(bluetoothle.stopScan, scanSeconds*1000, function(result){
-		// $.ajax({
-        // 	url: "http://140.130.35.62/csie40343142/Tour_System_server/php/userScanBeacon.php",
-        // 	type: "POST",
-        // 	data: scanBeacon,
-        // 	success: function(result,status){
-        // 		console.log("asdasdasdasd: "+result);
-        // 		var a = JSON.parse(result);
-        // 		console.log("success: "+a.beacon_Name+" "+a.beacon_rssi+" status: "+status);
-        // 	},
-        // 	error: function(XMLHttpRequest, textStatus, errorThrown){
-        // 		console.log("XMLHttpRequest status:"+XMLHttpRequest.status);
-        // 		console.log("XMLHttpRequest readyStatus:"+XMLHttpRequest.readyState);
-        // 		console.log("textStatus:"+textStatus);
-        // 	}
-        // });
+	setTimeout(bluetoothle.stopScan, 5000, function(result){
+		if(beaconTurn)
+			scanPick();
+		else
+			scanPick2();
 	},function(error){});
-};
+}
+
+function scanDataClear() {
+	var Empty = '';
+	$('#scanData').html(Empty);
+}
+
+function scanPick() {
+	var html = '';
+	beaconDevice = beaconDevice.filter(function (el, i, arr) {
+		return arr.indexOf(el) === i;
+	});
+	for(var i = 0; i < beaconDevice.length ; i++)
+	{
+		switch(beaconDevice[i]){
+			case '001AC07B063C':
+				html += scanShow(0);
+				break;
+			case '001AC07B0638':
+				html += scanShow(6);
+				break;
+			case '001AC07B0656':
+				html += scanShow(12);
+				break;
+		}
+	}
+
+	$('#scanData').html(html);
+	beaconDevice = [];
+	beaconTurn = !beaconTurn;
+	scan();
+}
+
+function scanPick2() {
+	var html = '';
+	beaconDevice2 = beaconDevice2.filter(function (el, i, arr) {
+		return arr.indexOf(el) === i;
+	});
+	for(var i = 0; i < beaconDevice2.length ; i++)
+	{
+		switch(beaconDevice2[i]){
+			case '001AC07B063C':
+				html += scanShow(0);
+				break;
+			case '001AC07B0638':
+				html += scanShow(6);
+				break;
+			case '001AC07B0656':
+				html += scanShow(12);
+				break;
+		}
+	}
+	$('#scanData').html(html);
+	beaconDevice2 = [];
+	beaconTurn = !beaconTurn;
+	scan();
+}
+
+function scanShow(j) {
+	var scanHtml = '';
+	for(var i = j; i < j+5; i+=3)
+	{
+		scanHtml +=         "<div class='ui-grid-b' style='height:150px;width:100%'>"+
+								"<div id='" + allView[i].id + "' class='ui-block-a' style='height:100%;'>" + 
+									"<div is='icon' style='width:100%; height:100%; position:relative'>" + 
+										"<span class='ui-li-count' style='position:absolute; display:none; z-index:1; right:0; top:6px;'></span>" + 
+										"<a href='#' class='ui-btn ui-mini ui-corner-all ui-shadow'" + 
+										" style='display:block;margin:5px;height:50%;background-image: url(http://140.130.35.62/hakka/hakkamanager" + allView[i].url + ".jpg); background-size: 95% 80%; background-position: 50% 50%; background-repeat: no-repeat no-repeat;'>" +
+										"</a>" +
+										"<div style='text-align:center;'>" + allView[i].Name +"</div>" + 
+									"</div>" +
+								"</div>";
+								if(i+1 >= allView.length)
+									break;
+		scanHtml += 		    "<div id='" + allView[i+1].id + "'  class='ui-block-b' style='height:100%;'>" + 
+									"<div is='icon' style='width:100%; height:100%; position:relative'>" +
+										"<span class='ui-li-count' style='position:absolute; display:none; z-index:1; right:0; top:6px;'></span>" + 
+										"<a href='#' class='ui-btn ui-mini ui-corner-all ui-shadow'" + 
+										" style='display:block;margin:5px;height:50%;background-image: url(http://140.130.35.62/hakka/hakkamanager" + allView[i+1].url + ".jpg); background-size: 95% 80%; background-position: 50% 50%; background-repeat: no-repeat no-repeat;'>" +
+										"</a>" +
+										"<div style='text-align:center;'>" + allView[i+1].Name + "</div>" + 
+									"</div>" +
+								"</div>";
+								if(i+2 >= allView.length)
+									break;
+		scanHtml += 			"<div id='" + allView[i+2].id + "' class='ui-block-c' style='height:100%;'>" +
+									"<div is='icon' style='width:100%; height:100%; position:relative'>" +
+										"<span class='ui-li-count' style='position:absolute; display:none; z-index:1; right:0; top:6px;'></span>" +
+										"<a href='#' class='ui-btn ui-mini ui-corner-all ui-shadow'" + 
+										" style='display:block;margin:5px;height:50%;background-image: url(http://140.130.35.62/hakka/hakkamanager" + allView[i+2].url + ".jpg); background-size: 95% 80%; background-position: 50% 50%; background-repeat: no-repeat no-repeat;'>" +
+										"</a>" +
+										"<div style='text-align:center;'>" + allView[i+2].Name + "</div>" +
+									"</div>" +
+								"</div>" +
+							"</div>";
+	}
+	return scanHtml;
+}
 
 function scanText(i) {
 	var text = ['搜尋中','搜尋中.','搜尋中..','搜尋中...'];
@@ -406,53 +449,6 @@ function scanText(i) {
 	setTimeout(function() {
 		scanText(i);
 	},1000);
-}
-
-var scanHtml = '';
-var scanArray = [0,0,0,0,0,0,0,0,0,0,0,0];
-function scanShow(j) {
-	if(scanArray[j]!=0)
-		return;
-	else {
-		for(var i = j; i < j+5; i+=3)
-		{
-			scanHtml +=         "<div class='ui-grid-b' style='height:150px;width:100%'>"+
-									"<div id='" + allView[i].id + "' class='ui-block-a' style='height:100%;'>" + 
-										"<div is='icon' style='width:100%; height:100%; position:relative'>" + 
-											"<span class='ui-li-count' style='position:absolute; display:none; z-index:1; right:0; top:6px;'></span>" + 
-											"<a href='#' class='ui-btn ui-mini ui-corner-all ui-shadow'" + 
-											" style='display:block;margin:5px;height:50%;background-image: url(http://140.130.35.62/hakka/hakkamanager" + allView[i].url + ".jpg); background-size: 95% 80%; background-position: 50% 50%; background-repeat: no-repeat no-repeat;'>" +
-											"</a>" +
-											"<div style='text-align:center;'>" + allView[i].Name +"</div>" + 
-										"</div>" +
-									"</div>";
-									if(i+1 >= allView.length)
-										break;
-			scanHtml += 		    "<div id='" + allView[i+1].id + "'  class='ui-block-b' style='height:100%;'>" + 
-										"<div is='icon' style='width:100%; height:100%; position:relative'>" +
-											"<span class='ui-li-count' style='position:absolute; display:none; z-index:1; right:0; top:6px;'></span>" + 
-											"<a href='#' class='ui-btn ui-mini ui-corner-all ui-shadow'" + 
-											" style='display:block;margin:5px;height:50%;background-image: url(http://140.130.35.62/hakka/hakkamanager" + allView[i+1].url + ".jpg); background-size: 95% 80%; background-position: 50% 50%; background-repeat: no-repeat no-repeat;'>" +
-											"</a>" +
-											"<div style='text-align:center;'>" + allView[i+1].Name + "</div>" + 
-										"</div>" +
-									"</div>";
-									if(i+2 >= allView.length)
-										break;
-			scanHtml += 			"<div id='" + allView[i+2].id + "' class='ui-block-c' style='height:100%;'>" +
-										"<div is='icon' style='width:100%; height:100%; position:relative'>" +
-											"<span class='ui-li-count' style='position:absolute; display:none; z-index:1; right:0; top:6px;'></span>" +
-											"<a href='#' class='ui-btn ui-mini ui-corner-all ui-shadow'" + 
-											" style='display:block;margin:5px;height:50%;background-image: url(http://140.130.35.62/hakka/hakkamanager" + allView[i+2].url + ".jpg); background-size: 95% 80%; background-position: 50% 50%; background-repeat: no-repeat no-repeat;'>" +
-											"</a>" +
-											"<div style='text-align:center;'>" + allView[i+2].Name + "</div>" +
-										"</div>" +
-									"</div>" +
-								"</div>";
-		}
-	$('#scanData').html(scanHtml);
-	scanArray[j]++;
-	}
 }
 
 $('#scanData').on('click', 'div.ui-grid-b > div', function() {
