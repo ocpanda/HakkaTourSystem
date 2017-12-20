@@ -15,10 +15,10 @@
         <div data-role="navbar" id="root_navbar">
             <ul>
                 <li>
-                    <a onclick='HallClick()' class="ui-btn-active ui-state-persist">館內活動</a>
+                    <a id="btnA" onclick='HallClick()' class="ui-btn-active ui-state-persist">館內活動</a>
                 </li>
                 <li>
-                    <a onclick='DocClick()'>DOC課程</a>
+                    <a id="btnB" onclick='DocClick()'>DOC課程</a>
                 </li>
             </ul>
         </div>
@@ -75,7 +75,7 @@
             api: jquery-1.11.3.min.js
             api: jquery.mobile-1.4.5.min.js
         //-->
-        <div data-role="popup" data-arrow="b" id="groupPopup">
+        <!-- <div data-role="popup" data-arrow="b" id="groupPopup">
             <div data-role="header">
                 <h1>說明</h1>
             </div>
@@ -83,7 +83,7 @@
                 <h1 align="center" valign="center">群組</h1>
                 <p>使用此功能可以加入或創建群組。</p>
             </div>
-        </div>
+        </div> -->
         <!-- 每日說明彈出區塊
             api: jquery-1.11.3.min.js
             api: jquery.mobile-1.4.5.min.js
@@ -116,7 +116,7 @@
             <ul class="footNavBar">
                 <li><a href="index.html" id="homeImg" data-ajax="false"><img style="width:90%;" src="image/home.png" is="image"></a></li>
                 <li><a href="search.html" id="searchImg" data-ajax="false"><img style="width:90%;" src="image/search.png" is="image"></a></li>
-                <li><a href="group.html" id="groupImg" data-ajax="false"><img style="width:90%;" src="image/group.png" is="image"></a></li>
+                <!-- <li><a href="group.html" id="groupImg" data-ajax="false"><img style="width:90%;" src="image/group.png" is="image"></a></li> -->
                 <li><a href="day.html" id="dayImg" data-ajax="false"><img style="width:90%;" src="image/day.png" is="image"></a></li>
                 <li><a href="eread.html" id="ereadImg" data-ajax="false"><img style="width:90%;" src="image/eread.png" is="image"></a></li>
             </ul>

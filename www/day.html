@@ -2,15 +2,13 @@
 <div id="day" data-role="page">
 
     <link rel="stylesheet" href="web_api/jquery/jquery.mobile-1.4.5.min.css">
-    <link rel="stylesheet" type="text/css" href="web_api/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="web_api/bootstrap/css/bootstrap-theme.min.css">
+    <!-- <link rel="stylesheet" type="text/css" href="web_api/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="web_api/bootstrap/css/bootstrap-theme.min.css"> -->
     <link rel="stylesheet" type="text/css" href="css/day.css">
-
     <script src="web_api/jquery/jquery-1.11.3.min.js"></script>
     <script src="web_api/jquery/jquery.mobile-1.4.5.min.js"></script>
     <script src="web_api/bootstrap/js/bootstrap.min.js"></script>
-    <script src="web_api/jquery/jquery-2.2.4.js"></script>
-    <script src="cordova.js"></script>
+  <!--   <script src="web_api/jquery/jquery-2.2.4.js"></script> -->
     <!--下方功能選單區塊-->
     <div data-role="main" class="ui-content">
         <!-- 首頁說明彈出區塊
@@ -26,12 +24,12 @@
                         <thead>
                             <tr>
                             <div data-role="navbar" id="head_navbar">
-                                <ul class="footNavBar">
-                                    <li id="inDayA" value="0" onclick="inDay(this);"><a href="#" id="btnDayA" data-ajax="false"><img style="width:90%;" id="inDay_A" src="image/day/sw_btn.png" is="image"></a></li>
-                                    <li id="inDayB" value="1" onclick="inDay(this);"><a href="#" id="btnDayB" data-ajax="false"><img style="width:90%;" id="inDay_B"  src="image/day/btn1.png" is="image"></a></li>
-                                    <li id="inDayC" value="2" onclick="inDay(this);"><a href="#" id="btnDayC" data-ajax="false"><img style="width:90%;" id="inDay_C" src="image/day/btn2.png" is="image"></a></li>
-                                    <li id="inDayD" value="3" onclick="inDay(this);"><a href="#" id="btnDayD" data-ajax="false"><img style="width:90%;" id="inDay_D" src="image/day/btn3.png" is="image"></a></li>
-                                    <li id="inDayE" value="4" onclick="inDay(this);"><a href="#" id="btnDayE" data-ajax="false"><img style="width:90%;" id="inDay_E" src="image/day/btn4.png" is="image"></a></li>
+                                <ul class="headNavBar">
+                                    <li id="inDayA" value="0" onclick="inDay(this);"><a href="#" id="btnDayA" data-ajax="false"><img style="width:100%;" id="inDay_A" src="image/day/sw_btn.png" is="image"></a></li>
+                                    <li id="inDayB" value="1" onclick="inDay(this);"><a href="#" id="btnDayB" data-ajax="false"><img style="width:100%;" id="inDay_B"  src="image/day/btn1.png" is="image"></a></li>
+                                    <li id="inDayC" value="2" onclick="inDay(this);"><a href="#" id="btnDayC" data-ajax="false"><img style="width:100%;" id="inDay_C" src="image/day/btn2.png" is="image"></a></li>
+                                    <li id="inDayD" value="3" onclick="inDay(this);"><a href="#" id="btnDayD" data-ajax="false"><img style="width:100%;" id="inDay_D" src="image/day/btn3.png" is="image"></a></li>
+                                    <li id="inDayE" value="4" onclick="inDay(this);"><a href="#" id="btnDayE" data-ajax="false"><img style="width:100%;" id="inDay_E" src="image/day/btn4.png" is="image"></a></li>
                                 </ul>
                             </div>
                             </tr>
@@ -86,7 +84,7 @@
             api: jquery-1.11.3.min.js
             api: jquery.mobile-1.4.5.min.js
         //-->
-        <div data-role="popup" data-arrow="b" id="groupPopup">
+        <!-- <div data-role="popup" data-arrow="b" id="groupPopup">
             <div data-role="header">
                 <h1>說明</h1>
             </div>
@@ -94,7 +92,7 @@
                 <h1 align="center" valign="center">群組</h1>
                 <p>使用此功能可以加入或創建群組。</p>
             </div>
-        </div>
+        </div> -->
         <!-- 訊息說明彈出區塊
             api: jquery-1.11.3.min.js
             api: jquery.mobile-1.4.5.min.js
@@ -130,13 +128,16 @@
             <ul class="footNavBar">
                 <li><a href="index.html" id="homeImg" data-ajax="false"><img style="width:90%;" src="image/home.png" is="image"></a></li>
                 <li><a href="search.html" id="searchImg" data-ajax="false"><img style="width:90%;" src="image/search.png" is="image"></a></li>
-                <li><a href="group.html" id="groupImg" data-ajax="false"><img style="width:90%;" src="image/group.png" is="image"></a></li>
+                <!-- <li><a href="group.html" id="groupImg" data-ajax="false"><img style="width:90%;" src="image/group.png" is="image"></a></li> -->
                 <li><a href="message.html" id="messageImg" data-ajax="false"><img style="width:90%;" src="image/message.png" is="image"></a></li>
-                <li><a href="setting.html" id="settingImg" data-ajax="false"><img style="width:90%;" src="image/setting.png" is="image"></a></li>
+                <li><a href="eread.html" id="ereadImg" data-ajax="false"><img style="width:90%;" src="image/eread.png" is="image"></a>
+                </li>
             </ul>
         </div>
     </div>
+    <script src="js/day.js"></script>
     <script type="text/javascript" src="js/popupExplan.js" defer></script>
+    <script src="cordova.js"></script>
     <script type="text/javascript">
         var cur_id="inDayA";
         var record=0;
@@ -150,7 +151,6 @@
            $("#inDay_E").attr("src","image/day/btn4.png");
            //console.log(value);
            if(id != cur_id){
-
                switch(id){
                 case "inDayA":
                     console.log("A");
@@ -188,7 +188,6 @@
          
     </script>
     <script type="text/javascript">
-
             //$("#vocabulary").children().remove();
             $("#star").children().remove();
             var obj;
@@ -202,7 +201,6 @@
                 url: 'http://140.130.35.62/hakka/hakkamanager/php/UpdateDay.php',
                 type: 'POST',                           
                 dataType:'json',
-
                 success: function(data){ 
                
                 obj=data;
@@ -225,7 +223,6 @@
                 }
             });
            
-
     </script>
     <script type="text/javascript">
         
@@ -235,25 +232,18 @@
                document.addEventListener("deviceready", function() { 
                 window.requestFileSystem(LocalFileSystem.PERSISTENT, size, successCallback, errorCallback);
             }, false);
-
                function successCallback(fs) {
-
                   fs.root.getFile('log.txt', {create: true,exclusive:false}, function(fileEntry) {
-
                      fileEntry.createWriter(function(fileWriter) {
                         fileWriter.onwriteend = function(e) {
                            //alert('Write completed.');
                         };
-
                         fileWriter.onerror = function(e) {
                            //alert('Write failed: ' + e.toString());
                         };
                      }, errorCallback);
-
                   }, errorCallback);
-
                }
-
                function errorCallback(error) {
                   alert("ERROR: " + error.code)
                }
@@ -263,17 +253,13 @@
             document.addEventListener("deviceready", function() { 
                 window.requestFileSystem(LocalFileSystem.PERSISTENT, size, successCallback, errorCallback);
             }, false);
-
            function successCallback(fs) {
-
               fs.root.getFile('log.txt', {create: true}, function(fileEntry) {
-
                  fileEntry.createWriter(function(fileWriter) {
                     fileWriter.onwriteend = function(e) {
                         //alert('Write completed.');
                        
                     };
-
                     fileWriter.onerror = function(e) {
                        alert('Write failed: ' + e.toString());
                     };                   
@@ -292,11 +278,8 @@
                           
                     
                  }, errorCallback);
-
               }, errorCallback);
-
            }
-
            function errorCallback(error) {
               alert("ERROR: " + error.code)
            }
@@ -307,12 +290,9 @@
                 window.requestFileSystem(LocalFileSystem.PERSISTENT, size, successCallback, errorCallback);
             }, false);
             function successCallback(fs) {
-
                 fs.root.getFile('log.txt', {}, function(fileEntry) {
-
                     fileEntry.file(function(file) {
                     var reader = new FileReader();
-
                         reader.onloadend = function(e) {
                             //console.log(JSON.parse(this.result));
                             var str = JSON.parse(this.result);
@@ -326,7 +306,6 @@
                                 i++;                             
                             }                           
                         };
-
                       reader.readAsText(file);  
                     }, errorCallback);
                 }, errorCallback);
@@ -365,7 +344,7 @@
             readFile('log.txt');   
             readFile('log.txt');           
         }
-
         
     </script>
+                                
 </div>

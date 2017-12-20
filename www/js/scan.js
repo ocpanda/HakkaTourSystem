@@ -29,21 +29,17 @@ BeaconDataStorage.prototype.clearData = function(){
 	this.dataStorage.clear();
 }
 
-// 
-// 頁面轉換
-// 
-
+$(window).ready(function() {
+	getData();
+	scanText(0);
+	$('#tiger').hide();
+});
 var pages = ["#pageOne", "#pageTwo"];
 var nowPage = 0;
-
 
 pageTopBKColorInit();
 pageRender();
 $("#pageOne").show();
-
-$(window).ready(function() {
-	getData();
-});
 
 function pageTopBKColorInit(){
 	$("#pageOne").hide();
@@ -52,14 +48,13 @@ function pageTopBKColorInit(){
 	$("#goPageTwo").css("background", "white");
 }
 
-
 function pageRender(){ //被點選時呈現藍底
 	switch(nowPage){
 		case 0:
-			$("#goPageOne").css("background", "#6666FF");
+			$("#goPageOne").css("background", "#38c");
 			break;
 		case 1:
-			$("#goPageTwo").css("background", "#6666FF");
+			$("#goPageTwo").css("background", "#38c");
 			break;
 	}
 }
@@ -85,7 +80,6 @@ $("#goPageTwo").click(function() {
 	pageRender();
 	htmlShow();
 	scan();
-	scanText(0);
 	$('#tiger').show();
 	scanHtml = '';
 	$('#scanData').html('');
@@ -93,33 +87,53 @@ $("#goPageTwo").click(function() {
 
 $(document).on("swipeleft",function(e){
 	if(nowPage == 1){
-		var winOpen = window.open('group.html');
+		var winOpen = window.open('day.html');
 		window.close();
+		return;
 	}
   	nowPage = 1;
-	pageTopBKColorInit();
+	pageTopBKColorInit(); 
 	pageRender();
 	htmlShow();
 	scan();
-	scanText(0);
 	$('#tiger').show();
 	scanHtml = '';
 	$('#scanData').html('');
+	$('#goPageOne').removeClass('ui-btn-active');
+    $('#goPageOne').removeClass('ui-state-persist');
+    $('#goPageTwo').addClass('ui-btn-active');
+    $('#goPageTwo').addClass('ui-state-persist');
 });
 
 $(document).on("swiperight",function(e){
 	if(nowPage == 0){
 		var winOpen = window.open('index.html');
 		window.close();
+		return;
 	}
 	nowPage = 0;
 	pageTopBKColorInit();
 	pageRender();
 	htmlShow();
-	$('#chart').hide();
-	$('#tiger').show();
+	if($('#optionOfList').val() == '圖表'){
+		$('#example').hide();
+		$('#example_wrapper').hide();
+		$('#chart').show();
+		searchDataProcess();
+	}
+	else {
+		$('#example').show();
+		$('#example_wrapper').show();
+		$('#chart').hide();
+		contorlAPI.search( $('#optionOfType').val() ).draw();
+	}
+	$('#chart').show();
 	scanHtml = '';
 	$('#scanData').html('');
+	$('#goPageTwo').removeClass('ui-btn-active');
+    $('#goPageTwo').removeClass('ui-state-persist');
+    $('#goPageOne').addClass('ui-btn-active');
+    $('#goPageOne').addClass('ui-state-persist');
 });
 
 
@@ -214,7 +228,39 @@ function showData() {
 	var html = '';
 	for(var i = 0; i < allView.length; i+=3)
 	{
-
+		html +=         "<div class='ui-grid-b' style='height:150px;width:100%'>"+
+								"<div id='" + allView[i].id + "' class='ui-block-a' style='height:100%;'>" + 
+									"<div is='icon' style='width:100%; height:100%; position:relative'>" + 
+										"<span class='ui-li-count' style='position:absolute; display:none; z-index:1; right:0; top:6px;'></span>" + 
+										"<a href='#' class='ui-btn ui-mini ui-corner-all ui-shadow'" + 
+										" style='display:block;margin:5px;height:50%;background-image: url(http://140.130.35.62/hakka/hakkamanager" + allView[i].url + ".jpg); background-size: 95% 80%; background-position: 50% 50%; background-repeat: no-repeat no-repeat;'>" +
+										"</a>" +
+										"<div style='text-align:center;'>" + allView[i].Name +"</div>" + 
+									"</div>" +
+								"</div>";
+								if(i+1 >= allView.length)
+									break;
+		html += 		    "<div id='" + allView[i+1].id + "'  class='ui-block-b' style='height:100%;'>" + 
+									"<div is='icon' style='width:100%; height:100%; position:relative'>" +
+										"<span class='ui-li-count' style='position:absolute; display:none; z-index:1; right:0; top:6px;'></span>" + 
+										"<a href='#' class='ui-btn ui-mini ui-corner-all ui-shadow'" + 
+										" style='display:block;margin:5px;height:50%;background-image: url(http://140.130.35.62/hakka/hakkamanager" + allView[i+1].url + ".jpg); background-size: 95% 80%; background-position: 50% 50%; background-repeat: no-repeat no-repeat;'>" +
+										"</a>" +
+										"<div style='text-align:center;'>" + allView[i+1].Name + "</div>" + 
+									"</div>" +
+								"</div>";
+								if(i+2 >= allView.length)
+									break;
+		html += 			"<div id='" + allView[i+2].id + "' class='ui-block-c' style='height:100%;'>" +
+									"<div is='icon' style='width:100%; height:100%; position:relative'>" +
+										"<span class='ui-li-count' style='position:absolute; display:none; z-index:1; right:0; top:6px;'></span>" +
+										"<a href='#' class='ui-btn ui-mini ui-corner-all ui-shadow'" + 
+										" style='display:block;margin:5px;height:50%;background-image: url(http://140.130.35.62/hakka/hakkamanager" + allView[i+2].url + ".jpg); background-size: 95% 80%; background-position: 50% 50%; background-repeat: no-repeat no-repeat;'>" +
+										"</a>" +
+										"<div style='text-align:center;'>" + allView[i+2].Name + "</div>" +
+									"</div>" +
+								"</div>" +
+							"</div>";
 	}
 	$('#chart').html(html);
 	$('#chart').hide();
@@ -289,14 +335,15 @@ function searchDataProcess() {
 			searchData(temp);
 			break;
 		default:
-			showData()
-			$('#chart').show();
+			temp = search_loop('0');
+			searchData(temp);
 			break;
 	}
 }
 
 function search_loop(str) {
 	temp = [];
+	tempAll = [];
 	var j = 0;
 	for(var i = 0; i < allView.length; i++)
 	{
@@ -305,7 +352,12 @@ function search_loop(str) {
 			j++;			
 		}
 	}
-	return temp;
+	for(var i = 0 ; i < allView.length ; i++)
+		tempAll[i] = allView[i].id - 1;
+	if(str == '0')
+		return tempAll;
+	else
+		return temp;
 }
 
 
@@ -328,20 +380,25 @@ function scan() {
 	            name = result.name.toString().split(" ");
 	            if(result.rssi*-1.2 < 70)
 	            {
-	            	$('#tiger').hide();
-	            	if(beaconTurn)
+	            	if(beaconTurn){
 		            	beaconDevice.push(name[0]);
-		           	else
+	            	}
+		           	else {
 		           		beaconDevice2.push(name[0]);
+		           	}
 	           }
 			}
 		},
 		function(error){},{services: []});
 	setTimeout(bluetoothle.stopScan, 5000, function(result){
-		if(beaconTurn)
+		if(beaconTurn){
 			scanPick();
-		else
+			beaconTurn = !beaconTurn;
+		}
+		else {
 			scanPick2();
+			beaconTurn = !beaconTurn;
+		}
 	},function(error){});
 }
 
@@ -355,6 +412,7 @@ function scanPick() {
 	beaconDevice = beaconDevice.filter(function (el, i, arr) {
 		return arr.indexOf(el) === i;
 	});
+	$('#tiger').hide();
 	for(var i = 0; i < beaconDevice.length ; i++)
 	{
 		switch(beaconDevice[i]){
@@ -369,10 +427,8 @@ function scanPick() {
 				break;
 		}
 	}
-
 	$('#scanData').html(html);
 	beaconDevice = [];
-	beaconTurn = !beaconTurn;
 	scan();
 }
 
@@ -383,6 +439,7 @@ function scanPick2() {
 	});
 	for(var i = 0; i < beaconDevice2.length ; i++)
 	{
+		console.log('in loop');
 		switch(beaconDevice2[i]){
 			case '001AC07B063C':
 				html += scanShow(0);
@@ -397,7 +454,6 @@ function scanPick2() {
 	}
 	$('#scanData').html(html);
 	beaconDevice2 = [];
-	beaconTurn = !beaconTurn;
 	scan();
 }
 
